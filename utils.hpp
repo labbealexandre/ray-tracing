@@ -1,6 +1,6 @@
 #include <vector>
 
-/** Overloading of the vector operators */
+/** Overloading the vector operators for positions*/
 
 template <typename T> std::vector<T> operator + (std::vector<T>, std::vector<T>);
 template <typename T> std::vector<T> operator - (std::vector<T>, std::vector<T>);
