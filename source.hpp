@@ -16,10 +16,8 @@ class LIGHT_SOURCE {
             }
         }
 
-        LIGHT_SOURCE(float x, float y, float z) {
-            position.push_back(x);
-            position.push_back(y);
-            position.push_back(z);
+        LIGHT_SOURCE(std::vector<float> &P) {
+            position = P;
         }
 
         /** Destructor */
