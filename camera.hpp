@@ -4,14 +4,15 @@
 class CAMERA {
     private:
         std::vector<float> position;
-        float width;
-        float height;
         float focal;
         int pixel_per_row;
         int pixel_per_column;
         std::vector<int> color;
 
     public:
+
+        float width;
+        float height;
 
         std::vector<RAY> traceRays();
 
