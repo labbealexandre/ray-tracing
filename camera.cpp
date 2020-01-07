@@ -1,5 +1,6 @@
 #include <vector>
 #include "camera.hpp"
+#include "utils.hpp"
 
 std::vector<RAY> CAMERA::traceRays() {
     std::vector<RAY> rays;
@@ -10,6 +11,7 @@ std::vector<RAY> CAMERA::traceRays() {
             direction.push_back(focal);
             direction.push_back(focal + (i-pixel_per_row/2)*width/pixel_per_row);
             direction.push_back(focal + (j-pixel_per_row/2)*width/pixel_per_row);
+            direction = normalise(direction);
 
             RAY ray(position, direction, color);
             // TODO : normalize direction
