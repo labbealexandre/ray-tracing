@@ -7,5 +7,5 @@ std::vector<float> LIGHT_SOURCE::getIncidentRay(std::vector<float> P) {
 }
 
 std::vector<float> getReflectedRay(std::vector<float> P, std::vector<float> N) {
-    return 2*(P*N)*N - P;
+    return normalise(2*(P*N)*N - P);
 }

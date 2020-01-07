@@ -1,4 +1,5 @@
 #include <vector>
+##include <math.h>
 
 template <typename T>
 std::vector<T> operator + (std::vector<T> &left, std::vector<T> &right) {
@@ -47,5 +48,16 @@ std::vector<float> operator * (float &left, std::vector<float>&right) {
         res[i] = left * right[i];
     }
 
+    return res;
+}
+
+template <typename T>
+std::vector<float> normalise (std::vector<float>&vec) {
+    std::vector<float> res;
+    float norm=0;
+    for (int i = 0; i < vec.size(); i++) {
+        norm = sqrt(norm*norm + vec[i]*vec[i]);
+    }
+    res=(1/norm)*vec
     return res;
 }
