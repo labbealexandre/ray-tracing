@@ -5,8 +5,10 @@ class OBJECT_BASE_SURFACE {
         std::vector<float> reflexion_coefficient;
         std::vector<float> transmission_coefficient;
         std::vector<float> absorption_coefficient;
-
     public:
+        std::vector<float> diffuse_coefficient;
+        std::vector<float> specular_coefficient;
+
         void getColors(
             std::vector<int>& incident,
             std::vector<int>& reflected,
@@ -20,6 +22,8 @@ class OBJECT_BASE_SURFACE {
                 reflexion_coefficient.push_back(0);
                 transmission_coefficient.push_back(0);
                 absorption_coefficient.push_back(1);
+                diffuse_coefficient.push_back(1);
+                specular_coefficient.push_back(0);
             }
         }
 
