@@ -3,16 +3,22 @@
 #include "surface.hpp"
 #include "source.hpp"
 #include "utils.hpp"
+#include "ray.hpp"
 
 class SCENE_BASE_OBJECT {
-    private:
+    protected:
         std::vector<float> center;
         OBJECT_BASE_SURFACE surface;
 
     public:
 
         // TOTEST Now
-        std::vector<int> getIllumination(std::vector<float> L, std::vector<float> N, std::vector<float> V);
+        std::vector<float> getIllumination(
+            std::vector<float> L,
+            std::vector<float> N,
+            std::vector<float> V,
+            std::vector<float> R
+        );
 
         // TODO Later for recursive points
         std::vector<float> getReflectedRayDirection(std::vector<float> V, std::vector<float> N);
@@ -34,7 +40,7 @@ class SPHERE_OBJECT : public SCENE_BASE_OBJECT{
     public:
 
         std::vector<float> getNormal(std::vector<float> P);
-        std::vector<float> getIntersection(RAY L);
+        std::vector<float> getIntersection(RAY L, int&);
 
         /** Constructors */
         SPHERE_OBJECT(std::vector<float> centre, float r, OBJECT_BASE_SURFACE LOL) {
