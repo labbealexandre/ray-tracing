@@ -1,5 +1,5 @@
 #include <vector>
-##include <math.h>
+#include <math.h>
 
 template <typename T>
 std::vector<T> operator + (std::vector<T> &left, std::vector<T> &right) {
