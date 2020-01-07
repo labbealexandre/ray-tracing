@@ -34,7 +34,7 @@ class SPHERE_OBJECT : public SCENE_BASE_OBJECT{
     public:
 
         std::vector<float> getNormal(std::vector<float> P);
-        std::vector<float> getIntersection(std::vector<float> source);
+        std::vector<float> getIntersection(RAY L);
 
         /** Constructors */
         SPHERE_OBJECT(std::vector<float> centre, float r) {
