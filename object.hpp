@@ -37,9 +37,10 @@ class SPHERE_OBJECT : public SCENE_BASE_OBJECT{
         std::vector<float> getIntersection(RAY L);
 
         /** Constructors */
-        SPHERE_OBJECT(std::vector<float> centre, float r) {
+        SPHERE_OBJECT(std::vector<float> centre, float r, OBJECT_BASE_SURFACE LOL) {
           center=centre;
           radius=r;
+          surface=LOL;
         }
 
         /** Destructor */
