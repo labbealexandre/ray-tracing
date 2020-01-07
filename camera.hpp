@@ -1,4 +1,5 @@
-#include <vector>
+# include <vector>
+# include "ray.hpp"
 
 class CAMERA {
     private:
@@ -12,7 +13,7 @@ class CAMERA {
 
     public:
 
-        std::vector<std::vector<float>> traceRays();
+        std::vector<RAY> traceRays();
 
         /** Constructors */
         CAMERA() {
