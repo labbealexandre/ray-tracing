@@ -1,6 +1,6 @@
 #include "kernel.hpp"
 
-image run(
+void run(
     CAMERA &camera,
     std::vector<SPHERE_OBJECT> &spheres,
     std::vector<LIGHT_SOURCE> &sources
@@ -10,11 +10,11 @@ image run(
     for (auto it = rays.begin(); it != rays.end(); ++it) {
         RAY ray = *it;
         for (auto sit = spheres.begin(); sit != spheres.end(); ++it) {
-            // TODO getIntersect
+            
         }
 
 
         // return rays
-        
+
     }
 }

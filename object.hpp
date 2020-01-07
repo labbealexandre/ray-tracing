@@ -5,7 +5,7 @@
 #include "utils.hpp"
 
 class SCENE_BASE_OBJECT {
-    private:
+    protected:
         std::vector<float> center;
         OBJECT_BASE_SURFACE surface;
 
