@@ -73,3 +73,27 @@ class PLAN_OBJECT : public SCENE_BASE_OBJECT{
         ~PLAN_OBJECT();
 
 };
+
+class TRIANGLE_OBJECT : public SCENE_BASE_OBJECT{
+    private:
+      std::vector<float>  puntouno;
+      std::vector<float>  puntodos;
+      std::vector<float>  puntotres;
+    public:
+
+        std::vector<float> getNormal(std::vector<float> P);
+        std::vector<float> getIntersection(RAY L, int&);
+
+        /** Constructors */
+        PLAN_OBJECT(std::vector<float> pointA, std::vector<float> pointB, std::vector<float> pointC , OBJECT_BASE_SURFACE texture) {
+          center=(1/3)*(pointA+pointB+pointC);
+          puntouno=pointA;
+          puntodos=pointB;
+          puntotres=pointC;
+          surface=texture;
+        }
+
+        /** Destructor */
+        ~PLAN_OBJECT();
+
+};
