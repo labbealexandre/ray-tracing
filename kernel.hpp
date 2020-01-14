@@ -1,3 +1,6 @@
+#ifndef KERNEL_HPP
+#define KERNEL_HPP
+
 # include "object.hpp"
 # include "source.hpp"
 # include "camera.hpp"
@@ -8,3 +11,5 @@ void run(
     std::vector<SPHERE_OBJECT> &,
     std::vector<LIGHT_SOURCE> &
 );
+
+#endif

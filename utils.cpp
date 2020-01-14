@@ -1,10 +1,9 @@
-#include <vector>
-#include <math.h>
+#include "utils.hpp"
 
 template <typename T>
-std::vector<T> operator + (std::vector<T> &left, std::vector<T> &right) {
-    std::vector<T> res;
-    if (left.size() != right.size()) {
+std::vector<T> operator + (std::vector<T> const& left, std::vector<T> const& right) {
+    std::vector<T> res(left.size());
+    if (left.size() == right.size()) {
         for (int i = 0; i < left.size(); i++) {
             res[i] = left[i] + right[i];
         }
@@ -16,9 +15,9 @@ std::vector<T> operator + (std::vector<T> &left, std::vector<T> &right) {
 }
 
 template <typename T>
-std::vector<T> operator - (std::vector<T> &left, std::vector<T> &right) {
-    std::vector<T> res;
-    if (left.size() != right.size()) {
+std::vector<T> operator - (std::vector<T> const& left, std::vector<T> const& right) {
+    std::vector<T> res(left.size());
+    if (left.size() == right.size()) {
         for (int i = 0; i < left.size(); i++) {
             res[i] = left[i] - right[i];
         }
@@ -30,9 +29,9 @@ std::vector<T> operator - (std::vector<T> &left, std::vector<T> &right) {
 }
 
 template <typename T>
-float operator * (std::vector<float> &left, std::vector<float>&right) {
-    float res = 0;
-    if (left.size() != right.size()) {
+T operator * (std::vector<T> const& left, std::vector<T> const& right) {
+    T res = 0;
+    if (left.size() == right.size()) {
         res+= left[0] * right[0];
     } else {
         // TODO : handle error
@@ -42,8 +41,8 @@ float operator * (std::vector<float> &left, std::vector<float>&right) {
 }
 
 template <typename T>
-std::vector<float> operator * (float &left, std::vector<float>&right) {
-    std::vector<float> res;
+std::vector<T> operator * (T const& left, std::vector<T> const& right) {
+    std::vector<T> res(right.size());
     for (int i = 0; i < right.size(); i++) {
         res[i] = left * right[i];
     }
@@ -52,12 +51,22 @@ std::vector<float> operator * (float &left, std::vector<float>&right) {
 }
 
 template <typename T>
-std::vector<float> normalise (std::vector<float>&vec) {
-    std::vector<float> res;
-    float norm=0;
+std::vector<T> operator / (std::vector<T> const& left, T const& right) {
+    std::vector<T> res(left.size());
+    for (int i = 0; i < left.size(); i++) {
+        res[i] = left[i] / right;
+    }
+
+    return res;
+}
+
+template <typename T>
+std::vector<T> normalise (std::vector<T> const& vec) {
+    std::vector<T> res(vec.size());
+    T norm = 0;
     for (int i = 0; i < vec.size(); i++) {
         norm = sqrt(norm*norm + vec[i]*vec[i]);
     }
-    res=(1/norm)*vec
+    res = vec / norm;
     return res;
 }

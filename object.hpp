@@ -1,9 +1,13 @@
+#ifndef OBJECT_HPP
+#define OBJECT_HPP
+
 #include <vector>
 #include <iostream>
 #include "surface.hpp"
 #include "source.hpp"
 #include "utils.hpp"
 #include "ray.hpp"
+#include <cmath>
 
 class SCENE_BASE_OBJECT {
     protected:
@@ -31,7 +35,7 @@ class SCENE_BASE_OBJECT {
         }
 
         /** Destructor */
-        ~SCENE_BASE_OBJECT();
+        ~SCENE_BASE_OBJECT(){}
 };
 
 class SPHERE_OBJECT : public SCENE_BASE_OBJECT{
@@ -43,13 +47,22 @@ class SPHERE_OBJECT : public SCENE_BASE_OBJECT{
         std::vector<float> getIntersection(RAY L, int&);
 
         /** Constructors */
-        SPHERE_OBJECT(std::vector<float> centre, float r, OBJECT_BASE_SURFACE LOL) {
+        SPHERE_OBJECT() {
+            for(int i = 0; i < 3; i++) {
+                center.push_back(0);
+            }
+            radius = 0;
+        }
+
+        SPHERE_OBJECT(std::vector<float> centre, float r, OBJECT_BASE_SURFACE s) {
           center=centre;
           radius=r;
-          surface=LOL;
+          surface=s;
         }
 
         /** Destructor */
-        ~SPHERE_OBJECT();
+        ~SPHERE_OBJECT(){}
 
 };
+
+#endif

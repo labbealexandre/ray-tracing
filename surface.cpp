@@ -1,4 +1,3 @@
-#include <vector>
 #include "surface.hpp"
 
 void OBJECT_BASE_SURFACE::getColors(

@@ -1,5 +1,7 @@
-#include <vector>
+#ifndef RAY_HPP
+#define RAY_HPP
 
+#include <vector>
 class RAY {
     public:
         std::vector<float> origin;
@@ -10,7 +12,7 @@ class RAY {
             origin = {0,0, 0};
             direction = {0, 0, 0};
             colors = {0, 0, 0}; 
-        };
+        }
 
         RAY(std::vector<float> O, std::vector<float> U, std::vector<int> C) {
             origin = O;
@@ -18,5 +20,7 @@ class RAY {
             colors = C;
         }
 
-        ~RAY();
+        ~RAY(){}
 };
+
+#endif

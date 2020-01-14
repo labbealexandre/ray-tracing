@@ -1,3 +1,6 @@
+#ifndef SURFACE_HPP
+#define SURFACE_HPP
+
 #include <vector>
 
 class OBJECT_BASE_SURFACE {
@@ -38,7 +41,9 @@ class OBJECT_BASE_SURFACE {
         }
 
         /** Destructor */
-        ~OBJECT_BASE_SURFACE();
+        ~OBJECT_BASE_SURFACE(){}
 };
 
 std::vector<int> multiply(std::vector<float>&, std::vector<int>&);
+
+#endif

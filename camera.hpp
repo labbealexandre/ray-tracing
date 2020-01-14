@@ -1,5 +1,9 @@
-# include <vector>
-# include "ray.hpp"
+#ifndef CAMERA_HPP
+#define CAMERA_HPP
+
+#include <vector>
+#include "ray.hpp"
+#include "utils.hpp"
 
 class CAMERA {
     private:
@@ -16,7 +20,6 @@ class CAMERA {
 
         std::vector<RAY> traceRays();
 
-        /** Constructors */
         CAMERA() {
             for (int i = 0; i < 3; i++) {
                 position.push_back(0);
@@ -36,6 +39,8 @@ class CAMERA {
         }
 
         /** Destructor */
-        ~CAMERA();
+        ~CAMERA(){}
     
 };
+
+#endif
