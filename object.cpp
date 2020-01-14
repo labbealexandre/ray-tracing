@@ -93,3 +93,59 @@ T operator * (std::vector<T> const& left, std::vector<T> const& right) {
 
     return res;
 }
+
+template <typename T>
+std::vector<float> CrossProduct(std::vector<T> const& a, std::vector<T> const& b) {
+  std::vector<T> r (a.size());
+  r[0] = a[1]*b[2]-a[2]*b[1];
+  r[1] = a[2]*b[0]-a[0]*b[2];
+  r[2] = a[0]*b[1]-a[1]*b[0];
+  return r;
+}
+
+std::vector<float> PLAN_OBJECT::getNormal(){
+    return norm;
+}
+
+std::vector<float> PLAN_OBJECT::getIntersection(RAY L, int &code){
+    code=0;
+    std::vector<float> S=L.origin;
+    std::vector<float> D=L.direction;
+    if (D*norm!=0) {
+      float param=(1/(D*norm))*(center-S)*norm;
+      return S+param*D;
+    }else {
+      code=-1;
+      return S;
+    }
+}
+
+
+std::vector<float> TRIANGLE_OBJECT::getNormal(){
+    return CrossProduct((puntodos-puntouno),(puntotres-puntouno));
+}
+
+std::vector<float> TRIANGLE_OBJECT::getIntersection(RAY L, int &code){
+    code=0;
+    std::vector<float> S=L.origin;
+    std::vector<float> D=L.direction;
+    std::vector<float> norm;
+    norm=this->getNormal();
+    if (D*norm!=0) {
+      float param=(1/(D*norm))*(center-S)*norm;
+      std::vector<float> intertemp=S+param*D;
+      float a , b , c;
+      a=CrossProduct((puntodos-puntouno),(intertemp-puntouno))*CrossProduct((intertemp-puntouno),(puntotres-puntouno));
+      b=CrossProduct((puntouno-puntodos),(intertemp-puntodos))*CrossProduct((intertemp-puntodos),(puntotres-puntodos));
+      c=CrossProduct((puntouno-puntotres),(intertemp-puntotres))*CrossProduct((intertemp-puntotres),(puntodos-puntotres));
+      if (a>=0 && b>=0 && c>=0) {
+        return intertemp;
+      } else {
+        code=-1;
+        return S;
+      }
+    }else {
+      code=-1;
+      return S;
+    }
+}

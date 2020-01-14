@@ -65,4 +65,50 @@ class SPHERE_OBJECT : public SCENE_BASE_OBJECT{
 
 };
 
+class PLAN_OBJECT : public SCENE_BASE_OBJECT{
+    private:
+      std::vector<float>  norm;
+    public:
+
+        std::vector<float> getNormal();
+        std::vector<float> getIntersection(RAY L, int&);
+
+        /** Constructors */
+        PLAN_OBJECT(std::vector<float> point, std::vector<float> vect , OBJECT_BASE_SURFACE texture) {
+          center=point;
+          norm=vect;
+          surface=texture;
+        }
+
+        /** Destructor */
+        ~PLAN_OBJECT();
+
+};
+
+class TRIANGLE_OBJECT : public SCENE_BASE_OBJECT{
+    private:
+      std::vector<float>  puntouno;
+      std::vector<float>  puntodos;
+      std::vector<float>  puntotres;
+    public:
+
+        std::vector<float> getNormal();
+        std::vector<float> getIntersection(RAY L, int&);
+
+        /** Constructors */
+        TRIANGLE_OBJECT(std::vector<float> pointA, std::vector<float> pointB, std::vector<float> pointC , OBJECT_BASE_SURFACE texture) {
+          
+          float d = 3;
+          center=(pointA+pointB+pointC)/d;
+          puntouno=pointA;
+          puntodos=pointB;
+          puntotres=pointC;
+          surface=texture;
+        }
+
+        /** Destructor */
+        ~TRIANGLE_OBJECT();
+
+};
+
 #endif

@@ -12,5 +12,6 @@ template <typename T> std::vector<T> operator * (const T&, const std::vector<T>&
 template <typename T> std::vector<T> normalise(const std::vector<T>&);
 template <typename T> std::vector<T> operator / (std::vector<T> const& left, T const& right);
 std::vector<int> operator * (const std::vector<int>&, const std::vector<float>&);
+template <typename T> std::vector<float> CrossProduct(std::vector<T> const& a, std::vector<T> const& b);
 
 #endif
