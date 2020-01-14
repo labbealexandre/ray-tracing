@@ -53,3 +53,23 @@ class SPHERE_OBJECT : public SCENE_BASE_OBJECT{
         ~SPHERE_OBJECT();
 
 };
+
+class PLAN_OBJECT : public SCENE_BASE_OBJECT{
+    private:
+      std::vector<float>  norm;
+    public:
+
+        std::vector<float> getNormal(std::vector<float> P);
+        std::vector<float> getIntersection(RAY L, int&);
+
+        /** Constructors */
+        PLAN_OBJECT(std::vector<float> point, std::vector<float> vect , OBJECT_BASE_SURFACE texture) {
+          center=centre;
+          norm=vect;
+          surface=texture;
+        }
+
+        /** Destructor */
+        ~PLAN_OBJECT();
+
+};

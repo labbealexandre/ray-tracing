@@ -37,3 +37,20 @@ std::vector<float> SPHERE_OBJECT::getIntersection(RAY L, int &code){
       return S;
     }
 }
+
+std::vector<float> PLAN_OBJECT::getNormal(){
+    return norm;
+}
+
+std::vector<float> PLAN_OBJECT::getIntersection(RAY L, int &code){
+    code=0;
+    std::vector<float> S=L.origin;
+    std::vector<float> D=L.direction;
+    if (D*norm!=0) {
+      param=(1/(D*norm))*(center-S)*norm;
+      return S+param*D;
+    }else {
+      code=-1;
+      return S;
+    }
+}
