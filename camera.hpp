@@ -2,6 +2,7 @@
 #define CAMERA_HPP
 
 #include <vector>
+#include <iostream>
 #include "ray.hpp"
 #include "utils.hpp"
 
@@ -9,9 +10,8 @@ class CAMERA {
     private:
         std::vector<float> position;
         float focal;
-        int pixel_per_row;
-        int pixel_per_column;
-        std::vector<int> color;
+        int pixels_per_row;
+        int pixels_per_column;
 
     public:
 
@@ -23,19 +23,19 @@ class CAMERA {
         CAMERA() {
             for (int i = 0; i < 3; i++) {
                 position.push_back(0);
-                color.push_back(255);
             }
             width = 50;
             height = 50;
             focal = 10;
         }
 
-        CAMERA(std::vector<float> &P, float W, float H, float F, std::vector<int> &C) {
+        CAMERA(std::vector<float> &P, float W, float H, float F, int p_r, int p_c) {
             position = P;
             width = W;
             height = H;
             focal = F;
-            color = C;
+            pixels_per_row = p_r;
+            pixels_per_column = p_c;
         }
 
         /** Destructor */

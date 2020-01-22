@@ -14,10 +14,10 @@ class RAY {
             colors = {0, 0, 0}; 
         }
 
-        RAY(std::vector<float> O, std::vector<float> U, std::vector<int> C) {
+        RAY(std::vector<float> O, std::vector<float> U) {
             origin = O;
             direction = U;
-            colors = C;
+            colors = {0, 0, 0};
         }
 
         ~RAY(){}

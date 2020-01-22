@@ -81,7 +81,7 @@ class PLAN_OBJECT : public SCENE_BASE_OBJECT{
         }
 
         /** Destructor */
-        ~PLAN_OBJECT();
+        ~PLAN_OBJECT(){}
 
 };
 

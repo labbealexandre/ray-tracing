@@ -6,6 +6,5 @@
 # include <vector>
 # include <fstream>
 
-
 /** Construit et sauvegarde l'image **/
-void savePicture( const std::string&, int, int, const std::vector<std::vector<int>>&)
+void savePicture( const std::string& filename, int W, int H, const std::vector<std::vector<int>>& nbIters);

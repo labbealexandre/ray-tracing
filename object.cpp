@@ -6,7 +6,7 @@ std::vector<float> SCENE_BASE_OBJECT::getIllumination(
     std::vector<float> V,
     std::vector<float> R
 ){
-    return (L*N)*surface.diffuse_coefficient+(V*R)*surface.specular_coefficient;
+    return std::abs((L*N))*surface.diffuse_coefficient+std::abs((V*R))*surface.specular_coefficient;
 }
 
 std::vector<float> SPHERE_OBJECT::getNormal(std::vector<float> P){
