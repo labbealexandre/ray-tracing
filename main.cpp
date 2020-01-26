@@ -13,7 +13,7 @@ int main(int argc, char const *argv[])
     std::vector<LIGHT_SOURCE> sources;
 
     OBJECT_BASE_SURFACE surface;
-    std::vector<float> center = {100, 0, 0};
+    std::vector<float> center = {50, 0, 0};
     float radius = 40;
     SPHERE_OBJECT sphere(center, radius, surface);
     spheres.push_back(sphere);
@@ -31,8 +31,8 @@ int main(int argc, char const *argv[])
     const float W = 10;
     const float H = 10;
     const float focal = 5;
-    const int n = 500;
-    const int m = 500; 
+    const int n = 2000;
+    const int m = 2000; 
     std::vector<float> c_center = {0, 0, 0};
     CAMERA camera(c_center, W, H, focal, n, m);
 
