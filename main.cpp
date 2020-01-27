@@ -38,7 +38,7 @@ int main(int argc, char const *argv[])
 
     std::vector<std::vector<int>> colors = run(camera, spheres, plans, sources);
 
-    savePicture("./test.tga", n, m, colors);
+    savePicture("./assets/test.tga", n, m, colors);
 
     return 0;
 }
