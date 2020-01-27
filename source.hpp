@@ -2,6 +2,7 @@
 #define SOURCE_HPP
 
 #include <vector>
+#include <iostream>
 #include "utils.hpp"
 
 class LIGHT_SOURCE {

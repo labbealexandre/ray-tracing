@@ -23,7 +23,7 @@ int main(int argc, char const *argv[])
     PLAN_OBJECT plan(p_point, p_direction, surface);
     // plans.push_back(plan);
 
-    std::vector<float> l_center = {0, 0, 50};
+    std::vector<float> l_center = {0, 0, 100};
     std::vector<int> color = {255, 255, 255};
     LIGHT_SOURCE source(l_center, color);
     sources.push_back(source);
@@ -31,14 +31,14 @@ int main(int argc, char const *argv[])
     const float W = 10;
     const float H = 10;
     const float focal = 5;
-    const int n = 2000;
-    const int m = 2000;
+    const int n = 1000;
+    const int m = 1000; 
     std::vector<float> c_center = {0, 0, 0};
     CAMERA camera(c_center, W, H, focal, n, m);
 
     std::vector<std::vector<int>> colors = run(camera, spheres, plans, sources);
 
-    savePicture("./test.tga", n, m, colors);
+    savePicture("./assets/test.tga", n, m, colors);
 
     return 0;
 }

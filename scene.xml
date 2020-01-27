@@ -1,0 +1,13 @@
+<?xml version = "1.0" encoding="UTF-8" standalone="yes" ?>
+<scene>
+    <sphere>
+        <center>50 0 0</center>
+        <radius>40</radius>
+        <surface>
+            <reflexion>0 0 0</reflexion>
+            <transmission>0 0 0</transmission>
+            <diffusion>1 1 1</diffusion>
+            <specular>0 0 0</specular>
+        </surface>
+    </sphere>
+</scene>

@@ -83,17 +83,3 @@ std::vector<std::vector<int>> run(
 
     return colors;
 }
-
-std::vector<int> operator * (const std::vector<int>& left, const std::vector<float>& right) {
-    std::vector<int> res;
-
-    if (left.size() == right.size()) {
-        for (unsigned int i = 0; i < right.size(); i++) {
-            float result = left[i]*right[i];
-            res.push_back((int)result);
-        }
-    } else {
-        // TODO : handle error
-    }
-    return res;
-}
