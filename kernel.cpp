@@ -27,6 +27,7 @@ std::vector<std::vector<int>> run(
             if (code) {
                 
                 N = sphere.getNormal(P);
+                
                 for (auto lit = sources.begin(); lit!= sources.end(); ++lit) {
                     LIGHT_SOURCE &source = *lit;
                     
@@ -74,18 +75,4 @@ std::vector<std::vector<int>> run(
     std::cout << "the pixels are computed" << std::endl;
 
     return colors;
-}
-
-std::vector<int> operator * (const std::vector<int>& left, const std::vector<float>& right) {
-    std::vector<int> res;
-
-    if (left.size() == right.size()) {
-        for (unsigned int i = 0; i < right.size(); i++) {
-            float result = left[i]*right[i];
-            res.push_back((int)result);
-        }
-    } else {
-        // TODO : handle error
-    }
-    return res;
 }
