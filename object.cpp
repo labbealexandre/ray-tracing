@@ -39,8 +39,7 @@ std::vector<float> SPHERE_OBJECT::getIntersection(RAY L, int &code){
 }
 
 bool SPHERE_OBJECT::isItLit(std::vector<float> P, std::vector<float> positionLight){
-    //return ((P-center)*(P-positionLight))<0;
-    return true;
+    return ((P-center)*(P-positionLight))<0;
 }
 
 
