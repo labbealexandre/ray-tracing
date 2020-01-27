@@ -33,6 +33,11 @@ std::vector<float> SPHERE_OBJECT::getIntersection(RAY L, int &code){
     return S;
 }
 
+bool SPHERE_OBJECT::isItLit(std::vector<float> P, std::vector<float> positionLight){
+    //return ((P-center)*(P-positionLight))<0;
+    return true;
+}
+
 template <typename T>
 std::vector<T> operator + (std::vector<T> const& left, std::vector<T> const& right) {
     std::vector<T> res(left.size());

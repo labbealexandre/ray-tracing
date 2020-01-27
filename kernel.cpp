@@ -13,7 +13,7 @@ std::vector<std::vector<int>> run(
     int code;
     std::vector<float> P, N, L, R, V;
     std::vector<int> I(3, 0);
-    
+
     for (auto it = rays.begin(); it != rays.end(); ++it) {
         RAY &ray = *it;
 
@@ -25,19 +25,27 @@ std::vector<std::vector<int>> run(
             std::vector<int> color(3, 0);
 
             if (code) {
-                
+
                 N = sphere.getNormal(P);
+                bool isLit;
+                std::vector<float> posSource;
+
                 for (auto lit = sources.begin(); lit!= sources.end(); ++lit) {
                     LIGHT_SOURCE &source = *lit;
-                    
-                    L = source.getIncidentRay(P);
-                    R = source.getReflectedRay(P, N);
-                    I = source.illumination*sphere.getIllumination(L, N, V, R);
-                    
-                    std::vector<float> test = sphere.getIllumination(L, N, V, R);
 
-                    // TODO : do an average
-                    ray.colors = I;
+                    posSource=source.getPosition();
+                    isLit=sphere.isItLit(P,posSource);
+
+                    if (isLit) {
+                        L = source.getIncidentRay(P);
+                        R = source.getReflectedRay(P, N);
+                        I = source.illumination*sphere.getIllumination(L, N, V, R);
+
+                        std::vector<float> test = sphere.getIllumination(L, N, V, R);
+
+                        // TODO : do an average
+                        ray.colors = I;
+                  }
                 }
                 color = ray.colors;
             }
@@ -51,15 +59,15 @@ std::vector<std::vector<int>> run(
             std::vector<int> color(3, 0);
 
             if (code) {
-                
+
                 N = plan.getNormal();
                 for (auto lit = sources.begin(); lit!= sources.end(); ++lit) {
                     LIGHT_SOURCE &source = *lit;
-                    
+
                     L = source.getIncidentRay(P);
                     R = source.getReflectedRay(P, N);
                     I = source.illumination*plan.getIllumination(L, N, V, R);
-                    
+
                     std::vector<float> test = plan.getIllumination(L, N, V, R);
 
                     // TODO : do an average

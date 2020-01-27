@@ -12,6 +12,7 @@ class LIGHT_SOURCE {
     public:
         std::vector<int> illumination;
 
+        std::vector<float> getPosition();
         std::vector<float> getIncidentRay(std::vector<float> P);
         std::vector<float> getReflectedRay(std::vector<float> P, std::vector<float> N);
 
