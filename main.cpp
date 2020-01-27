@@ -23,7 +23,7 @@ int main(int argc, char const *argv[])
     PLAN_OBJECT plan(p_point, p_direction, surface);
     // plans.push_back(plan);
 
-    std::vector<float> l_center = {100, 0, 50};
+    std::vector<float> l_center = {0, 0, 100};
     std::vector<int> color = {255, 255, 255};
     LIGHT_SOURCE source(l_center, color);
     sources.push_back(source);
@@ -38,7 +38,7 @@ int main(int argc, char const *argv[])
 
     std::vector<std::vector<int>> colors = run(camera, spheres, plans, sources);
 
-    savePicture("./test.png", n, m, colors);
+    savePicture("./assets/test.tga", n, m, colors);
 
     return 0;
 }

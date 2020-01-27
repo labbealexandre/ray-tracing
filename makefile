@@ -2,7 +2,7 @@ FLAGS=-Wall -std=c++11
 
 all: main
 
-main: main.o kernel.o source.o camera.o object.o surface.o utils.o display.o
+main: main.o kernel.o source.o camera.o object.o surface.o display.o
 	g++ $(FLAGS) -o main $^
 
 main.o: main.cpp 

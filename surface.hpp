@@ -22,9 +22,9 @@ class OBJECT_BASE_SURFACE {
         /** Constructors */
         OBJECT_BASE_SURFACE() {
             for (int i = 0; i < 3; i++) {
-                reflexion_coefficient.push_back(0);
+                reflexion_coefficient.push_back(1);
                 transmission_coefficient.push_back(0);
-                absorption_coefficient.push_back(1);
+                absorption_coefficient.push_back(0);
                 diffuse_coefficient.push_back(1);
                 specular_coefficient.push_back(0);
             }
