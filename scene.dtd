@@ -1,0 +1,5 @@
+<!ELEMENT scene (sphere | plan | triangle)>
+<!ELEMENT sphere (point, radius, surface)>
+<!ELEMENT plan (point, norm, surface)>
+<!ELEMENT triangle (point, point, point)>
+<!-- <!ELEMENT point -->
