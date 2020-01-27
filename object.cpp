@@ -6,7 +6,12 @@ std::vector<float> SCENE_BASE_OBJECT::getIllumination(
     std::vector<float> V,
     std::vector<float> R
 ){
-    return std::abs((L*N))*surface.diffuse_coefficient+std::abs((V*R))*surface.specular_coefficient;
+    auto I = std::abs((L*N))*surface.diffuse_coefficient+std::abs((V*R))*surface.specular_coefficient;
+    for (int i = 0; i < 3; i++) {
+      if(I[i] > 1)
+      I[i]=1;
+    }
+    return I;
 }
 
 std::vector<float> SPHERE_OBJECT::getNormal(std::vector<float> P){
@@ -38,14 +43,14 @@ std::vector<float> PLAN_OBJECT::getNormal(){
 }
 
 std::vector<float> PLAN_OBJECT::getIntersection(RAY L, int &code){
-    code=0;
+    code=1;
     std::vector<float> S=L.origin;
     std::vector<float> D=L.direction;
     if (D*norm!=0) {
       float param=(1/(D*norm))*(center-S)*norm;
       return S+param*D;
     }else {
-      code=-1;
+      code=0;
       return S;
     }
 }
@@ -56,7 +61,7 @@ std::vector<float> TRIANGLE_OBJECT::getNormal(){
 }
 
 std::vector<float> TRIANGLE_OBJECT::getIntersection(RAY L, int &code){
-    code=0;
+    code=1;
     std::vector<float> S=L.origin;
     std::vector<float> D=L.direction;
     std::vector<float> norm;
@@ -71,11 +76,11 @@ std::vector<float> TRIANGLE_OBJECT::getIntersection(RAY L, int &code){
       if (a>=0 && b>=0 && c>=0) {
         return intertemp;
       } else {
-        code=-1;
+        code=0;
         return S;
       }
     }else {
-      code=-1;
+      code=0;
       return S;
     }
 }
