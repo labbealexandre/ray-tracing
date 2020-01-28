@@ -2,7 +2,7 @@ FLAGS=-Wall -std=c++11
 
 all: main
 
-main: main.o kernel.o source.o camera.o object.o surface.o display.o
+main: main.o kernel.o source.o camera.o object.o surface.o display.o tinyxml2.o
 	g++ $(FLAGS) -o main $^
 
 main.o: main.cpp 
@@ -24,6 +24,9 @@ source.o: source.cpp
 	g++ $(FLAGS) -c $<
 
 display.o: display.cpp
+	g++ $(FLAGS) -c $<
+
+tinyxml2.o: tinyxml2.cpp
 	g++ $(FLAGS) -c $<
 
 clean:

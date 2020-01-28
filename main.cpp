@@ -1,13 +1,23 @@
 #include <vector>
+#include <string>
 #include "kernel.hpp"
 #include "camera.hpp"
 #include "object.hpp"
 #include "source.hpp"
 #include "surface.hpp"
 #include "display.hpp"
+#include "tinyxml2/tinyxml2.h"
+
+void loadFile(std::string file) {
+    tinyxml2::XMLDocument doc;
+	doc.LoadFile(file.data());
+}
 
 int main(int argc, char const *argv[])
 {
+    std::string file = "scene.xml";
+    loadFile(file);
+
     std::vector<SPHERE_OBJECT> spheres;
     std::vector<PLAN_OBJECT> plans;
     std::vector<LIGHT_SOURCE> sources;

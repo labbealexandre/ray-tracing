@@ -1,13 +1,70 @@
-<?xml version = "1.0" encoding="UTF-8" standalone="yes" ?>
-<scene>
+<?xml version = "1.0" encoding="UTF-8" standalone="no" ?>
+<scene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="scene.xsd">
+
     <sphere>
-        <center>50 0 0</center>
-        <radius>40</radius>
+        <coords type="center">
+            <coord type="x">50</coord>
+            <coord type="y">0</coord>
+            <coord type="z">0</coord>
+        </coords>
+        <coord type="radius">40</coord>
         <surface>
-            <reflexion>0 0 0</reflexion>
-            <transmission>0 0 0</transmission>
-            <diffusion>1 1 1</diffusion>
-            <specular>0 0 0</specular>
+            <colors type="reflexion">
+                <color type="r">0</color>
+                <color type="g">0</color>
+                <color type="b">0</color>
+            </colors>
+            <colors type="transmission">
+                <color type="r">0</color>
+                <color type="g">0</color>
+                <color type="b">0</color>
+            </colors>
+            <colors type="diffusion">
+                <color type="r">0</color>
+                <color type="g">0</color>
+                <color type="b">0</color>
+            </colors>
+            <colors type="specular">
+                <color type="r">0</color>
+                <color type="g">0</color>
+                <color type="b">0</color>
+            </colors>
         </surface>
     </sphere>
+
+    <plan>
+        <coords type="center">
+            <coord type="x">50</coord>
+            <coord type="y">0</coord>
+            <coord type="z">0</coord>
+        </coords>
+        <coords type="normal">
+            <coord type="x">-1</coord>
+            <coord type="y">0</coord>
+            <coord type="z">0</coord>
+        </coords>
+        <surface>
+            <colors type="reflexion">
+                <color type="r">0</color>
+                <color type="g">0</color>
+                <color type="b">0</color>
+            </colors>
+            <colors type="transmission">
+                <color type="r">0</color>
+                <color type="g">0</color>
+                <color type="b">0</color>
+            </colors>
+            <colors type="diffusion">
+                <color type="r">0</color>
+                <color type="g">0</color>
+                <color type="b">0</color>
+            </colors>
+            <colors type="specular">
+                <color type="r">0</color>
+                <color type="g">0</color>
+                <color type="b">0</color>
+            </colors>
+        </surface>
+    </plan>
 </scene>
