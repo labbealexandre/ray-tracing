@@ -45,6 +45,7 @@ class SPHERE_OBJECT : public SCENE_BASE_OBJECT{
 
         std::vector<float> getNormal(std::vector<float> P);
         std::vector<float> getIntersection(RAY L, int&);
+        bool isItLit(std::vector<float> P, std::vector<float> positionLight);
 
         /** Constructors */
         SPHERE_OBJECT() {
@@ -97,7 +98,7 @@ class TRIANGLE_OBJECT : public SCENE_BASE_OBJECT{
 
         /** Constructors */
         TRIANGLE_OBJECT(std::vector<float> pointA, std::vector<float> pointB, std::vector<float> pointC , OBJECT_BASE_SURFACE texture) {
-          
+
           float d = 3;
           center=(pointA+pointB+pointC)/d;
           puntouno=pointA;

@@ -23,8 +23,8 @@ int main(int argc, char const *argv[])
     std::vector<LIGHT_SOURCE> sources;
 
     OBJECT_BASE_SURFACE surface;
-    std::vector<float> center = {100, 0, 0};
-    float radius = 40;
+    std::vector<float> center = {50, 0, 0};
+    float radius = 10;
     SPHERE_OBJECT sphere(center, radius, surface);
     spheres.push_back(sphere);
 

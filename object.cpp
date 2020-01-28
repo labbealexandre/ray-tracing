@@ -38,6 +38,12 @@ std::vector<float> SPHERE_OBJECT::getIntersection(RAY L, int &code){
     return S;
 }
 
+bool SPHERE_OBJECT::isItLit(std::vector<float> P, std::vector<float> positionLight){
+    return ((P-center)*(P-positionLight))<0;
+}
+
+
+
 std::vector<float> PLAN_OBJECT::getNormal(){
     return normal;
 }
