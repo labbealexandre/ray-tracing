@@ -39,15 +39,15 @@ std::vector<float> SPHERE_OBJECT::getIntersection(RAY L, int &code){
 }
 
 std::vector<float> PLAN_OBJECT::getNormal(){
-    return norm;
+    return normal;
 }
 
 std::vector<float> PLAN_OBJECT::getIntersection(RAY L, int &code){
     code=1;
     std::vector<float> S=L.origin;
     std::vector<float> D=L.direction;
-    if (D*norm!=0) {
-      float param=(1/(D*norm))*(center-S)*norm;
+    if (D*normal!=0) {
+      float param=(1/(D*normal))*(center-S)*normal;
       return S+param*D;
     }else {
       code=0;
@@ -64,10 +64,10 @@ std::vector<float> TRIANGLE_OBJECT::getIntersection(RAY L, int &code){
     code=1;
     std::vector<float> S=L.origin;
     std::vector<float> D=L.direction;
-    std::vector<float> norm;
-    norm=this->getNormal();
-    if (D*norm!=0) {
-      float param=(1/(D*norm))*(center-S)*norm;
+    std::vector<float> normal;
+    normal=this->getNormal();
+    if (D*normal!=0) {
+      float param=(1/(D*normal))*(center-S)*normal;
       std::vector<float> intertemp=S+param*D;
       float a , b , c;
       a=CrossProduct((puntodos-puntouno),(intertemp-puntouno))*CrossProduct((intertemp-puntouno),(puntotres-puntouno));

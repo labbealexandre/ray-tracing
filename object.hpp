@@ -67,7 +67,7 @@ class SPHERE_OBJECT : public SCENE_BASE_OBJECT{
 
 class PLAN_OBJECT : public SCENE_BASE_OBJECT{
     private:
-      std::vector<float>  norm;
+      std::vector<float>  normal;
     public:
 
         std::vector<float> getNormal();
@@ -76,7 +76,7 @@ class PLAN_OBJECT : public SCENE_BASE_OBJECT{
         /** Constructors */
         PLAN_OBJECT(std::vector<float> point, std::vector<float> vect , OBJECT_BASE_SURFACE texture) {
           center=point;
-          norm=vect;
+          normal=vect;
           surface=texture;
         }
 
