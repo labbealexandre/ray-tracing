@@ -8,8 +8,7 @@
 
 std::vector<std::vector<int>> run(
     CAMERA &,
-    std::vector<SPHERE_OBJECT> &,
-    std::vector<PLAN_OBJECT> &,
+    std::vector<SCENE_BASE_OBJECT*> &,
     std::vector<LIGHT_SOURCE> &
 );
 

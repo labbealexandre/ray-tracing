@@ -2,6 +2,7 @@
 #define SURFACE_HPP
 
 #include <vector>
+#include <iostream>
 
 class OBJECT_BASE_SURFACE {
     private:
@@ -19,6 +20,8 @@ class OBJECT_BASE_SURFACE {
             std::vector<int>& absorbed
         );
 
+        void print();
+
         /** Constructors */
         OBJECT_BASE_SURFACE() {
             for (int i = 0; i < 3; i++) {
@@ -33,11 +36,20 @@ class OBJECT_BASE_SURFACE {
         OBJECT_BASE_SURFACE(
             std::vector<float> &r,
             std::vector<float> &t,
-            std::vector<float> &a)
+            std::vector<float> &d,
+            std::vector<float> &s)
         {
             reflexion_coefficient = r;
             transmission_coefficient = t;
-            absorption_coefficient = a;
+            for (int i = 0; i < 3; i++) {
+                absorption_coefficient.push_back(1-r[i]-t[i]);
+            }
+            diffuse_coefficient = d;
+            specular_coefficient = s;
+
+            // for (int i = 0; i < 3; i++) {
+            //     std::cout << fid_coefficient[i] << std::endl;
+            // }
         }
 
         /** Destructor */

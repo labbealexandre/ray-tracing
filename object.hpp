@@ -10,11 +10,15 @@
 #include <cmath>
 
 class SCENE_BASE_OBJECT {
+
     protected:
         std::vector<float> center;
         OBJECT_BASE_SURFACE surface;
-
+  
     public:
+        virtual std::vector<float> getNormal(std::vector<float> P);
+        virtual std::vector<float> getIntersection(RAY L, int&);
+        virtual bool isItLit(std::vector<float> P, std::vector<float> positionLight);
 
         // TOTEST Now
         std::vector<float> getIllumination(
@@ -27,6 +31,9 @@ class SCENE_BASE_OBJECT {
         // TODO Later for recursive points
         std::vector<float> getReflectedRayDirection(std::vector<float> V, std::vector<float> N);
         std::vector<float> getRefractedRay(std::vector<float> V, std::vector<float> N);
+
+        virtual void print();
+
         /** Constructors */
         SCENE_BASE_OBJECT() {
             for(int i = 0; i < 3; i++) {
@@ -39,13 +46,15 @@ class SCENE_BASE_OBJECT {
 };
 
 class SPHERE_OBJECT : public SCENE_BASE_OBJECT{
+
     private:
       float radius;
+      
     public:
-
         std::vector<float> getNormal(std::vector<float> P);
         std::vector<float> getIntersection(RAY L, int&);
         bool isItLit(std::vector<float> P, std::vector<float> positionLight);
+        void print();
 
         /** Constructors */
         SPHERE_OBJECT() {
@@ -73,6 +82,7 @@ class PLAN_OBJECT : public SCENE_BASE_OBJECT{
 
         std::vector<float> getNormal();
         std::vector<float> getIntersection(RAY L, int&);
+        void print();
 
         /** Constructors */
         PLAN_OBJECT(std::vector<float> point, std::vector<float> vect , OBJECT_BASE_SURFACE texture) {

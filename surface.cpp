@@ -22,3 +22,26 @@ std::vector<int> multiply(std::vector<float> &coef, std::vector<int> &colors) {
     }
     return res;
 }
+
+void OBJECT_BASE_SURFACE::print(){
+    std::cout << "reflexion ";
+    for (int i = 0; i < 3; i++)
+        std::cout << reflexion_coefficient[i] << " ";
+    std::cout << std::endl;
+    std::cout << "transmission ";
+    for (int i = 0; i < 3; i++)
+        std::cout << transmission_coefficient[i] << " ";
+    std::cout << std::endl;
+    std::cout << "absorption ";
+    for (int i = 0; i < 3; i++)
+        std::cout << absorption_coefficient[i] << " ";
+    std::cout << std::endl;
+    std::cout << "diffuse ";
+    for (int i = 0; i < 3; i++)
+        std::cout << diffuse_coefficient[i] << " ";
+    std::cout << std::endl;
+    std::cout << "specular ";
+    for (int i = 0; i < 3; i++)
+        std::cout << specular_coefficient[i] << " ";
+    std::cout << std::endl;
+}

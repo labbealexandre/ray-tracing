@@ -26,7 +26,7 @@ source.o: source.cpp
 display.o: display.cpp
 	g++ $(FLAGS) -c $<
 
-tinyxml2.o: tinyxml2.cpp
+tinyxml2.o: tinyxml2/tinyxml2.cpp
 	g++ $(FLAGS) -c $<
 
 clean:

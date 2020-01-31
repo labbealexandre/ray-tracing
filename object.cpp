@@ -14,6 +14,28 @@ std::vector<float> SCENE_BASE_OBJECT::getIllumination(
     return I;
 }
 
+std::vector<float> SCENE_BASE_OBJECT::getNormal(std::vector<float> P){
+    std::vector<float> N;
+    return N;
+}
+
+std::vector<float> SCENE_BASE_OBJECT::getIntersection(RAY L, int &code){
+    std::vector<float> I;
+    return I;
+}
+
+bool SCENE_BASE_OBJECT::isItLit(std::vector<float> P, std::vector<float> positionLight){
+  return false;
+}
+
+void SCENE_BASE_OBJECT::print() {
+  std::cout << "center ";
+  for (int i = 0; i < 3; i++) 
+    std::cout << center[i] << " ";
+  std::cout << std::endl;
+  surface.print();
+}
+
 std::vector<float> SPHERE_OBJECT::getNormal(std::vector<float> P){
     std::vector<float> N;
     return normalise(P-center);
@@ -42,13 +64,17 @@ bool SPHERE_OBJECT::isItLit(std::vector<float> P, std::vector<float> positionLig
     return ((P-center)*(P-positionLight))<0;
 }
 
-
+void SPHERE_OBJECT::print(){
+  SCENE_BASE_OBJECT::print();
+  std::cout << "radius " << radius << std::endl;
+}
 
 std::vector<float> PLAN_OBJECT::getNormal(){
+    std::cout << "hi" << std::endl;
     return normal;
 }
 
-std::vector<float> PLAN_OBJECT::getIntersection(RAY L, int &code){
+std::vector<float> PLAN_OBJECT::getIntersection(RAY L, int &code) {
     code=1;
     std::vector<float> S=L.origin;
     std::vector<float> D=L.direction;
@@ -59,6 +85,14 @@ std::vector<float> PLAN_OBJECT::getIntersection(RAY L, int &code){
       code=0;
       return S;
     }
+}
+
+void PLAN_OBJECT::print(){
+  SCENE_BASE_OBJECT::print();
+  std::cout << "normal ";
+  for (int i = 0; i < 3; i++)
+    std::cout << normal[i] << " ";
+  std::cout << std::endl;
 }
 
 
