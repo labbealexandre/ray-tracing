@@ -2,6 +2,10 @@
 <scene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="scene.xsd">
 
+    <params>
+        <specular>10</specular>
+    </params>
+
     <source>
         <coords type="center">
             <coord type="x">0</coord>
@@ -39,9 +43,9 @@
                 <coef type="b">1</coef>
             </coefs>
             <coefs type="specular">
-                <coef type="r">1</coef>
-                <coef type="g">1</coef>
-                <coef type="b">1</coef>
+                <coef type="r">0</coef>
+                <coef type="g">0</coef>
+                <coef type="b">0</coef>
             </coefs>
         </surface>
     </sphere>
@@ -70,9 +74,9 @@
                 <coef type="b">0</coef>
             </coefs>
             <coefs type="specular">
-                <coef type="r">1</coef>
-                <coef type="g">1</coef>
-                <coef type="b">1</coef>
+                <coef type="r">0</coef>
+                <coef type="g">0</coef>
+                <coef type="b">0</coef>
             </coefs>
         </surface>
     </sphere>

@@ -3,7 +3,8 @@
 std::vector<std::vector<int>> run(
     CAMERA &camera,
     std::vector<SCENE_BASE_OBJECT*> &scene,
-    std::vector<LIGHT_SOURCE*> &sources
+    std::vector<LIGHT_SOURCE*> &sources,
+    int specular
 ) {
     std::vector<std::vector<int>> colors;
 
@@ -13,7 +14,7 @@ std::vector<std::vector<int>> run(
     std::vector<int> I(3, 0);
 
     for (auto ray : rays) {
-        colors.push_back(getColors(ray, camera.position, scene, sources));
+        colors.push_back(getColors(ray, camera.position, scene, sources, specular));
     }
 
     // for (auto ray : rays) {
@@ -56,7 +57,8 @@ std::vector<std::vector<int>> run(
 
 std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
                             std::vector<SCENE_BASE_OBJECT*> &scene,
-                            std::vector<LIGHT_SOURCE*> &sources) {
+                            std::vector<LIGHT_SOURCE*> &sources,
+                            int specular) {
     int code;
     SCENE_BASE_OBJECT* p_object;
     std::vector<float> P, current_P, N, L, R, V;
@@ -79,6 +81,7 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
 
     if (reach) {
         N = p_object->getNormal(P);
+        V = ray.direction;
 
         bool isLit;
         std::vector<float> posSource;
@@ -90,7 +93,7 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
             if (isLit) {
                 L = source->getIncidentRay(P);
                 R = source->getReflectedRay(P, N);
-                I = source->illumination*p_object->getIllumination(L, N, V, R);
+                I = source->illumination*p_object->getIllumination(L, N, V, R, specular);
             }
         }
     }

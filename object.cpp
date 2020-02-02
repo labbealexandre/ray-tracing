@@ -4,9 +4,10 @@ std::vector<float> SCENE_BASE_OBJECT::getIllumination(
     std::vector<float> L,
     std::vector<float> N,
     std::vector<float> V,
-    std::vector<float> R
+    std::vector<float> R,
+    int specular
 ){
-    auto I = std::abs((L*N))*surface.diffuse_coefficient+std::abs((V*R))*surface.specular_coefficient;
+    auto I = std::abs((L*N))*surface.diffuse_coefficient+(float)pow(std::abs(V*R), specular)*surface.specular_coefficient;
     for (int i = 0; i < 3; i++) {
       if(I[i] > 1)
       I[i]=1;

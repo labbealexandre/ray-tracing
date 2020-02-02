@@ -26,7 +26,8 @@ class SCENE_BASE_OBJECT {
             std::vector<float> L,
             std::vector<float> N,
             std::vector<float> V,
-            std::vector<float> R
+            std::vector<float> R,
+            int specular
         );
 
         // TODO Later for recursive points

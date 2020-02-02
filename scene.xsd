@@ -7,12 +7,25 @@
     <xsd:element name="scene">
         <xsd:complexType>
             <xsd:sequence>
+                <xsd:element ref="params"/>
                 <xsd:element ref="source" minOccurs="0" maxOccurs="unbounded" />
                 <xsd:element ref="sphere" minOccurs="0" maxOccurs="unbounded" />
                 <xsd:element ref="plan" minOccurs="0" maxOccurs="unbounded" />
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
+
+    <!-- Élément params -->
+    <xsd:element name="params">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="specular"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- Elément specular -->
+    <xsd:element name="specular" type="xsd:int"/>
 
     <!-- Elément sphere -->
     <xsd:element name="sphere">
