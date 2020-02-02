@@ -125,8 +125,6 @@ int main(int argc, char const *argv[])
 
     loadFile(file, sources, scene, specular);
 
-    std::cout << specular << std::endl;
-
     const float W = 10;
     const float H = 10;
     const float focal = 5;
