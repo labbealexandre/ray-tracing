@@ -7,6 +7,7 @@
     <xsd:element name="scene">
         <xsd:complexType>
             <xsd:sequence>
+                <xsd:element ref="source" minOccurs="0" maxOccurs="unbounded" />
                 <xsd:element ref="sphere" minOccurs="0" maxOccurs="unbounded" />
                 <xsd:element ref="plan" minOccurs="0" maxOccurs="unbounded" />
             </xsd:sequence>
@@ -75,16 +76,16 @@
     <xsd:element name="surface">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="colors" minOccurs="4" maxOccurs="4"/>
+                <xsd:element ref="coefs" minOccurs="4" maxOccurs="4"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
 
-    <!-- Élément colors -->
-    <xsd:element name="colors">
+    <!-- Élément coefs -->
+    <xsd:element name="coefs">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="color" minOccurs="3" maxOccurs="3"/>
+                <xsd:element ref="coef" minOccurs="3" maxOccurs="3"/>
             </xsd:sequence>
             <xsd:attribute name="type">
                 <xsd:simpleType>
@@ -99,11 +100,49 @@
         </xsd:complexType>
     </xsd:element>
 
+    <!-- Élément coef -->
+    <xsd:element name="coef">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="xsd:float">
+                    <xsd:attribute name="type" use="required">
+                        <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="r"/>
+                            <xsd:enumeration value="g"/>
+                            <xsd:enumeration value="b"/>
+                        </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:attribute>
+                </xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- Élement source -->
+    <xsd:element name="source">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="coords"/>
+                <xsd:element ref="colors"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- Élément colors -->
+    <xsd:element name="colors">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="color" minOccurs="3" maxOccurs="3"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
     <!-- Élément color -->
     <xsd:element name="color">
         <xsd:complexType>
             <xsd:simpleContent>
-                <xsd:extension base="xsd:float">
+                <xsd:extension base="xsd:int">
                     <xsd:attribute name="type" use="required">
                         <xsd:simpleType>
                         <xsd:restriction base="xsd:string">

@@ -19,31 +19,40 @@ std::vector<float> loadCoords(tinyxml2::XMLHandle &hCoords) {
     return coords;
 }
 
+std::vector<int> loadColors(tinyxml2::XMLHandle &hColors) {
+    std::vector<int> colors;
+    for (tinyxml2::XMLElement* color = hColors.FirstChildElement().ToElement();
+        color != NULL; color = color->NextSiblingElement()) {
+
+        std::string text(color->GetText());
+        colors.push_back(std::stoi(text));
+    }
+    return colors;
+}
+
 OBJECT_BASE_SURFACE loadSurface(tinyxml2::XMLHandle &hSurface) {
     std::vector<std::vector<float>> array;
 
-    tinyxml2::XMLHandle hColors = hSurface.FirstChildElement();
+    tinyxml2::XMLHandle hCoefs = hSurface.FirstChildElement();
     for (int i = 0; i < 4; i++) {
-        std::vector<float> colors = loadCoords(hColors);
-        array.push_back(colors);
+        std::vector<float> coefs = loadCoords(hCoefs);
+        array.push_back(coefs);
 
         if (i < 3)
-        hColors = hColors.NextSiblingElement();
+        hCoefs = hCoefs.NextSiblingElement();
     }
 
     OBJECT_BASE_SURFACE surface(array[0], array[1], array[2], array[3]);
     return surface;
 }
 
-std::vector<SCENE_BASE_OBJECT*> loadFile(std::string file) {
+void loadFile(std::string file, std::vector<LIGHT_SOURCE*>& sources, std::vector<SCENE_BASE_OBJECT*>& scene) {
     tinyxml2::XMLDocument doc;
 	doc.LoadFile(file.data());
 
     tinyxml2::XMLHandle hDoc(&doc);
     tinyxml2::XMLElement* pElem;
     tinyxml2::XMLHandle hRoot(0), hObject(0);
-
-    std::vector<SCENE_BASE_OBJECT*> scene;
 
     pElem=hDoc.FirstChildElement().ToElement();
 
@@ -55,7 +64,17 @@ std::vector<SCENE_BASE_OBJECT*> loadFile(std::string file) {
         std::string title(elem->Value());
         hObject=tinyxml2::XMLHandle(elem);
 
-        if (title.compare("sphere") == 0) {
+        if (title.compare("source") == 0) {
+            tinyxml2::XMLHandle hCenter = hObject.FirstChildElement();
+            std::vector<float> center = loadCoords(hCenter);
+
+            tinyxml2::XMLHandle hColors = hCenter.NextSiblingElement();
+            std::vector<int> colors = loadColors(hColors);
+
+            LIGHT_SOURCE* source = new LIGHT_SOURCE(center, colors);
+            sources.push_back(source);
+
+        } else if (title.compare("sphere") == 0) {
             tinyxml2::XMLHandle hCenter = hObject.FirstChildElement();
             std::vector<float> center = loadCoords(hCenter);
 
@@ -82,7 +101,6 @@ std::vector<SCENE_BASE_OBJECT*> loadFile(std::string file) {
             scene.push_back(plan);
         }
     }
-    return scene;
 }
 
 int main(int argc, char const *argv[])
@@ -95,14 +113,10 @@ int main(int argc, char const *argv[])
     std::string file(argv[1]);
     std::string target(argv[2]);
 
-    std::vector<LIGHT_SOURCE> sources;
+    std::vector<LIGHT_SOURCE*> sources;
+    std::vector<SCENE_BASE_OBJECT*> scene;
 
-    auto scene = loadFile(file);
-
-    std::vector<float> l_center = {0, 0, 100};
-    std::vector<int> color = {255, 255, 255};
-    LIGHT_SOURCE source(l_center, color);
-    sources.push_back(source);
+    loadFile(file, sources, scene);
 
     const float W = 10;
     const float H = 10;
