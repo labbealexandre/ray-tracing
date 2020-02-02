@@ -25,7 +25,7 @@ std::vector<float> SCENE_BASE_OBJECT::getIntersection(RAY L, int &code){
 }
 
 bool SCENE_BASE_OBJECT::isItLit(std::vector<float> P, std::vector<float> positionLight){
-  return false;
+  return (this->getNormal(P)*(P-positionLight))<0;
 }
 
 void SCENE_BASE_OBJECT::print() {
@@ -60,9 +60,6 @@ std::vector<float> SPHERE_OBJECT::getIntersection(RAY L, int &code){
     return S;
 }
 
-bool SPHERE_OBJECT::isItLit(std::vector<float> P, std::vector<float> positionLight){
-    return ((P-center)*(P-positionLight))<0;
-}
 
 void SPHERE_OBJECT::print(){
   SCENE_BASE_OBJECT::print();

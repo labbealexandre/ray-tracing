@@ -18,8 +18,8 @@ class SCENE_BASE_OBJECT {
     public:
         virtual std::vector<float> getNormal(std::vector<float> P);
         virtual std::vector<float> getIntersection(RAY L, int&);
-        virtual bool isItLit(std::vector<float> P, std::vector<float> positionLight);
-
+        bool isItLit(std::vector<float> P, std::vector<float> positionLight);
+        
         // TOTEST Now
         std::vector<float> getIllumination(
             std::vector<float> L,
@@ -53,7 +53,6 @@ class SPHERE_OBJECT : public SCENE_BASE_OBJECT{
     public:
         std::vector<float> getNormal(std::vector<float> P);
         std::vector<float> getIntersection(RAY L, int&);
-        bool isItLit(std::vector<float> P, std::vector<float> positionLight);
         void print();
 
         /** Constructors */

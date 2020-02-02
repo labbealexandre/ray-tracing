@@ -9,7 +9,6 @@ std::vector<std::vector<int>> run(
 
     std::vector<RAY> rays = camera.traceRays();
     std::cout << "Rays traced " << rays.size() << std::endl;
-    int code;
     std::vector<float> P, N, L, R, V;
     std::vector<int> I(3, 0);
 
