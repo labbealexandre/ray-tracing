@@ -8,13 +8,13 @@
 
 class CAMERA {
     private:
-        std::vector<float> position;
+        
         float focal;
         int pixels_per_row;
         int pixels_per_column;
 
     public:
-
+        std::vector<float> position;
         float width;
         float height;
 

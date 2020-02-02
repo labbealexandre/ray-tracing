@@ -4,6 +4,37 @@
 
     <sphere>
         <coords type="center">
+            <coord type="x">100</coord>
+            <coord type="y">0</coord>
+            <coord type="z">0</coord>
+        </coords>
+        <coord type="radius">30</coord>
+        <surface>
+            <colors type="reflexion">
+                <color type="r">0</color>
+                <color type="g">0</color>
+                <color type="b">0</color>
+            </colors>
+            <colors type="transmission">
+                <color type="r">0</color>
+                <color type="g">0</color>
+                <color type="b">0</color>
+            </colors>
+            <colors type="diffusion">
+                <color type="r">0</color>
+                <color type="g">0</color>
+                <color type="b">1</color>
+            </colors>
+            <colors type="specular">
+                <color type="r">0</color>
+                <color type="g">0</color>
+                <color type="b">0</color>
+            </colors>
+        </surface>
+    </sphere>
+
+    <sphere>
+        <coords type="center">
             <coord type="x">50</coord>
             <coord type="y">0</coord>
             <coord type="z">0</coord>
@@ -22,8 +53,8 @@
             </colors>
             <colors type="diffusion">
                 <color type="r">1</color>
-                <color type="g">1</color>
-                <color type="b">1</color>
+                <color type="g">0</color>
+                <color type="b">0</color>
             </colors>
             <colors type="specular">
                 <color type="r">0</color>
@@ -33,7 +64,7 @@
         </surface>
     </sphere>
 
-    <plan>
+    <!-- <plan>
         <coords type="center">
             <coord type="x">50</coord>
             <coord type="y">0</coord>
@@ -66,5 +97,5 @@
                 <color type="b">0</color>
             </colors>
         </surface>
-    </plan>
+    </plan> -->
 </scene>
