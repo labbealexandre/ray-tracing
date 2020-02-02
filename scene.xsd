@@ -20,6 +20,7 @@
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element ref="specular"/>
+                <xsd:element ref="colors" />
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
@@ -107,6 +108,7 @@
                     <xsd:enumeration value="transmission"/>
                     <xsd:enumeration value="diffusion"/>
                     <xsd:enumeration value="specular"/>
+                    <xsd:enumeration value="ambiant"/>
                 </xsd:restriction>
                 </xsd:simpleType>
             </xsd:attribute>

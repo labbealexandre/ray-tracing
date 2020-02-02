@@ -4,6 +4,11 @@
 
     <params>
         <specular>10</specular>
+        <colors>
+            <color type="r">50</color>
+            <color type="g">50</color>
+            <color type="b">50</color>
+        </colors>
     </params>
 
     <source>

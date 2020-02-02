@@ -47,7 +47,8 @@ OBJECT_BASE_SURFACE loadSurface(tinyxml2::XMLHandle &hSurface) {
 }
 
 void loadFile(  std::string file, std::vector<LIGHT_SOURCE*>& sources,
-                std::vector<SCENE_BASE_OBJECT*>& scene, int& specular) {
+                std::vector<SCENE_BASE_OBJECT*>& scene, int& specular,
+                std::vector<int>& ambiant) {
     tinyxml2::XMLDocument doc;
 	doc.LoadFile(file.data());
 
@@ -68,6 +69,9 @@ void loadFile(  std::string file, std::vector<LIGHT_SOURCE*>& sources,
         if (title.compare("params") == 0) {
             tinyxml2::XMLHandle hSpecular = hObject.FirstChildElement();
             specular = std::stoi(hSpecular.ToElement()->GetText());
+
+            tinyxml2::XMLHandle hColors = hSpecular.NextSiblingElement();
+            ambiant = loadColors(hColors);
 
         } else if (title.compare("source") == 0) {
             tinyxml2::XMLHandle hCenter = hObject.FirstChildElement();
@@ -122,8 +126,9 @@ int main(int argc, char const *argv[])
     std::vector<LIGHT_SOURCE*> sources;
     std::vector<SCENE_BASE_OBJECT*> scene;
     int specular;
+    std::vector<int> ambiant;
 
-    loadFile(file, sources, scene, specular);
+    loadFile(file, sources, scene, specular, ambiant);
 
     const float W = 10;
     const float H = 10;
@@ -133,7 +138,7 @@ int main(int argc, char const *argv[])
     std::vector<float> c_center = {0, 0, 0};
     CAMERA camera(c_center, W, H, focal, n, m);
 
-    std::vector<std::vector<int>> colors = run(camera, scene, sources, specular);
+    std::vector<std::vector<int>> colors = run(camera, scene, sources, specular, ambiant);
 
     savePicture(target.data(), n, m, colors);
 
