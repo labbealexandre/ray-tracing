@@ -25,6 +25,7 @@ std::vector<float> SCENE_BASE_OBJECT::getIntersection(RAY L, int &code){
 }
 
 bool SCENE_BASE_OBJECT::isItLit(std::vector<float> P, std::vector<float> positionLight){
+  // std::cout << this->getNormal(P) << std::endl;
   return (this->getNormal(P)*(P-positionLight))<0;
 }
 
@@ -67,7 +68,10 @@ void SPHERE_OBJECT::print(){
 }
 
 std::vector<float> PLAN_OBJECT::getNormal(){
-    std::cout << "hi" << std::endl;
+    return normal;
+}
+
+std::vector<float> PLAN_OBJECT::getNormal(std::vector<float> P){
     return normal;
 }
 
@@ -92,8 +96,11 @@ void PLAN_OBJECT::print(){
   std::cout << std::endl;
 }
 
-
 std::vector<float> TRIANGLE_OBJECT::getNormal(){
+    return CrossProduct((puntodos-puntouno),(puntotres-puntouno));
+}
+
+std::vector<float> TRIANGLE_OBJECT::getNormal(std::vector<float> P){
     return CrossProduct((puntodos-puntouno),(puntotres-puntouno));
 }
 

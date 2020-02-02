@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <cmath>
+#include <iostream>
 /** Overloading the vector operators for positions*/
 
 template <typename T>
@@ -101,5 +102,13 @@ inline std::vector<T> normalise (std::vector<T> const& vec) {
     res = vec / norm;
     return res;
 };
+
+template <typename T>
+inline std::ostream& operator << (std::ostream& os, const std::vector<T>& vect) {
+    for (T elem : vect) {
+        os << elem << " ";
+    }
+    return os;
+}
 
 #endif

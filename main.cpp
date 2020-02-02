@@ -98,6 +98,7 @@ void loadFile(std::string file, std::vector<LIGHT_SOURCE*>& sources, std::vector
             OBJECT_BASE_SURFACE surface = loadSurface(hSurface);
 
             PLAN_OBJECT* plan = new PLAN_OBJECT(center, normal, surface);
+            // std::cout << plan->getNormal() << std::cout;
             scene.push_back(plan);
         }
     }

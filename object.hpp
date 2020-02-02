@@ -12,10 +12,11 @@
 class SCENE_BASE_OBJECT {
 
     protected:
-        std::vector<float> center;
+        
         OBJECT_BASE_SURFACE surface;
   
     public:
+        std::vector<float> center;
         virtual std::vector<float> getNormal(std::vector<float> P);
         virtual std::vector<float> getIntersection(RAY L, int&);
         bool isItLit(std::vector<float> P, std::vector<float> positionLight);
@@ -80,6 +81,7 @@ class PLAN_OBJECT : public SCENE_BASE_OBJECT{
     public:
 
         std::vector<float> getNormal();
+        std::vector<float> getNormal(std::vector<float> P);
         std::vector<float> getIntersection(RAY L, int&);
         void print();
 
@@ -101,8 +103,8 @@ class TRIANGLE_OBJECT : public SCENE_BASE_OBJECT{
       std::vector<float>  puntodos;
       std::vector<float>  puntotres;
     public:
-
         std::vector<float> getNormal();
+        std::vector<float> getNormal(std::vector<float> P);
         std::vector<float> getIntersection(RAY L, int&);
 
         /** Constructors */

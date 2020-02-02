@@ -78,7 +78,6 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
     }
 
     if (reach) {
-        
         N = p_object->getNormal(P);
 
         bool isLit;
