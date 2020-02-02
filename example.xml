@@ -15,7 +15,7 @@
         </colors>
     </source>
 
-    <!-- <sphere>
+    <sphere>
         <coords type="center">
             <coord type="x">100</coord>
             <coord type="y">0</coord>
@@ -75,7 +75,7 @@
                 <coef type="b">1</coef>
             </coefs>
         </surface>
-    </sphere> -->
+    </sphere>
 
     <plan>
         <coords type="center">
