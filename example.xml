@@ -5,9 +5,9 @@
     <params>
         <specular>10</specular>
         <colors>
-            <color type="r">50</color>
-            <color type="g">50</color>
-            <color type="b">50</color>
+            <color type="r">0</color>
+            <color type="g">0</color>
+            <color type="b">0</color>
         </colors>
     </params>
 
@@ -45,12 +45,12 @@
             <coefs type="diffusion">
                 <coef type="r">0</coef>
                 <coef type="g">0</coef>
-                <coef type="b">1</coef>
+                <coef type="b">0.8</coef>
             </coefs>
             <coefs type="specular">
-                <coef type="r">0</coef>
-                <coef type="g">0</coef>
-                <coef type="b">0</coef>
+                <coef type="r">0.7</coef>
+                <coef type="g">0.7</coef>
+                <coef type="b">0.7</coef>
             </coefs>
         </surface>
     </sphere>
