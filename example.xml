@@ -4,12 +4,26 @@
 
     <params>
         <specular>10</specular>
+
         <colors>
             <color type="r">50</color>
             <color type="g">50</color>
             <color type="b">50</color>
         </colors>
     </params>
+
+    <camera>
+        <coords type="center">
+            <coord type="x">0</coord>
+            <coord type="y">0</coord>
+            <coord type="z">0</coord>
+        </coords>
+        <coord type="width">10</coord>
+        <coord type="height">10</coord>
+        <coord type="focal">5</coord>
+        <coord type="n_width">500</coord>
+        <coord type="n_height">500</coord>
+    </camera>
 
     <source>
         <coords type="center">

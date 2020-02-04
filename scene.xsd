@@ -8,9 +8,20 @@
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element ref="params"/>
+                <xsd:element ref="camera"/>
                 <xsd:element ref="source" minOccurs="0" maxOccurs="unbounded" />
                 <xsd:element ref="sphere" minOccurs="0" maxOccurs="unbounded" />
                 <xsd:element ref="plan" minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- Élément camera -->
+    <xsd:element name="camera">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="coords"/>
+                <xsd:element ref="coord" minOccurs="5" maxOccurs="5" />
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
@@ -78,6 +89,11 @@
                             <xsd:enumeration value="y"/>
                             <xsd:enumeration value="z"/>
                             <xsd:enumeration value="radius"/>
+                            <xsd:enumeration value="width"/>
+                            <xsd:enumeration value="height"/>
+                            <xsd:enumeration value="focal"/>
+                            <xsd:enumeration value="n_width"/>
+                            <xsd:enumeration value="n_height"/>
                         </xsd:restriction>
                         </xsd:simpleType>
                     </xsd:attribute>

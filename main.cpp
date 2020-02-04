@@ -38,7 +38,7 @@ OBJECT_BASE_SURFACE loadSurface(tinyxml2::XMLHandle &hSurface) {
         std::vector<float> coefs = loadCoords(hCoefs);
         array.push_back(coefs);
 
-        if (i < 3)
+        if (i < 4)
         hCoefs = hCoefs.NextSiblingElement();
     }
 
@@ -46,9 +46,10 @@ OBJECT_BASE_SURFACE loadSurface(tinyxml2::XMLHandle &hSurface) {
     return surface;
 }
 
-void loadFile(  std::string file, std::vector<LIGHT_SOURCE*>& sources,
-                std::vector<SCENE_BASE_OBJECT*>& scene, int& specular,
-                std::vector<int>& ambiant) {
+void loadFile(  std::string file, int& specular, std::vector<int>& ambiant,
+                CAMERA& camera, std::vector<LIGHT_SOURCE*>& sources,
+                std::vector<SCENE_BASE_OBJECT*>& scene, int& n, int& m) {
+
     tinyxml2::XMLDocument doc;
 	doc.LoadFile(file.data());
 
@@ -66,7 +67,28 @@ void loadFile(  std::string file, std::vector<LIGHT_SOURCE*>& sources,
         std::string title(elem->Value());
         hObject=tinyxml2::XMLHandle(elem);
 
-        if (title.compare("params") == 0) {
+        if (title.compare("camera") == 0) {
+            tinyxml2::XMLHandle hCenter = hObject.FirstChildElement();
+            std::vector<float> center = loadCoords(hCenter);
+
+            tinyxml2::XMLHandle hWidth = hCenter.NextSiblingElement();
+            const float W = std::stof(hWidth.ToElement()->GetText());
+
+            tinyxml2::XMLHandle hHeight = hWidth.NextSiblingElement();
+            const float H = std::stof(hHeight.ToElement()->GetText());
+
+            tinyxml2::XMLHandle hFocal = hHeight.NextSiblingElement();
+            const float focal = std::stof(hFocal.ToElement()->GetText());
+
+            tinyxml2::XMLHandle hNWidth = hFocal.NextSiblingElement();
+            n = std::stoi(hNWidth.ToElement()->GetText());
+
+            tinyxml2::XMLHandle hNHeight = hNWidth.NextSiblingElement();
+            m = std::stoi(hNHeight.ToElement()->GetText());
+
+            camera = CAMERA(center, W, H, focal, n, m);
+
+        } else if (title.compare("params") == 0) {
             tinyxml2::XMLHandle hSpecular = hObject.FirstChildElement();
             specular = std::stoi(hSpecular.ToElement()->GetText());
 
@@ -123,20 +145,15 @@ int main(int argc, char const *argv[])
     std::string file(argv[1]);
     std::string target(argv[2]);
 
+    CAMERA camera;
     std::vector<LIGHT_SOURCE*> sources;
     std::vector<SCENE_BASE_OBJECT*> scene;
     int specular;
     std::vector<int> ambiant;
+    int n;
+    int m;
 
-    loadFile(file, sources, scene, specular, ambiant);
-
-    const float W = 10;
-    const float H = 10;
-    const float focal = 5;
-    const int n = 2000;
-    const int m = 2000;
-    std::vector<float> c_center = {0, 0, 0};
-    CAMERA camera(c_center, W, H, focal, n, m);
+    loadFile(file, specular, ambiant, camera, sources, scene, n, m);
 
     std::vector<std::vector<int>> colors = run(camera, scene, sources, specular, ambiant);
 

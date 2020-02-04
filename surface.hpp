@@ -13,13 +13,6 @@ class OBJECT_BASE_SURFACE {
         std::vector<float> diffuse_coefficient;
         std::vector<float> specular_coefficient;
 
-        // void getColors(
-        //     std::vector<int>& incident,
-        //     std::vector<int>& reflected,
-        //     std::vector<int>& transmitted,
-        //     std::vector<int>& absorbed
-        // );
-
         void print();
 
         /** Constructors */
@@ -44,10 +37,6 @@ class OBJECT_BASE_SURFACE {
             transmission_coefficient = t;
             diffuse_coefficient = d;
             specular_coefficient = s;
-
-            // for (int i = 0; i < 3; i++) {
-            //     std::cout << fid_coefficient[i] << std::endl;
-            // }
         }
 
         /** Destructor */
