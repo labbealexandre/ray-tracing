@@ -11,11 +11,8 @@
 
 class SCENE_BASE_OBJECT {
 
-    protected:
-        
-        OBJECT_BASE_SURFACE surface;
-  
     public:
+        OBJECT_BASE_SURFACE surface;
         std::vector<float> center;
         virtual std::vector<float> getNormal(std::vector<float> P);
         virtual std::vector<float> getIntersection(RAY L, int&);
@@ -31,10 +28,14 @@ class SCENE_BASE_OBJECT {
         );
 
         // TODO Later for recursive points
+        // std::vector<float> getReflectedRayDirection(std::vector<float> V, std::vector<float> N);
+        // std::vector<float> getRefractedRay(std::vector<float> V, std::vector<float> N);
+
         std::vector<float> getReflectedRayDirection(std::vector<float> V, std::vector<float> N);
-        std::vector<float> getRefractedRay(std::vector<float> V, std::vector<float> N);
+        std::vector<float> getRefractedRayDirection(std::vector<float> V, std::vector<float> N);
 
         virtual void print();
+        virtual void name();
 
         /** Constructors */
         SCENE_BASE_OBJECT() {
@@ -56,6 +57,7 @@ class SPHERE_OBJECT : public SCENE_BASE_OBJECT{
         std::vector<float> getNormal(std::vector<float> P);
         std::vector<float> getIntersection(RAY L, int&);
         void print();
+        void name();
 
         /** Constructors */
         SPHERE_OBJECT() {
@@ -85,6 +87,7 @@ class PLAN_OBJECT : public SCENE_BASE_OBJECT{
         std::vector<float> getNormal(std::vector<float> P);
         std::vector<float> getIntersection(RAY L, int&);
         void print();
+        void name();
 
         /** Constructors */
         PLAN_OBJECT(std::vector<float> point, std::vector<float> vect , OBJECT_BASE_SURFACE texture) {
@@ -107,6 +110,8 @@ class TRIANGLE_OBJECT : public SCENE_BASE_OBJECT{
         std::vector<float> getNormal();
         std::vector<float> getNormal(std::vector<float> P);
         std::vector<float> getIntersection(RAY L, int&);
+        void print();
+        void name();
 
         /** Constructors */
         TRIANGLE_OBJECT(std::vector<float> pointA, std::vector<float> pointB, std::vector<float> pointC , OBJECT_BASE_SURFACE texture) {

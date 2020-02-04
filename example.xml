@@ -5,9 +5,9 @@
     <params>
         <specular>10</specular>
         <colors>
-            <color type="r">0</color>
-            <color type="g">0</color>
-            <color type="b">0</color>
+            <color type="r">50</color>
+            <color type="g">50</color>
+            <color type="b">50</color>
         </colors>
     </params>
 
@@ -15,7 +15,7 @@
         <coords type="center">
             <coord type="x">0</coord>
             <coord type="y">0</coord>
-            <coord type="z">100</coord>
+            <coord type="z">0</coord>
         </coords>
         <colors>
             <color type="r">255</color>
@@ -26,12 +26,17 @@
 
     <sphere>
         <coords type="center">
-            <coord type="x">100</coord>
+            <coord type="x">300</coord>
             <coord type="y">0</coord>
-            <coord type="z">0</coord>
+            <coord type="z">-200</coord>
         </coords>
-        <coord type="radius">30</coord>
+        <coord type="radius">50</coord>
         <surface>
+            <coefs type="ambiant">
+                <coef type="r">1</coef>
+                <coef type="g">0</coef>
+                <coef type="b">0</coef>
+            </coefs>
             <coefs type="reflexion">
                 <coef type="r">0</coef>
                 <coef type="g">0</coef>
@@ -43,9 +48,9 @@
                 <coef type="b">0</coef>
             </coefs>
             <coefs type="diffusion">
-                <coef type="r">0</coef>
+                <coef type="r">0.8</coef>
                 <coef type="g">0</coef>
-                <coef type="b">0.8</coef>
+                <coef type="b">0</coef>
             </coefs>
             <coefs type="specular">
                 <coef type="r">0.7</coef>
@@ -55,49 +60,23 @@
         </surface>
     </sphere>
 
-    <sphere>
-        <coords type="center">
-            <coord type="x">100</coord>
-            <coord type="y">0</coord>
-            <coord type="z">-50</coord>
-        </coords>
-        <coord type="radius">10</coord>
-        <surface>
-            <coefs type="reflexion">
-                <coef type="r">0</coef>
-                <coef type="g">0</coef>
-                <coef type="b">0</coef>
-            </coefs>
-            <coefs type="transmission">
-                <coef type="r">0</coef>
-                <coef type="g">0</coef>
-                <coef type="b">0</coef>
-            </coefs>
-            <coefs type="diffusion">
-                <coef type="r">1</coef>
-                <coef type="g">0</coef>
-                <coef type="b">0</coef>
-            </coefs>
-            <coefs type="specular">
-                <coef type="r">0</coef>
-                <coef type="g">0</coef>
-                <coef type="b">0</coef>
-            </coefs>
-        </surface>
-    </sphere>
-
     <plan>
         <coords type="center">
-            <coord type="x">150</coord>
-            <coord type="y">0</coord>
+            <coord type="x">0</coord>
+            <coord type="y">100</coord>
             <coord type="z">0</coord>
         </coords>
         <coords type="normal">
-            <coord type="x">-1</coord>
-            <coord type="y">0</coord>
+            <coord type="x">0</coord>
+            <coord type="y">-1</coord>
             <coord type="z">0</coord>
         </coords>
         <surface>
+            <coefs type="ambiant">
+                <coef type="r">0</coef>
+                <coef type="g">0</coef>
+                <coef type="b">0</coef>
+            </coefs>
             <coefs type="reflexion">
                 <coef type="r">0</coef>
                 <coef type="g">0</coef>
@@ -112,6 +91,46 @@
                 <coef type="r">1</coef>
                 <coef type="g">1</coef>
                 <coef type="b">1</coef>
+            </coefs>
+            <coefs type="specular">
+                <coef type="r">1</coef>
+                <coef type="g">1</coef>
+                <coef type="b">1</coef>
+            </coefs>
+        </surface>
+    </plan>
+
+    <plan>
+        <coords type="center">
+            <coord type="x">500</coord>
+            <coord type="y">0</coord>
+            <coord type="z">0</coord>
+        </coords>
+        <coords type="normal">
+            <coord type="x">-1</coord>
+            <coord type="y">0</coord>
+            <coord type="z">0</coord>
+        </coords>
+        <surface>
+            <coefs type="ambiant">
+                <coef type="r">0</coef>
+                <coef type="g">0</coef>
+                <coef type="b">0</coef>
+            </coefs>
+            <coefs type="reflexion">
+                <coef type="r">1</coef>
+                <coef type="g">1</coef>
+                <coef type="b">1</coef>
+            </coefs>
+            <coefs type="transmission">
+                <coef type="r">0</coef>
+                <coef type="g">0</coef>
+                <coef type="b">0</coef>
+            </coefs>
+            <coefs type="diffusion">
+                <coef type="r">0</coef>
+                <coef type="g">0</coef>
+                <coef type="b">0</coef>
             </coefs>
             <coefs type="specular">
                 <coef type="r">0</coef>

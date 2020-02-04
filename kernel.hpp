@@ -21,7 +21,8 @@ std::vector<int> getColors(
     std::vector<SCENE_BASE_OBJECT*> &scene,
     std::vector<LIGHT_SOURCE*> &sources,
     int specular,
-    const std::vector<int> &ambiant
+    const std::vector<int> &ambiant,
+    int stack
 );
 
 #endif

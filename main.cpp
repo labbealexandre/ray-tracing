@@ -34,7 +34,7 @@ OBJECT_BASE_SURFACE loadSurface(tinyxml2::XMLHandle &hSurface) {
     std::vector<std::vector<float>> array;
 
     tinyxml2::XMLHandle hCoefs = hSurface.FirstChildElement();
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 5; i++) {
         std::vector<float> coefs = loadCoords(hCoefs);
         array.push_back(coefs);
 
@@ -42,7 +42,7 @@ OBJECT_BASE_SURFACE loadSurface(tinyxml2::XMLHandle &hSurface) {
         hCoefs = hCoefs.NextSiblingElement();
     }
 
-    OBJECT_BASE_SURFACE surface(array[0], array[1], array[2], array[3]);
+    OBJECT_BASE_SURFACE surface(array[0], array[1], array[2], array[3], array[4]);
     return surface;
 }
 
@@ -133,8 +133,8 @@ int main(int argc, char const *argv[])
     const float W = 10;
     const float H = 10;
     const float focal = 5;
-    const int n = 500;
-    const int m = 500;
+    const int n = 2000;
+    const int m = 2000;
     std::vector<float> c_center = {0, 0, 0};
     CAMERA camera(c_center, W, H, focal, n, m);
 

@@ -90,7 +90,7 @@
     <xsd:element name="surface">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="coefs" minOccurs="4" maxOccurs="4"/>
+                <xsd:element ref="coefs" minOccurs="5" maxOccurs="5"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
@@ -104,11 +104,11 @@
             <xsd:attribute name="type">
                 <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="ambiant"/>
                     <xsd:enumeration value="reflexion"/>
                     <xsd:enumeration value="transmission"/>
                     <xsd:enumeration value="diffusion"/>
                     <xsd:enumeration value="specular"/>
-                    <xsd:enumeration value="ambiant"/>
                 </xsd:restriction>
                 </xsd:simpleType>
             </xsd:attribute>
