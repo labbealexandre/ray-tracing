@@ -11,6 +11,7 @@
                 <xsd:element ref="source" minOccurs="0" maxOccurs="unbounded" />
                 <xsd:element ref="sphere" minOccurs="0" maxOccurs="unbounded" />
                 <xsd:element ref="plan" minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element ref="triangle" minOccurs="0" maxOccurs="unbounded" />
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
@@ -49,6 +50,16 @@
         </xsd:complexType>
     </xsd:element>
 
+    <!-- Elément triangle -->
+    <xsd:element name="triangle">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="coords" minOccurs="3" maxOccurs="3"/>
+                <xsd:element ref="surface"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
     <!-- Élément coords -->
     <xsd:element name="coords">
         <xsd:complexType>
@@ -60,6 +71,9 @@
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="center"/>
                     <xsd:enumeration value="normal"/>
+                    <xsd:enumeration value="A"/>
+                    <xsd:enumeration value="B"/>
+                    <xsd:enumeration value="C"/>
                 </xsd:restriction>
                 </xsd:simpleType>
             </xsd:attribute>

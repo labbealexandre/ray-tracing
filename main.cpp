@@ -107,8 +107,23 @@ void loadFile(  std::string file, std::vector<LIGHT_SOURCE*>& sources,
             OBJECT_BASE_SURFACE surface = loadSurface(hSurface);
 
             PLAN_OBJECT* plan = new PLAN_OBJECT(center, normal, surface);
-            // std::cout << plan->getNormal() << std::cout;
             scene.push_back(plan);
+            
+        } else if (title.compare("triangle") == 0) {
+            tinyxml2::XMLHandle hA = hObject.FirstChildElement();
+            std::vector<float> A = loadCoords(hA);
+
+            tinyxml2::XMLHandle hB = hA.NextSiblingElement();
+            std::vector<float> B = loadCoords(hB);
+
+            tinyxml2::XMLHandle hC = hB.NextSiblingElement();
+            std::vector<float> C = loadCoords(hC);
+
+            tinyxml2::XMLHandle hSurface = hC.NextSiblingElement();
+            OBJECT_BASE_SURFACE surface = loadSurface(hSurface);
+
+            TRIANGLE_OBJECT* triangle = new TRIANGLE_OBJECT(A, B, C, surface);
+            scene.push_back(triangle);
         }
     }
 }
@@ -133,9 +148,9 @@ int main(int argc, char const *argv[])
     const float W = 10;
     const float H = 10;
     const float focal = 5;
-    const int n = 500;
-    const int m = 500;
-    std::vector<float> c_center = {0, 0, 0};
+    const int n = 2000;
+    const int m = 2000;
+    std::vector<float> c_center = {0, -200, 0};
     CAMERA camera(c_center, W, H, focal, n, m);
 
     std::vector<std::vector<int>> colors = run(camera, scene, sources, specular, ambiant);
