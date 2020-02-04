@@ -107,9 +107,9 @@
                 <coef type="b">1</coef>
             </coefs>
             <coefs type="specular">
-                <coef type="r">1</coef>
-                <coef type="g">1</coef>
-                <coef type="b">1</coef>
+                <coef type="r">0.7</coef>
+                <coef type="g">0.7</coef>
+                <coef type="b">0.7</coef>
             </coefs>
         </surface>
     </plan>
