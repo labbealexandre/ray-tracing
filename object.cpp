@@ -127,11 +127,11 @@ void PLAN_OBJECT::name(){
 }
 
 std::vector<float> TRIANGLE_OBJECT::getNormal(){
-    return CrossProduct((puntodos-puntouno),(puntotres-puntouno));
+    return CrossProduct((B-A),(C-A));
 }
 
 std::vector<float> TRIANGLE_OBJECT::getNormal(std::vector<float> P){
-    return CrossProduct((puntodos-puntouno),(puntotres-puntouno));
+    return CrossProduct((B-A),(C-A));
 }
 
 std::vector<float> TRIANGLE_OBJECT::getIntersection(RAY L, int &code){
@@ -144,9 +144,9 @@ std::vector<float> TRIANGLE_OBJECT::getIntersection(RAY L, int &code){
       float param=(1/(D*normal))*(center-S)*normal;
       std::vector<float> intertemp=S+param*D;
       float a , b , c;
-      a=CrossProduct((puntodos-puntouno),(intertemp-puntouno))*CrossProduct((intertemp-puntouno),(puntotres-puntouno));
-      b=CrossProduct((puntouno-puntodos),(intertemp-puntodos))*CrossProduct((intertemp-puntodos),(puntotres-puntodos));
-      c=CrossProduct((puntouno-puntotres),(intertemp-puntotres))*CrossProduct((intertemp-puntotres),(puntodos-puntotres));
+      a=CrossProduct((B-A),(intertemp-A))*CrossProduct((intertemp-A),(C-A));
+      b=CrossProduct((A-B),(intertemp-B))*CrossProduct((intertemp-B),(C-B));
+      c=CrossProduct((A-C),(intertemp-C))*CrossProduct((intertemp-C),(B-C));
       if (a>=0 && b>=0 && c>=0) {
         return intertemp;
       } else {
