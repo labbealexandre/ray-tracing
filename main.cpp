@@ -1,7 +1,6 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-
 #include "kernel.hpp"
 #include "camera.hpp"
 #include "object.hpp"
@@ -12,6 +11,7 @@
 #include "tinyxml2/tinyxml2.h"
 
 std::vector<std::vector<std::vector<float>>*> colors_pointers;
+std::vector<int> resolutions;
 std::vector<std::string> paths;
 
 std::vector<float> loadCoords(tinyxml2::XMLHandle &hCoords) {
@@ -45,11 +45,16 @@ TEXTURE loadTexture(tinyxml2::XMLHandle &hTexture) {
 
     std::vector<std::string>::iterator it = std::find(paths.begin(), paths.end(), path);
     if (it != paths.cend()) {
+        n = resolutions[2*std::distance(paths.begin(), it)];
+        m = resolutions[2*std::distance(paths.begin(), it)+1];
         p_colors = colors_pointers[std::distance(paths.begin(), it)];
     } else {
         p_colors = loadPicture(path, n, m);
         paths.push_back(path);
-        
+        std::pair<int, int> pair;
+        resolutions.push_back(n);
+        resolutions.push_back(m);
+
         colors_pointers.push_back(p_colors);
     }
 

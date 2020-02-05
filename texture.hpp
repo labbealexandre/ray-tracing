@@ -27,7 +27,8 @@ class TEXTURE {
     };
 
     TEXTURE(std::vector<std::vector<float>>* p_col, const std::vector<float>& c,
-            const std::vector<float>& d, const float& W, const float& H, int nWidth, int nHeight) {
+            const std::vector<float>& d, const float& W, const float& H, const int& nWidth, const int& nHeight) {
+
       p_colors = p_col;
       center = c;
       direction = d;

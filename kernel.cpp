@@ -36,8 +36,6 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
                             const std::vector<int> &ambiant,
                             int stack) {
 
-    
-
     int code;
     SCENE_BASE_OBJECT* p_object;
     std::vector<float> P, current_P, N, L, R, V;
@@ -76,7 +74,6 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
             if (isLit) {
                 L = source->getIncidentRay(P);
                 R = source->getReflectedRay(P, N);
-                
                 I += source->illumination*p_object->getIllumination(P, L, N, V, R, specular);
                 
             }

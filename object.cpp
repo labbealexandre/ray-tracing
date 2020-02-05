@@ -16,6 +16,7 @@ std::vector<float> SCENE_BASE_OBJECT::getIllumination(
               (float)pow(s, specular)*surface.specular_coefficient;
             
     capCoefs(I);
+
     return I;
 }
 
@@ -130,14 +131,18 @@ std::vector<float> PLAN_OBJECT::getColor(const std::vector<float> &P) {
   std::vector<float> X = surface.texture.direction;
   float x = std::fmod(U*X, surface.texture.width);
   if (x < 0) x += surface.texture.width;
+  int n_x = (int)surface.texture.n*x/surface.texture.width;
 
   std::vector<float> Y = CrossProduct(normal, X);
   float y = std::fmod(U*Y, surface.texture.height);
   if (y < 0) y += surface.texture.height;
+  int n_y = (int)surface.texture.m*y/surface.texture.height;
 
-  std::vector<std::vector<float>> colors = *surface.texture.p_colors;
+  int d = n_x*surface.texture.m+n_y;
 
-  return colors[(int)x*surface.texture.height+(int)y];
+  std::vector<float>* p_color = surface.texture.p_colors->data() + d;
+
+  return *p_color;
 }
 
 void PLAN_OBJECT::print(){
