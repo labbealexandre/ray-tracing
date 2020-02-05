@@ -109,7 +109,7 @@ inline std::vector<int> operator * (const std::vector<int>& left, const std::vec
 
 template <typename T>
 inline std::vector<T> prod(const std::vector<T>& left, const std::vector<T>& right) {
-    std::vector<int> res;
+    std::vector<T> res;
 
     if (left.size() == right.size()) {
         for (unsigned int i = 0; i < right.size(); i++) {

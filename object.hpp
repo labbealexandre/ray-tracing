@@ -16,20 +16,18 @@ class SCENE_BASE_OBJECT {
         std::vector<float> center;
         virtual std::vector<float> getNormal(std::vector<float> P);
         virtual std::vector<float> getIntersection(RAY L, int&);
+        virtual std::vector<float> getColor(const std::vector<float> &P);
         bool isItLit(std::vector<float> P, std::vector<float> positionLight);
         
         // TOTEST Now
         std::vector<float> getIllumination(
-            std::vector<float> L,
-            std::vector<float> N,
-            std::vector<float> V,
-            std::vector<float> R,
+            const std::vector<float>& P,
+            const std::vector<float>& L,
+            const std::vector<float>& N,
+            const std::vector<float>& V,
+            const std::vector<float>& R,
             int specular
         );
-
-        // TODO Later for recursive points
-        // std::vector<float> getReflectedRayDirection(std::vector<float> V, std::vector<float> N);
-        // std::vector<float> getRefractedRay(std::vector<float> V, std::vector<float> N);
 
         std::vector<float> getReflectedRayDirection(std::vector<float> V, std::vector<float> N);
         std::vector<float> getRefractedRayDirection(std::vector<float> V, std::vector<float> N);
@@ -86,6 +84,7 @@ class PLAN_OBJECT : public SCENE_BASE_OBJECT{
         std::vector<float> getNormal();
         std::vector<float> getNormal(std::vector<float> P);
         std::vector<float> getIntersection(RAY L, int&);
+        std::vector<float> getColor(const std::vector<float> &P);
         void print();
         void name();
 

@@ -21,8 +21,8 @@
         <coord type="width">10</coord>
         <coord type="height">10</coord>
         <coord type="focal">5</coord>
-        <coord type="n_width">500</coord>
-        <coord type="n_height">500</coord>
+        <coord type="n_width">2000</coord>
+        <coord type="n_height">2000</coord>
     </camera>
 
     <source>
@@ -46,21 +46,6 @@
         </coords>
         <coord type="radius">50</coord>
         <surface>
-            <texture>
-                <path>./texture/tile.ppm</path>
-                <coords type="center">
-                    <coord type="x">250</coord>
-                    <coord type="y">0</coord>
-                    <coord type="z">-200</coord>
-                </coords>
-                <coords type="direction">
-                    <coord type="x">0</coord>
-                    <coord type="y">0</coord>
-                    <coord type="z">1</coord>
-                </coords>
-                <coord type="width">10</coord>
-                <coord type="height">10</coord>
-            </texture>
             <coefs type="ambiant">
                 <coef type="r">1</coef>
                 <coef type="g">0</coef>
@@ -101,21 +86,6 @@
             <coord type="z">0</coord>
         </coords>
         <surface>
-            <texture>
-                <path>./texture/tile.ppm</path>
-                <coords type="center">
-                    <coord type="x">0</coord>
-                    <coord type="y">100</coord>
-                    <coord type="z">0</coord>
-                </coords>
-                <coords type="direction">
-                    <coord type="x">0</coord>
-                    <coord type="y">0</coord>
-                    <coord type="z">1</coord>
-                </coords>
-                <coord type="width">10</coord>
-                <coord type="height">10</coord>
-            </texture>
             <coefs type="ambiant">
                 <coef type="r">0</coef>
                 <coef type="g">0</coef>
@@ -156,21 +126,51 @@
             <coord type="z">0</coord>
         </coords>
         <surface>
-            <texture>
-                <path>./texture/tile.ppm</path>
-                <coords type="center">
-                    <coord type="x">500</coord>
-                    <coord type="y">0</coord>
-                    <coord type="z">0</coord>
-                </coords>
-                <coords type="direction">
-                    <coord type="x">0</coord>
-                    <coord type="y">0</coord>
-                    <coord type="z">1</coord>
-                </coords>
-                <coord type="width">10</coord>
-                <coord type="height">10</coord>
-            </texture>
+            <coefs type="ambiant">
+                <coef type="r">0</coef>
+                <coef type="g">0</coef>
+                <coef type="b">0</coef>
+            </coefs>
+            <coefs type="reflexion">
+                <coef type="r">0</coef>
+                <coef type="g">0</coef>
+                <coef type="b">0</coef>
+            </coefs>
+            <coefs type="transmission">
+                <coef type="r">0</coef>
+                <coef type="g">0</coef>
+                <coef type="b">0</coef>
+            </coefs>
+            <coefs type="diffusion">
+                <coef type="r">1</coef>
+                <coef type="g">1</coef>
+                <coef type="b">1</coef>
+            </coefs>
+            <coefs type="specular">
+                <coef type="r">0</coef>
+                <coef type="g">0</coef>
+                <coef type="b">0</coef>
+            </coefs>
+        </surface>
+    </plan>
+
+    <triangle>
+        <coords type="A">
+            <coord type="x">420</coord>
+            <coord type="y">100</coord>
+            <coord type="z">200</coord>
+        </coords>
+        <coords type="B">
+            <coord type="x">450</coord>
+            <coord type="y">100</coord>
+            <coord type="z">-200</coord>
+        </coords>
+        <coords type="C">
+            <coord type="x">450</coord>
+            <coord type="y">-100</coord>
+            <coord type="z">200</coord>
+        </coords>
+        <surface>
             <coefs type="ambiant">
                 <coef type="r">0</coef>
                 <coef type="g">0</coef>
@@ -197,5 +197,50 @@
                 <coef type="b">0</coef>
             </coefs>
         </surface>
-    </plan>
+    </triangle>
+
+    <triangle>
+        <coords type="A">
+            <coord type="x">450</coord>
+            <coord type="y">100</coord>
+            <coord type="z">-200</coord>
+        </coords>
+        <coords type="B">
+            <coord type="x">420</coord>
+            <coord type="y">-100</coord>
+            <coord type="z">-200</coord>
+        </coords>
+        <coords type="C">
+            <coord type="x">450</coord>
+            <coord type="y">-100</coord>
+            <coord type="z">200</coord>
+        </coords>
+        <surface>
+            <coefs type="ambiant">
+                <coef type="r">0</coef>
+                <coef type="g">0</coef>
+                <coef type="b">0</coef>
+            </coefs>
+            <coefs type="reflexion">
+                <coef type="r">1</coef>
+                <coef type="g">1</coef>
+                <coef type="b">1</coef>
+            </coefs>
+            <coefs type="transmission">
+                <coef type="r">0</coef>
+                <coef type="g">0</coef>
+                <coef type="b">0</coef>
+            </coefs>
+            <coefs type="diffusion">
+                <coef type="r">0</coef>
+                <coef type="g">0</coef>
+                <coef type="b">0</coef>
+            </coefs>
+            <coefs type="specular">
+                <coef type="r">0</coef>
+                <coef type="g">0</coef>
+                <coef type="b">0</coef>
+            </coefs>
+        </surface>
+    </triangle>
 </scene>

@@ -82,6 +82,7 @@
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="center"/>
                     <xsd:enumeration value="normal"/>
+                    <xsd:enumeration value="direction"/>
                     <xsd:enumeration value="A"/>
                     <xsd:enumeration value="B"/>
                     <xsd:enumeration value="C"/>
@@ -120,7 +121,19 @@
     <xsd:element name="surface">
         <xsd:complexType>
             <xsd:sequence>
+                <xsd:element ref="texture"/>
                 <xsd:element ref="coefs" minOccurs="5" maxOccurs="5"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- Élement texture -->
+    <xsd:element name="texture">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="path"/>
+                <xsd:element ref="coords" minOccurs="2" maxOccurs="2"/>
+                <xsd:element ref="coord" minOccurs="2" maxOccurs="2"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
@@ -201,5 +214,8 @@
             </xsd:simpleContent>
         </xsd:complexType>
     </xsd:element>
+
+    <!-- Élément path -->
+    <xsd:element name="path" type="xsd:string"/>
 
 </xsd:schema>

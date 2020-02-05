@@ -1,12 +1,18 @@
 #include <vector>
 #include <string>
+#include <algorithm>
+
 #include "kernel.hpp"
 #include "camera.hpp"
 #include "object.hpp"
 #include "source.hpp"
 #include "surface.hpp"
+#include "texture.hpp"
 #include "display.hpp"
 #include "tinyxml2/tinyxml2.h"
+
+std::vector<std::vector<std::vector<float>>*> colors_pointers;
+std::vector<std::string> paths;
 
 std::vector<float> loadCoords(tinyxml2::XMLHandle &hCoords) {
     std::vector<float> coords;
@@ -30,10 +36,46 @@ std::vector<int> loadColors(tinyxml2::XMLHandle &hColors) {
     return colors;
 }
 
+TEXTURE loadTexture(tinyxml2::XMLHandle &hTexture) {
+    tinyxml2::XMLHandle hPath = hTexture.FirstChildElement();
+    std::string path = hPath.ToElement()->GetText();
+
+    std::vector<std::vector<float>>* p_colors;
+    int n, m;
+
+    std::vector<std::string>::iterator it = std::find(paths.begin(), paths.end(), path);
+    if (it != paths.cend()) {
+        p_colors = colors_pointers[std::distance(paths.begin(), it)];
+    } else {
+        p_colors = loadPicture(path, n, m);
+        paths.push_back(path);
+        
+        colors_pointers.push_back(p_colors);
+    }
+
+    tinyxml2::XMLHandle hCenter = hPath.NextSiblingElement();
+    std::vector<float> center = loadCoords(hCenter);
+
+    tinyxml2::XMLHandle hDirection = hCenter.NextSiblingElement();
+    std::vector<float> direction = loadCoords(hDirection);
+
+    tinyxml2::XMLHandle hWidth = hDirection.NextSiblingElement();
+    float W = std::stof(hWidth.ToElement()->GetText());
+
+    tinyxml2::XMLHandle hHeight = hWidth.NextSiblingElement();
+    float H = std::stof(hHeight.ToElement()->GetText());
+
+    TEXTURE texture(p_colors, center, direction, W, H, n, m);
+    return texture;
+}
+
 OBJECT_BASE_SURFACE loadSurface(tinyxml2::XMLHandle &hSurface) {
     std::vector<std::vector<float>> array;
 
-    tinyxml2::XMLHandle hCoefs = hSurface.FirstChildElement();
+    tinyxml2::XMLHandle hTexture = hSurface.FirstChildElement();
+    TEXTURE texture = loadTexture(hTexture);
+
+    tinyxml2::XMLHandle hCoefs = hTexture.NextSiblingElement();
     for (int i = 0; i < 5; i++) {
         std::vector<float> coefs = loadCoords(hCoefs);
         array.push_back(coefs);
@@ -42,7 +84,8 @@ OBJECT_BASE_SURFACE loadSurface(tinyxml2::XMLHandle &hSurface) {
         hCoefs = hCoefs.NextSiblingElement();
     }
 
-    OBJECT_BASE_SURFACE surface(array[0], array[1], array[2], array[3], array[4]);
+    OBJECT_BASE_SURFACE surface(texture, array[0], array[1], array[2], array[3], array[4]);
+
     return surface;
 }
 

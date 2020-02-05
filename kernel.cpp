@@ -1,5 +1,9 @@
 #include "kernel.hpp"
 
+int total;
+int iter = 0;
+int last_p = 0;
+
 std::vector<std::vector<int>> run(
     CAMERA &camera,
     std::vector<SCENE_BASE_OBJECT*> &scene,
@@ -13,6 +17,8 @@ std::vector<std::vector<int>> run(
     std::cout << "Rays traced " << rays.size() << std::endl;
     std::vector<float> P, N, L, R, V;
     std::vector<int> I(3, 0);
+
+    total = rays.size();
 
     for (auto ray : rays) {
         colors.push_back(getColors(ray, camera.position, scene, sources, specular, ambiant, 0));
@@ -29,6 +35,9 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
                             int specular,
                             const std::vector<int> &ambiant,
                             int stack) {
+
+    
+
     int code;
     SCENE_BASE_OBJECT* p_object;
     std::vector<float> P, current_P, N, L, R, V;
@@ -67,7 +76,9 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
             if (isLit) {
                 L = source->getIncidentRay(P);
                 R = source->getReflectedRay(P, N);
-                I += source->illumination*p_object->getIllumination(L, N, V, R, specular);
+                
+                I += source->illumination*p_object->getIllumination(P, L, N, V, R, specular);
+                
             }
             I += ambiant*p_object->surface.ambiant_coefficient;
         }
@@ -78,6 +89,15 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
             std::vector<int> reflectedI = getColors(reflectedRay, P, scene, sources, specular, ambiant, stack+1)*
                                             p_object->surface.reflexion_coefficient;
             I+=reflectedI;
+        }
+    }
+
+    if (stack == 0) {
+        iter++;
+        int p = (int)(100*(float)iter / total);
+        if (p % 10 == 0 and p != last_p) {
+            std::cout << p << "%" << std::endl;
+            last_p = p;
         }
     }
 

@@ -8,3 +8,5 @@
 
 /** Construit et sauvegarde l'image **/
 void savePicture( const std::string& filename, int W, int H, const std::vector<std::vector<int>>& nbIters);
+
+std::vector<std::vector<float>>* loadPicture( const std::string& filename, int& n, int& m);
