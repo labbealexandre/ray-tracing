@@ -62,7 +62,7 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
 
         for (auto source : sources) {
             posSource=source->getPosition();
-            isLit=p_object->isItLit(P,posSource);
+            isLit=p_object->isItLit(P,posSource, scene);
             
             if (isLit) {
                 L = source->getIncidentRay(P);

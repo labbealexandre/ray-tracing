@@ -16,7 +16,7 @@ class SCENE_BASE_OBJECT {
         std::vector<float> center;
         virtual std::vector<float> getNormal(std::vector<float> P);
         virtual std::vector<float> getIntersection(RAY L, int&);
-        bool isItLit(std::vector<float> P, std::vector<float> positionLight);
+        bool isItLit(std::vector<float> P, std::vector<float> positionLight, std::vector<SCENE_BASE_OBJECT*> &scene);
         
         // TOTEST Now
         std::vector<float> getIllumination(

@@ -25,7 +25,21 @@ std::vector<float> SCENE_BASE_OBJECT::getIntersection(RAY L, int &code){
     return I;
 }
 
-bool SCENE_BASE_OBJECT::isItLit(std::vector<float> P, std::vector<float> positionLight){
+bool SCENE_BASE_OBJECT::isItLit(std::vector<float> P, std::vector<float> positionLight, std::vector<SCENE_BASE_OBJECT*> &scene){
+  int code;
+  std::vector<float> current_P;
+  float min_d = sqrt((P-positionLight)*(P-positionLight));
+  float epsilon = 1.0;
+  RAY ray=RAY(positionLight,normalise(P-positionLight));
+  for (auto object : scene) {
+    current_P = object->getIntersection(ray, code);
+    if (code) {
+      float d = sqrt((current_P-positionLight)*(current_P-positionLight));
+      if (d < min_d-epsilon) {
+        return false;
+      }
+    }
+  }
   return (this->getNormal(P)*(P-positionLight))<0;
 }
 
