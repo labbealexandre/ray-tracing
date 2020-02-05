@@ -16,7 +16,7 @@ class RAY {
 
         RAY(std::vector<float> O, std::vector<float> U) {
             origin = O;
-            direction = U;
+            direction = U;  //direction needs to be normalized!
             colors = {0, 0, 0};
         }
 

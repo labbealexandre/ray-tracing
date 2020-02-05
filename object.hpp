@@ -17,7 +17,7 @@ class SCENE_BASE_OBJECT {
         virtual std::vector<float> getNormal(std::vector<float> P);
         virtual std::vector<float> getIntersection(RAY L, int&);
         virtual std::vector<float> getColor(const std::vector<float> &P);
-        bool isItLit(std::vector<float> P, std::vector<float> positionLight);
+        bool isItLit(std::vector<float> P, std::vector<float> positionLight, std::vector<SCENE_BASE_OBJECT*> &scene);
         
         // TOTEST Now
         std::vector<float> getIllumination(
@@ -102,9 +102,9 @@ class PLAN_OBJECT : public SCENE_BASE_OBJECT{
 
 class TRIANGLE_OBJECT : public SCENE_BASE_OBJECT{
     private:
-      std::vector<float>  puntouno;
-      std::vector<float>  puntodos;
-      std::vector<float>  puntotres;
+      std::vector<float>  A;
+      std::vector<float>  B;
+      std::vector<float>  C;
     public:
         std::vector<float> getNormal();
         std::vector<float> getNormal(std::vector<float> P);
@@ -113,13 +113,13 @@ class TRIANGLE_OBJECT : public SCENE_BASE_OBJECT{
         void name();
 
         /** Constructors */
-        TRIANGLE_OBJECT(std::vector<float> pointA, std::vector<float> pointB, std::vector<float> pointC , OBJECT_BASE_SURFACE texture) {
+        TRIANGLE_OBJECT(std::vector<float> puntouno, std::vector<float> puntodos, std::vector<float> puntotres , OBJECT_BASE_SURFACE texture) {
 
           float d = 3;
-          center=(pointA+pointB+pointC)/d;
-          puntouno=pointA;
-          puntodos=pointB;
-          puntotres=pointC;
+          center=(puntouno+puntodos+puntotres)/d;
+          A=puntouno;
+          B=puntodos;
+          C=puntotres;
           surface=texture;
         }
 
