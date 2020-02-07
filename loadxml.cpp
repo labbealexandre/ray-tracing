@@ -184,21 +184,22 @@ void loadFile(  std::string file, int& specular, std::vector<int>& ambiant,
 
             TRIANGLE_OBJECT* triangle = new TRIANGLE_OBJECT(A, B, C, surface);
             scene.push_back(triangle);
-        } else if (title.compare("polygon") == 0) {
-            tinyxml2::XMLHandle hA = hObject.FirstChildElement();
-            std::vector<float> A = loadCoords(hA);
-
-            tinyxml2::XMLHandle hB = hA.NextSiblingElement();
-            std::vector<float> B = loadCoords(hB);
-
-            tinyxml2::XMLHandle hC = hB.NextSiblingElement();
-            std::vector<float> C = loadCoords(hC);
-
-            tinyxml2::XMLHandle hSurface = hC.NextSiblingElement();
-            OBJECT_BASE_SURFACE surface = loadSurface(hSurface);
-
-            TRIANGLE_OBJECT* triangle = new TRIANGLE_OBJECT(A, B, C, surface);
-            scene.push_back(triangle);
         }
+        // else if (title.compare("polygon") == 0) {
+        //     tinyxml2::XMLHandle hA = hObject.FirstChildElement();
+        //     std::vector<float> A = loadCoords(hA);
+
+        //     tinyxml2::XMLHandle hB = hA.NextSiblingElement();
+        //     std::vector<float> B = loadCoords(hB);
+
+        //     tinyxml2::XMLHandle hC = hB.NextSiblingElement();
+        //     std::vector<float> C = loadCoords(hC);
+
+        //     tinyxml2::XMLHandle hSurface = hC.NextSiblingElement();
+        //     OBJECT_BASE_SURFACE surface = loadSurface(hSurface);
+
+        //     TRIANGLE_OBJECT* triangle = new TRIANGLE_OBJECT(A, B, C, surface);
+        //     scene.push_back(triangle);
+        // }
     }
 }
