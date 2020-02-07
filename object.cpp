@@ -61,11 +61,16 @@ void SCENE_BASE_OBJECT::print() {
   surface.print();
 }
 
+int SCENE_BASE_OBJECT::type() {
+  return 0;
+}
+
 void SCENE_BASE_OBJECT::name() {
   std::cout << "I am a simple object" << std::endl;
 }
 
-std::vector<float> SCENE_BASE_OBJECT::getReflectedRayDirection(std::vector<float> V, std::vector<float> N) {
+std::vector<float> SCENE_BASE_OBJECT::getReflectedRayDirection(std::vector<float> V, std::vector<float> P) {
+  std::vector<float> N = this->getNormal(P);
   return normalise(V - 2*(V*N)*N);
 }
 
@@ -80,16 +85,19 @@ std::vector<float> SPHERE_OBJECT::getIntersection(RAY L, int &code){
     std::vector<float> D=L.direction;
     std::vector<float> V=S-center;
     float t;
-    if (pow(V*D,2)>(V*V-pow(radius,2))) {
-      if (V*D<-sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
-        t=-(V*D)-sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
-        return S+t*D;
-      } else if (V*D<sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
-        t=-(V*D)+sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
-        return S+t*D;
+    if (V*V > pow(radius, 2)) {
+      if (pow(V*D,2)>(V*V-pow(radius,2))) {
+        if (V*D<-sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
+          t=-(V*D)-sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
+          return S+t*D;
+        }
+        if (V*D<sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
+          t=-(V*D)+sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
+          return S+t*D;
+        }
       }
     }
-    code=0;
+    code = 0;
     return S;
 }
 
@@ -101,6 +109,10 @@ void SPHERE_OBJECT::print(){
 
 void SPHERE_OBJECT::name(){
   std::cout << "I am a sphere" << std::endl;
+}
+
+int SPHERE_OBJECT::type() {
+  return 1;
 }
 
 std::vector<float> PLAN_OBJECT::getNormal(){
@@ -157,6 +169,10 @@ void PLAN_OBJECT::name(){
   std::cout << "I am a plan" << std::endl;
 }
 
+int PLAN_OBJECT::type() {
+  return 2;
+}
+
 std::vector<float> TRIANGLE_OBJECT::getNormal(){
     return CrossProduct((B-A),(C-A));
 }
@@ -196,4 +212,8 @@ void TRIANGLE_OBJECT::print(){
 
 void TRIANGLE_OBJECT::name(){
   std::cout << "I am a triangle" << std::endl;
+}
+
+int TRIANGLE_OBJECT::type() {
+  return 3;
 }

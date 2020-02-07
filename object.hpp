@@ -17,6 +17,7 @@ class SCENE_BASE_OBJECT {
         virtual std::vector<float> getNormal(std::vector<float> P);
         virtual std::vector<float> getIntersection(RAY L, int&);
         virtual std::vector<float> getColor(const std::vector<float> &P);
+        virtual int type();
         bool isItLit(std::vector<float> P, std::vector<float> positionLight, std::vector<SCENE_BASE_OBJECT*> &scene);
         
         // TOTEST Now
@@ -29,7 +30,7 @@ class SCENE_BASE_OBJECT {
             int specular
         );
 
-        std::vector<float> getReflectedRayDirection(std::vector<float> V, std::vector<float> N);
+        std::vector<float> getReflectedRayDirection(std::vector<float> V, std::vector<float> P);
         std::vector<float> getRefractedRayDirection(std::vector<float> V, std::vector<float> N);
 
         virtual void print();
@@ -56,6 +57,7 @@ class SPHERE_OBJECT : public SCENE_BASE_OBJECT{
         std::vector<float> getIntersection(RAY L, int&);
         void print();
         void name();
+        int type();
 
         /** Constructors */
         SPHERE_OBJECT() {
@@ -87,6 +89,7 @@ class PLAN_OBJECT : public SCENE_BASE_OBJECT{
         std::vector<float> getColor(const std::vector<float> &P);
         void print();
         void name();
+        int type();
 
         /** Constructors */
         PLAN_OBJECT(std::vector<float> point, std::vector<float> vect , OBJECT_BASE_SURFACE texture) {
@@ -111,6 +114,7 @@ class TRIANGLE_OBJECT : public SCENE_BASE_OBJECT{
         std::vector<float> getIntersection(RAY L, int&);
         void print();
         void name();
+        int type();
 
         /** Constructors */
         TRIANGLE_OBJECT(std::vector<float> puntouno, std::vector<float> puntodos, std::vector<float> puntotres , OBJECT_BASE_SURFACE texture) {

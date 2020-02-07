@@ -48,6 +48,7 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
         current_P = object->getIntersection(ray, code);
         if (code) {
             float d = sqrt((current_P-origin)*(current_P-origin));
+
             if (d > epsilon) {
                 if ((!reach || d < min_d)) {
                     min_d = d;
@@ -80,8 +81,8 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
             I += ambiant*p_object->surface.ambiant_coefficient;
         }
 
-        if (stack < 3) {
-            std::vector<float> direction = p_object->getReflectedRayDirection(V, N);
+        if (stack < 2) {
+            std::vector<float> direction = p_object->getReflectedRayDirection(V, P);
             RAY reflectedRay(P, direction);
             std::vector<int> reflectedI = getColors(reflectedRay, P, scene, sources, specular, ambiant, stack+1)*
                                             p_object->surface.reflexion_coefficient;
