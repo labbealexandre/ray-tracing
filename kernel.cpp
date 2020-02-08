@@ -11,10 +11,15 @@ std::vector<std::vector<int>> run(
     int specular,
     std::vector<int> &ambiant
 ) {
+    unsigned D,E,F,G;
     std::vector<std::vector<int>> colors;
-
+    D=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+    
     std::vector<RAY> rays = camera.traceRays();
-    std::cout << "Rays traced " << rays.size() << std::endl;
+
+    E=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+    std::cout << "traced " << rays.size() << " rays in : "<< ((float)(E - D))/1000 << " s" << std::endl;
+
     std::vector<float> P, N, L, R, V;
     std::vector<int> I(3, 0);
 
@@ -46,12 +51,13 @@ std::vector<std::vector<int>> run(
             }
         }
     }
-
+    F=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+    std::cout << "light sources generated in : "<< ((float)(F - E))/1000 << " s" << std::endl;
     for (auto ray : rays) {
         colors.push_back(getColors(ray, camera.position, scene, sources, specular, ambiant, 0));
     }
-
-    std::cout << "the pixels are computed" << std::endl;
+    G=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+    std::cout << "the pixels have been computed in " << ((float)(G - F))/1000 << "s" << std::endl;
 
     return colors;
 }
@@ -119,7 +125,7 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
     if (stack == 0) {
         iter++;
         int p = (int)(100*(float)iter / total);
-        if (p % 10 == 0 and p != last_p) {
+        if (p % 25 == 0 and p != last_p) {
             std::cout << p << "%" << std::endl;
             last_p = p;
         }

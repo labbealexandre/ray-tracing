@@ -2,6 +2,8 @@
 #define KERNEL_HPP
 
 # include <cmath>
+#include <chrono>
+#include <iostream>
 # include "object.hpp"
 # include "source.hpp"
 # include "camera.hpp"
