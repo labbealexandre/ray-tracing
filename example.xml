@@ -21,8 +21,8 @@
         <coord type="width">10</coord>
         <coord type="height">10</coord>
         <coord type="focal">5</coord>
-        <coord type="n_width">2000</coord>
-        <coord type="n_height">2000</coord>
+        <coord type="n_width">500</coord>
+        <coord type="n_height">500</coord>
     </camera>
 
     <source>
@@ -177,9 +177,9 @@
                 <coef type="b">0</coef>
             </coefs>
             <coefs type="reflexion">
-                <coef type="r">1</coef>
-                <coef type="g">1</coef>
-                <coef type="b">1</coef>
+                <coef type="r">0.5</coef>
+                <coef type="g">0.55</coef>
+                <coef type="b">0.5</coef>
             </coefs>
             <coefs type="transmission">
                 <coef type="r">0</coef>

@@ -20,6 +20,33 @@ std::vector<std::vector<int>> run(
 
     total = rays.size();
 
+    // Adding the reflexions of lightsources
+
+    std::vector<float> zer={0,0,0};
+    for (auto object : scene){
+        if(object->ObjID()==2 && object->surface.reflexion_coefficient!=zer){
+            object->name();
+            std::vector<LIGHT_SOURCE*> newsources;
+            std::vector<float> newcenter;
+            std::vector<int> newcolors;
+            std::vector<float> C=object->center;
+            std::vector<float> N=object->getNormal(C);
+            int i =0;
+            for (auto source : sources) {
+                std::cout << i << std::endl;
+                i++;
+                std::vector<float> S=source->getPosition();
+                newcenter=S-2*((S-C)*N)*N;
+                newcolors=source->illumination*object->surface.reflexion_coefficient;
+                LIGHT_SOURCE* newsource = new LIGHT_SOURCE(newcenter, newcolors);
+                newsources.push_back(newsource);
+            }
+            for (auto newsource : newsources) {
+                sources.push_back(newsource);
+            }
+        }
+    }
+
     for (auto ray : rays) {
         colors.push_back(getColors(ray, camera.position, scene, sources, specular, ambiant, 0));
     }
@@ -43,7 +70,6 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
     float min_d = 0;
     bool reach = false;
     float epsilon = 1e-04;
-
     for (auto object : scene) {
         current_P = object->getIntersection(ray, code);
         if (code) {
@@ -79,8 +105,8 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
             }
             I += ambiant*p_object->surface.ambiant_coefficient;
         }
-
-        if (stack < 3) {
+        std::vector<float> zer={0,0,0};
+        if (stack < 3 && p_object->surface.reflexion_coefficient!=zer) {
             std::vector<float> direction = p_object->getReflectedRayDirection(V, N);
             RAY reflectedRay(P, direction);
             std::vector<int> reflectedI = getColors(reflectedRay, P, scene, sources, specular, ambiant, stack+1)*

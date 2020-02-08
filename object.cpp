@@ -10,7 +10,7 @@ std::vector<float> SCENE_BASE_OBJECT::getIllumination(
 ){
     float s;
     if (V*R > 0) s = V*R;
-    else s = 0;
+    else s = 0; 
     
     auto I = std::abs((L*N))*prod(surface.diffuse_coefficient, this->getColor(P)) +
               (float)pow(s, specular)*surface.specular_coefficient;
@@ -65,14 +65,15 @@ void SCENE_BASE_OBJECT::name() {
   std::cout << "I am a simple object" << std::endl;
 }
 
+int SCENE_BASE_OBJECT::ObjID() {
+  return 0;
+}
+
 std::vector<float> SCENE_BASE_OBJECT::getReflectedRayDirection(std::vector<float> V, std::vector<float> N) {
   return normalise(V - 2*(V*N)*N);
 }
 
-std::vector<float> SPHERE_OBJECT::getNormal(std::vector<float> P){
-    std::vector<float> N;
-    return normalise(P-center);
-}
+std::vector<float> SPHERE_OBJECT::getNormal(std::vector<float> P){return normalise(P-center);}
 
 std::vector<float> SPHERE_OBJECT::getIntersection(RAY L, int &code){
     code=1;
@@ -101,6 +102,10 @@ void SPHERE_OBJECT::print(){
 
 void SPHERE_OBJECT::name(){
   std::cout << "I am a sphere" << std::endl;
+}
+
+int SPHERE_OBJECT::ObjID() {
+  return 1;
 }
 
 std::vector<float> PLAN_OBJECT::getNormal(){
@@ -157,6 +162,10 @@ void PLAN_OBJECT::name(){
   std::cout << "I am a plan" << std::endl;
 }
 
+int PLAN_OBJECT::ObjID() {
+  return 2;
+}
+
 std::vector<float> TRIANGLE_OBJECT::getNormal(){
     return CrossProduct((B-A),(C-A));
 }
@@ -196,4 +205,8 @@ void TRIANGLE_OBJECT::print(){
 
 void TRIANGLE_OBJECT::name(){
   std::cout << "I am a triangle" << std::endl;
+}
+
+int TRIANGLE_OBJECT::ObjID() {
+  return 3;
 }

@@ -17,6 +17,7 @@ class SCENE_BASE_OBJECT {
         virtual std::vector<float> getNormal(std::vector<float> P);
         virtual std::vector<float> getIntersection(RAY L, int&);
         virtual std::vector<float> getColor(const std::vector<float> &P);
+        virtual int ObjID();
         bool isItLit(std::vector<float> P, std::vector<float> positionLight, std::vector<SCENE_BASE_OBJECT*> &scene);
         
         // TOTEST Now
@@ -56,6 +57,7 @@ class SPHERE_OBJECT : public SCENE_BASE_OBJECT{
         std::vector<float> getIntersection(RAY L, int&);
         void print();
         void name();
+        int ObjID();
 
         /** Constructors */
         SPHERE_OBJECT() {
@@ -85,6 +87,7 @@ class PLAN_OBJECT : public SCENE_BASE_OBJECT{
         std::vector<float> getNormal(std::vector<float> P);
         std::vector<float> getIntersection(RAY L, int&);
         std::vector<float> getColor(const std::vector<float> &P);
+        int ObjID();
         void print();
         void name();
 
@@ -111,6 +114,7 @@ class TRIANGLE_OBJECT : public SCENE_BASE_OBJECT{
         std::vector<float> getIntersection(RAY L, int&);
         void print();
         void name();
+        int ObjID();
 
         /** Constructors */
         TRIANGLE_OBJECT(std::vector<float> puntouno, std::vector<float> puntodos, std::vector<float> puntotres , OBJECT_BASE_SURFACE texture) {
