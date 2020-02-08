@@ -61,15 +61,16 @@ void SCENE_BASE_OBJECT::print() {
   surface.print();
 }
 
+int SCENE_BASE_OBJECT::type() {
+  return 0;
+}
+
 void SCENE_BASE_OBJECT::name() {
   std::cout << "I am a simple object" << std::endl;
 }
 
-int SCENE_BASE_OBJECT::ObjID() {
-  return 0;
-}
-
-std::vector<float> SCENE_BASE_OBJECT::getReflectedRayDirection(std::vector<float> V, std::vector<float> N) {
+std::vector<float> SCENE_BASE_OBJECT::getReflectedRayDirection(std::vector<float> V, std::vector<float> P) {
+  std::vector<float> N = this->getNormal(P);
   return normalise(V - 2*(V*N)*N);
 }
 
@@ -81,16 +82,19 @@ std::vector<float> SPHERE_OBJECT::getIntersection(RAY L, int &code){
     std::vector<float> D=L.direction;
     std::vector<float> V=S-center;
     float t;
-    if (pow(V*D,2)>(V*V-pow(radius,2))) {
-      if (V*D<-sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
-        t=-(V*D)-sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
-        return S+t*D;
-      } else if (V*D<sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
-        t=-(V*D)+sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
-        return S+t*D;
+    if (V*V > pow(radius, 2)) {
+      if (pow(V*D,2)>(V*V-pow(radius,2))) {
+        if (V*D<-sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
+          t=-(V*D)-sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
+          return S+t*D;
+        }
+        if (V*D<sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
+          t=-(V*D)+sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
+          return S+t*D;
+        }
       }
     }
-    code=0;
+    code = 0;
     return S;
 }
 
@@ -104,7 +108,7 @@ void SPHERE_OBJECT::name(){
   std::cout << "I am a sphere" << std::endl;
 }
 
-int SPHERE_OBJECT::ObjID() {
+int SPHERE_OBJECT::type() {
   return 1;
 }
 
@@ -162,7 +166,7 @@ void PLAN_OBJECT::name(){
   std::cout << "I am a plan" << std::endl;
 }
 
-int PLAN_OBJECT::ObjID() {
+int PLAN_OBJECT::type() {
   return 2;
 }
 
@@ -207,6 +211,6 @@ void TRIANGLE_OBJECT::name(){
   std::cout << "I am a triangle" << std::endl;
 }
 
-int TRIANGLE_OBJECT::ObjID() {
+int TRIANGLE_OBJECT::type() {
   return 3;
 }

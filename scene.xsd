@@ -13,6 +13,7 @@
                 <xsd:element ref="sphere" minOccurs="0" maxOccurs="unbounded" />
                 <xsd:element ref="plan" minOccurs="0" maxOccurs="unbounded" />
                 <xsd:element ref="triangle" minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element ref="polygon" minOccurs="0" maxOccurs="unbounded" />
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
@@ -71,6 +72,17 @@
         </xsd:complexType>
     </xsd:element>
 
+    <!-- Elément polygon -->
+    <xsd:element name="polygon">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="coords" minOccurs="3" maxOccurs="unbounded"/>
+                <xsd:element ref="surface"/>
+            </xsd:sequence>
+            <xsd:attribute name="corners" type="xsd:int" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+
     <!-- Élément coords -->
     <xsd:element name="coords">
         <xsd:complexType>
@@ -83,9 +95,7 @@
                     <xsd:enumeration value="center"/>
                     <xsd:enumeration value="normal"/>
                     <xsd:enumeration value="direction"/>
-                    <xsd:enumeration value="A"/>
-                    <xsd:enumeration value="B"/>
-                    <xsd:enumeration value="C"/>
+                    <xsd:enumeration value="corner"/>
                 </xsd:restriction>
                 </xsd:simpleType>
             </xsd:attribute>
@@ -180,10 +190,12 @@
     <!-- Élement source -->
     <xsd:element name="source">
         <xsd:complexType>
+            
             <xsd:sequence>
                 <xsd:element ref="coords"/>
                 <xsd:element ref="colors"/>
             </xsd:sequence>
+            
         </xsd:complexType>
     </xsd:element>
 
