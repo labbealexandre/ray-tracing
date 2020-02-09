@@ -12,7 +12,7 @@ std::vector<int> multiply(std::vector<float> &coef, std::vector<int> &colors) {
     return res;
 }
 
-void OBJECT_BASE_SURFACE::print(){
+void Surface::print(){
     std::cout << "ambiant ";
     for (int i = 0; i < 3; i++)
         std::cout << ambiant_coefficient[i] << " ";

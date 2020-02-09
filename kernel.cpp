@@ -5,9 +5,9 @@ int iter = 0;
 int last_p = 0;
 
 std::vector<std::vector<int>> run(
-    CAMERA &camera,
-    std::vector<SCENE_BASE_OBJECT*> &scene,
-    std::vector<LIGHT_SOURCE*> &sources,
+    Camera &camera,
+    std::vector<SceneBaseObject*> &scene,
+    std::vector<LightSource*> &sources,
     int specular,
     std::vector<int> &ambiant
 ) {
@@ -30,14 +30,14 @@ std::vector<std::vector<int>> run(
 }
 
 std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
-                            std::vector<SCENE_BASE_OBJECT*> &scene,
-                            std::vector<LIGHT_SOURCE*> &sources,
+                            std::vector<SceneBaseObject*> &scene,
+                            std::vector<LightSource*> &sources,
                             int specular,
                             const std::vector<int> &ambiant,
                             int stack) {
 
     int code;
-    SCENE_BASE_OBJECT* p_object;
+    SceneBaseObject* p_object;
     std::vector<float> P, current_P, N, L, R, V;
     std::vector<int> I(3, 0);
     float min_d = 0;
@@ -76,7 +76,6 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
                 L = source->getIncidentRay(P);
                 R = source->getReflectedRay(P, N);
                 I += source->illumination*p_object->getIllumination(P, L, N, V, R, specular);
-                
             }
             I += ambiant*p_object->surface.ambiant_coefficient;
         }

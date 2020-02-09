@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-class TEXTURE {
+class Texture {
 
   public:
     std::vector<std::vector<float>>* p_colors;
@@ -16,7 +16,7 @@ class TEXTURE {
     int m;
 
     /** Constructors */
-    TEXTURE() {
+    Texture() {
       p_colors = NULL;
       center = {0, 0, 0};
       direction = {1, 0, 0};
@@ -26,7 +26,7 @@ class TEXTURE {
       m = 100;
     };
 
-    TEXTURE(std::vector<std::vector<float>>* p_col, const std::vector<float>& c,
+    Texture(std::vector<std::vector<float>>* p_col, const std::vector<float>& c,
             const std::vector<float>& d, const float& W, const float& H, const int& nWidth, const int& nHeight) {
 
       p_colors = p_col;
@@ -39,7 +39,7 @@ class TEXTURE {
     };
 
     /** Destructor */
-    ~TEXTURE(){}
+    ~Texture(){}
 };
 
 #endif

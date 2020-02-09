@@ -26,7 +26,7 @@ std::vector<int> loadColors(tinyxml2::XMLHandle &hColors) {
     return colors;
 }
 
-TEXTURE loadTexture(tinyxml2::XMLHandle &hTexture) {
+Texture loadTexture(tinyxml2::XMLHandle &hTexture) {
     tinyxml2::XMLHandle hPath = hTexture.FirstChildElement();
     std::string path = hPath.ToElement()->GetText();
 
@@ -60,15 +60,15 @@ TEXTURE loadTexture(tinyxml2::XMLHandle &hTexture) {
     tinyxml2::XMLHandle hHeight = hWidth.NextSiblingElement();
     float H = std::stof(hHeight.ToElement()->GetText());
 
-    TEXTURE texture(p_colors, center, direction, W, H, n, m);
+    Texture texture(p_colors, center, direction, W, H, n, m);
     return texture;
 }
 
-OBJECT_BASE_SURFACE loadSurface(tinyxml2::XMLHandle &hSurface) {
+Surface loadSurface(tinyxml2::XMLHandle &hSurface) {
     std::vector<std::vector<float>> array;
 
     tinyxml2::XMLHandle hTexture = hSurface.FirstChildElement();
-    TEXTURE texture = loadTexture(hTexture);
+    Texture texture = loadTexture(hTexture);
 
     tinyxml2::XMLHandle hCoefs = hTexture.NextSiblingElement();
     for (int i = 0; i < 5; i++) {
@@ -79,14 +79,14 @@ OBJECT_BASE_SURFACE loadSurface(tinyxml2::XMLHandle &hSurface) {
         hCoefs = hCoefs.NextSiblingElement();
     }
 
-    OBJECT_BASE_SURFACE surface(texture, array[0], array[1], array[2], array[3], array[4]);
+    Surface surface(texture, array[0], array[1], array[2], array[3], array[4]);
 
     return surface;
 }
 
 void loadFile(  std::string file, int& specular, std::vector<int>& ambiant,
-                CAMERA& camera, std::vector<LIGHT_SOURCE*>& sources,
-                std::vector<SCENE_BASE_OBJECT*>& scene, int& n, int& m) {
+                Camera& camera, std::vector<LightSource*>& sources,
+                std::vector<SceneBaseObject*>& scene, int& n, int& m) {
 
     tinyxml2::XMLDocument doc;
 	doc.LoadFile(file.data());
@@ -124,7 +124,7 @@ void loadFile(  std::string file, int& specular, std::vector<int>& ambiant,
             tinyxml2::XMLHandle hNHeight = hNWidth.NextSiblingElement();
             m = std::stoi(hNHeight.ToElement()->GetText());
 
-            camera = CAMERA(center, W, H, focal, n, m);
+            camera = Camera(center, W, H, focal, n, m);
 
         } else if (title.compare("params") == 0) {
             tinyxml2::XMLHandle hSpecular = hObject.FirstChildElement();
@@ -140,13 +140,13 @@ void loadFile(  std::string file, int& specular, std::vector<int>& ambiant,
             tinyxml2::XMLHandle hColors = hCenter.NextSiblingElement();
             std::vector<int> colors = loadColors(hColors);
 
-            LIGHT_SOURCE* source = new LIGHT_SOURCE(center, colors);
+            LightSource* source = new LightSource(center, colors);
             sources.push_back(source);
 
         } else {
 
             tinyxml2::XMLHandle h = hObject.FirstChildElement();
-            OBJECT_BASE_SURFACE surface = loadSurface(h);
+            Surface surface = loadSurface(h);
 
             h = h.NextSiblingElement();
             float n1 = std::stof(h.ToElement()->GetText());
@@ -161,7 +161,7 @@ void loadFile(  std::string file, int& specular, std::vector<int>& ambiant,
                 h = h.NextSiblingElement();
                 float radius = std::stof(h.ToElement()->GetText());
 
-                SPHERE_OBJECT* sphere = new SPHERE_OBJECT(center, radius, surface, n1, n2);
+                Sphere* sphere = new Sphere(center, radius, surface, n1, n2);
                 scene.push_back(sphere);
 
             } else if (title.compare("plan") == 0) {
@@ -171,7 +171,7 @@ void loadFile(  std::string file, int& specular, std::vector<int>& ambiant,
                 h = h.NextSiblingElement();
                 std::vector<float> normal = loadCoords(h);
 
-                PLAN_OBJECT* plan = new PLAN_OBJECT(center, normal, surface, n1, n2);
+                Plan* plan = new Plan(center, normal, surface, n1, n2);
                 scene.push_back(plan);
                 
             } else if (title.compare("triangle") == 0) {
@@ -187,7 +187,7 @@ void loadFile(  std::string file, int& specular, std::vector<int>& ambiant,
                 h = h.NextSiblingElement();
                 std::vector<float> C = loadCoords(h);
 
-                TRIANGLE_OBJECT* triangle = new TRIANGLE_OBJECT(N, A, B, C, surface, n1, n2);
+                Triangle* triangle = new Triangle(N, A, B, C, surface, n1, n2);
                 scene.push_back(triangle);
             }
             else if (title.compare("polygon") == 0) {
@@ -205,7 +205,7 @@ void loadFile(  std::string file, int& specular, std::vector<int>& ambiant,
                     corners.push_back(loadCoords(h));
                 }
 
-                std::vector<TRIANGLE_OBJECT*> triangles = polyToTriangles(N, corners, surface, n1, n2);
+                std::vector<Triangle*> triangles = polyToTriangles(N, corners, surface, n1, n2);
                 scene.insert(scene.end(), triangles.begin(), triangles.end());
             }
         }
@@ -213,10 +213,10 @@ void loadFile(  std::string file, int& specular, std::vector<int>& ambiant,
 }
 
 // TODO : end the spliting into triangles
-std::vector<TRIANGLE_OBJECT*> polyToTriangles(std::vector<float> N, std::vector<std::vector<float>>& corners,
-                                            OBJECT_BASE_SURFACE& surface, float n1, float n2) {
+std::vector<Triangle*> polyToTriangles(std::vector<float> N, std::vector<std::vector<float>>& corners,
+                                            Surface& surface, float n1, float n2) {
 
-    std::vector<TRIANGLE_OBJECT*> triangles;
+    std::vector<Triangle*> triangles;
     std::vector<float> n = normalise(corners[corners.size()/2] - corners[0]);
 
     std::vector<std::tuple<float, std::vector<float>*, int>> heights;
@@ -248,7 +248,7 @@ std::vector<TRIANGLE_OBJECT*> polyToTriangles(std::vector<float> N, std::vector<
 
     return triangles;
 
-    // std::vector<TRIANGLE_OBJECT> triangles;
+    // std::vector<Triangle> triangles;
 
     // std::vector<std::vector<float>> edges;
     // std::vector<float> n = normalise(corners[corners.size()/2] - corners[0]);
@@ -269,10 +269,10 @@ std::vector<TRIANGLE_OBJECT*> polyToTriangles(std::vector<float> N, std::vector<
 }
 
 void monotoneToTriangles(std::vector<float> N, std::vector<std::tuple<float, std::vector<float>*, int>>& heights,
-                        std::vector<TRIANGLE_OBJECT*>& triangles, OBJECT_BASE_SURFACE& surface, float n1, float n2) {
+                        std::vector<Triangle*>& triangles, Surface& surface, float n1, float n2) {
     
     unsigned int s = heights.size();
-    TRIANGLE_OBJECT* triangle = new TRIANGLE_OBJECT(N, *std::get<1>(heights[s-1]), *std::get<1>(heights[s-2]),
+    Triangle* triangle = new Triangle(N, *std::get<1>(heights[s-1]), *std::get<1>(heights[s-2]),
                             *std::get<1>(heights[s-3]), surface, n1, n2);
 
     triangles.push_back(triangle);

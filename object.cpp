@@ -1,6 +1,6 @@
 #include "object.hpp"
 
-std::vector<float> SCENE_BASE_OBJECT::getIllumination(
+std::vector<float> SceneBaseObject::getIllumination(
     const std::vector<float>& P,
     const std::vector<float>& L,
     const std::vector<float>& N,
@@ -20,22 +20,22 @@ std::vector<float> SCENE_BASE_OBJECT::getIllumination(
     return I;
 }
 
-std::vector<float> SCENE_BASE_OBJECT::getNormal(std::vector<float> P){
+std::vector<float> SceneBaseObject::getNormal(std::vector<float> P){
     std::vector<float> N;
     return N;
 }
 
-std::vector<float> SCENE_BASE_OBJECT::getIntersection(RAY L, int &code){
+std::vector<float> SceneBaseObject::getIntersection(RAY L, int &code){
     std::vector<float> I;
     return I;
 }
 
-std::vector<float> SCENE_BASE_OBJECT::getColor(const std::vector<float> &P) {
+std::vector<float> SceneBaseObject::getColor(const std::vector<float> &P) {
   std::vector<float> res(3, 1);
   return res;
 }
 
-bool SCENE_BASE_OBJECT::isItLit(std::vector<float> P, std::vector<float> positionLight, std::vector<SCENE_BASE_OBJECT*> &scene){
+bool SceneBaseObject::isItLit(std::vector<float> P, std::vector<float> positionLight, std::vector<SceneBaseObject*> &scene){
   int code;
   std::vector<float> current_P;
   float min_d = sqrt((P-positionLight)*(P-positionLight));
@@ -53,7 +53,7 @@ bool SCENE_BASE_OBJECT::isItLit(std::vector<float> P, std::vector<float> positio
   return (this->getNormal(P)*(P-positionLight))<0;
 }
 
-void SCENE_BASE_OBJECT::print() {
+void SceneBaseObject::print() {
   std::cout << "center ";
   for (int i = 0; i < 3; i++) 
     std::cout << center[i] << " ";
@@ -61,20 +61,20 @@ void SCENE_BASE_OBJECT::print() {
   surface.print();
 }
 
-int SCENE_BASE_OBJECT::type() {
+int SceneBaseObject::type() {
   return 0;
 }
 
-void SCENE_BASE_OBJECT::name() {
+void SceneBaseObject::name() {
   std::cout << "I am a simple object" << std::endl;
 }
 
-std::vector<float> SCENE_BASE_OBJECT::getReflectedRayDirection(std::vector<float> V, std::vector<float> P) {
+std::vector<float> SceneBaseObject::getReflectedRayDirection(std::vector<float> V, std::vector<float> P) {
   std::vector<float> N = this->getNormal(P);
   return normalise(V - 2*(V*N)*N);
 }
 
-std::vector<float> SCENE_BASE_OBJECT::getRefractedRayDirection(std::vector<float> V, std::vector<float> P, int& code) {
+std::vector<float> SceneBaseObject::getRefractedRayDirection(std::vector<float> V, std::vector<float> P, int& code) {
   std::vector<float> N = this->getNormal(P);
   
   code = 0;
@@ -97,12 +97,12 @@ std::vector<float> SCENE_BASE_OBJECT::getRefractedRayDirection(std::vector<float
   return res;
 }
 
-std::vector<float> SPHERE_OBJECT::getNormal(std::vector<float> P){
+std::vector<float> Sphere::getNormal(std::vector<float> P){
     std::vector<float> N;
     return normalise(P-center);
 }
 
-std::vector<float> SPHERE_OBJECT::getIntersection(RAY L, int &code){
+std::vector<float> Sphere::getIntersection(RAY L, int &code){
     code=1;
     std::vector<float> S=L.origin;
     std::vector<float> D=L.direction;
@@ -112,11 +112,11 @@ std::vector<float> SPHERE_OBJECT::getIntersection(RAY L, int &code){
       if (pow(V*D,2)>(V*V-pow(radius,2))) {
         if (V*D<-sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
           t=-(V*D)-sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
-          return S+t*D;
+          if (t > 0) return S+t*D;
         }
         if (V*D<sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
           t=-(V*D)+sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
-          return S+t*D;
+          if (t > 0) return S+t*D;
         }
       }
     }
@@ -125,28 +125,28 @@ std::vector<float> SPHERE_OBJECT::getIntersection(RAY L, int &code){
 }
 
 
-void SPHERE_OBJECT::print(){
-  SCENE_BASE_OBJECT::print();
+void Sphere::print(){
+  SceneBaseObject::print();
   std::cout << "radius " << radius << std::endl;
 }
 
-void SPHERE_OBJECT::name(){
+void Sphere::name(){
   std::cout << "I am a sphere" << std::endl;
 }
 
-int SPHERE_OBJECT::type() {
+int Sphere::type() {
   return 1;
 }
 
-std::vector<float> PLAN_OBJECT::getNormal(){
+std::vector<float> Plan::getNormal(){
     return normal;
 }
 
-std::vector<float> PLAN_OBJECT::getNormal(std::vector<float> P){
+std::vector<float> Plan::getNormal(std::vector<float> P){
     return normal;
 }
 
-std::vector<float> PLAN_OBJECT::getIntersection(RAY L, int &code) {
+std::vector<float> Plan::getIntersection(RAY L, int &code) {
     code=1;
     std::vector<float> S=L.origin;
     std::vector<float> D=L.direction;
@@ -159,7 +159,7 @@ std::vector<float> PLAN_OBJECT::getIntersection(RAY L, int &code) {
     }
 }
 
-std::vector<float> PLAN_OBJECT::getColor(const std::vector<float> &P) {
+std::vector<float> Plan::getColor(const std::vector<float> &P) {
   
   std::vector<float> U = P-surface.texture.center;
 
@@ -180,33 +180,33 @@ std::vector<float> PLAN_OBJECT::getColor(const std::vector<float> &P) {
   return *p_color;
 }
 
-void PLAN_OBJECT::print(){
-  SCENE_BASE_OBJECT::print();
+void Plan::print(){
+  SceneBaseObject::print();
   std::cout << "normal ";
   for (int i = 0; i < 3; i++)
     std::cout << normal[i] << " ";
   std::cout << std::endl;
 }
 
-void PLAN_OBJECT::name(){
+void Plan::name(){
   std::cout << "I am a plan" << std::endl;
 }
 
-int PLAN_OBJECT::type() {
+int Plan::type() {
   return 2;
 }
 
-std::vector<float> TRIANGLE_OBJECT::getNormal(){
+std::vector<float> Triangle::getNormal(){
     // return CrossProduct((B-A),(C-A));
     return normal;
 }
 
-std::vector<float> TRIANGLE_OBJECT::getNormal(std::vector<float> P){
+std::vector<float> Triangle::getNormal(std::vector<float> P){
     // return CrossProduct((B-A),(C-A));
     return normal;
 }
 
-std::vector<float> TRIANGLE_OBJECT::getIntersection(RAY L, int &code){
+std::vector<float> Triangle::getIntersection(RAY L, int &code){
     code=1;
     std::vector<float> S=L.origin;
     std::vector<float> D=L.direction;
@@ -231,14 +231,14 @@ std::vector<float> TRIANGLE_OBJECT::getIntersection(RAY L, int &code){
     }
 }
 
-void TRIANGLE_OBJECT::print(){
-  SCENE_BASE_OBJECT::print();
+void Triangle::print(){
+  SceneBaseObject::print();
 }
 
-void TRIANGLE_OBJECT::name(){
+void Triangle::name(){
   std::cout << "I am a triangle" << std::endl;
 }
 
-int TRIANGLE_OBJECT::type() {
+int Triangle::type() {
   return 3;
 }

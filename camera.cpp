@@ -1,6 +1,6 @@
 #include "camera.hpp"
 
-std::vector<RAY> CAMERA::traceRays() {
+std::vector<RAY> Camera::traceRays() {
     std::vector<RAY> rays;
     for (int i = 0; i < pixels_per_row; i++) {
         for (int j = 0; j < pixels_per_column; j++) {
