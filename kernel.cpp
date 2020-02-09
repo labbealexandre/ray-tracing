@@ -11,20 +11,53 @@ std::vector<std::vector<int>> run(
     int specular,
     std::vector<int> &ambiant
 ) {
+    unsigned D,E,F,G;
     std::vector<std::vector<int>> colors;
-
+    D=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+    
     std::vector<RAY> rays = camera.traceRays();
-    std::cout << "Rays traced " << rays.size() << std::endl;
+
+    E=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+    std::cout << "traced " << rays.size() << " rays in : "<< ((float)(E - D))/1000 << " s" << std::endl;
+
     std::vector<float> P, N, L, R, V;
     std::vector<int> I(3, 0);
 
     total = rays.size();
 
+    // Adding the reflexions of lightsources
+
+    std::vector<float> zer={0,0,0};
+    for (auto object : scene){
+        if(object->type()==2 && object->surface.reflexion_coefficient!=zer){
+            object->name();
+            std::vector<LIGHT_SOURCE*> newsources;
+            std::vector<float> newcenter;
+            std::vector<int> newcolors;
+            std::vector<float> C=object->center;
+            std::vector<float> N=object->getNormal(C);
+            int i =0;
+            for (auto source : sources) {
+                std::cout << i << std::endl;
+                i++;
+                std::vector<float> S=source->getPosition();
+                newcenter=S-2*((S-C)*N)*N;
+                newcolors=source->illumination*object->surface.reflexion_coefficient;
+                LIGHT_SOURCE* newsource = new LIGHT_SOURCE(newcenter, newcolors);
+                newsources.push_back(newsource);
+            }
+            for (auto newsource : newsources) {
+                sources.push_back(newsource);
+            }
+        }
+    }
+    F=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+    std::cout << "light sources generated in : "<< ((float)(F - E))/1000 << " s" << std::endl;
     for (auto ray : rays) {
         colors.push_back(getColors(ray, camera.position, scene, sources, specular, ambiant, 0));
     }
-
-    std::cout << "the pixels are computed" << std::endl;
+    G=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+    std::cout << "the pixels have been computed in " << ((float)(G - F))/1000 << "s" << std::endl;
 
     return colors;
 }
@@ -43,7 +76,6 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
     float min_d = 0;
     bool reach = false;
     float epsilon = 1e-04;
-
     for (auto object : scene) {
         current_P = object->getIntersection(ray, code);
         if (code) {
@@ -79,8 +111,8 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
             }
             I += ambiant*p_object->surface.ambiant_coefficient;
         }
-
-        if (stack < 2) {
+        std::vector<float> zer={0,0,0};
+        if (stack < 2 && p_object->surface.reflexion_coefficient!=zer) {
             std::vector<float> direction = p_object->getReflectedRayDirection(V, P);
             RAY reflectedRay(P, direction);
             std::vector<int> reflectedI = getColors(reflectedRay, P, scene, sources, specular, ambiant, stack+1)*
@@ -101,7 +133,7 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
     if (stack == 0) {
         iter++;
         int p = (int)(100*(float)iter / total);
-        if (p % 10 == 0 and p != last_p) {
+        if (p % 25 == 0 and p != last_p) {
             std::cout << p << "%" << std::endl;
             last_p = p;
         }

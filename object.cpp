@@ -10,7 +10,7 @@ std::vector<float> SceneBaseObject::getIllumination(
 ){
     float s;
     if (V*R > 0) s = V*R;
-    else s = 0;
+    else s = 0; 
     
     auto I = std::abs((L*N))*prod(surface.diffuse_coefficient, this->getColor(P)) +
               (float)pow(s, specular)*surface.specular_coefficient;
@@ -98,7 +98,6 @@ std::vector<float> SceneBaseObject::getRefractedRayDirection(std::vector<float> 
 }
 
 std::vector<float> Sphere::getNormal(std::vector<float> P){
-    std::vector<float> N;
     return normalise(P-center);
 }
 
