@@ -31,7 +31,7 @@ std::vector<std::vector<int>> run(
     for (auto object : scene){
         if(object->type()==2 && object->surface.reflexion_coefficient!=zer){
             object->name();
-            std::vector<LIGHT_SOURCE*> newsources;
+            std::vector<LightSource*> newsources;
             std::vector<float> newcenter;
             std::vector<int> newcolors;
             std::vector<float> C=object->center;
@@ -43,7 +43,7 @@ std::vector<std::vector<int>> run(
                 std::vector<float> S=source->getPosition();
                 newcenter=S-2*((S-C)*N)*N;
                 newcolors=source->illumination*object->surface.reflexion_coefficient;
-                LIGHT_SOURCE* newsource = new LIGHT_SOURCE(newcenter, newcolors);
+                LightSource* newsource = new LightSource(newcenter, newcolors);
                 newsources.push_back(newsource);
             }
             for (auto newsource : newsources) {
