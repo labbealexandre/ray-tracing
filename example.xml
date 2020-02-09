@@ -27,7 +27,7 @@
 
     <source>
         <coords type="center">
-            <coord type="x">0</coord>
+            <coord type="x">750</coord>
             <coord type="y">0</coord>
             <coord type="z">0</coord>
         </coords>
@@ -61,14 +61,14 @@
                 <coef type="b">0</coef>
             </coefs>
             <coefs type="reflexion">
-                <coef type="r">1</coef>
-                <coef type="g">1</coef>
-                <coef type="b">1</coef>
-            </coefs>
-            <coefs type="transmission">
                 <coef type="r">0</coef>
                 <coef type="g">0</coef>
                 <coef type="b">0</coef>
+            </coefs>
+            <coefs type="transmission">
+                <coef type="r">1</coef>
+                <coef type="g">1</coef>
+                <coef type="b">1</coef>
             </coefs>
             <coefs type="diffusion">
                 <coef type="r">0</coef>

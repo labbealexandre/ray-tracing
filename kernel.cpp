@@ -75,7 +75,7 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
     std::vector<int> I(3, 0);
     float min_d = 0;
     bool reach = false;
-    float epsilon = 1e-04;
+    float epsilon = 1e-02;
     for (auto object : scene) {
         current_P = object->getIntersection(ray, code);
         if (code) {
@@ -93,6 +93,10 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
     }
 
     if (reach) {
+
+        if (stack == 1) {
+            p_object->print();
+        }
 
         N = p_object->getNormal(P);
         V = ray.direction;
@@ -112,7 +116,7 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
             I += ambiant*p_object->surface.ambiant_coefficient;
         }
         std::vector<float> zer={0,0,0};
-        if (stack < 2 && p_object->surface.reflexion_coefficient!=zer) {
+        if (stack < 3 && p_object->surface.reflexion_coefficient!=zer) {
             std::vector<float> direction = p_object->getReflectedRayDirection(V, P);
             RAY reflectedRay(P, direction);
             std::vector<int> reflectedI = getColors(reflectedRay, P, scene, sources, specular, ambiant, stack+1)*

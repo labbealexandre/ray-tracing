@@ -107,37 +107,38 @@ std::vector<float> Sphere::getIntersection(RAY L, int &code){
     std::vector<float> D=L.direction;
     std::vector<float> V=S-center;
     float t;
+    float epsilon = 1e-02;
 
-    if (pow(V*D,2)>(V*V-pow(radius,2))) {
-      // if (V*D<-sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
-      //   t=-(V*D)-sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
-      //   if (t > 0) return S+t*D;
-      // }
-      // if (V*D<sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
-      //   t=-(V*D)+sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
-      //   if (t > 0) return S+t*D;
+    // if (pow(V*D,2)>(V*V-pow(radius,2))) {
+    //   if (V*D<-sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
+    //     t=-(V*D)-sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
+    //     if (t > 0) return S+t*D;
+    //   }
+    //   if (V*D<sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
+    //     t=-(V*D)+sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
+    //     if (t > 0) return S+t*D;
+    //   }  
+    // }
 
-
-      if (sqrt(V*V)>=radius){
-        if (V*D<-sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
-          t=-(V*D)-sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
-          return S+t*D;
-        }
-        if (V*D<sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
-          t=-(V*D)+sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
-          return S+t*D;
-        }
+    if (sqrt(V*V)>=radius){
+      if (V*D<-sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
+        t=-(V*D)-sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
+        if (t > epsilon) return S+t*D;
       }
-      else
-      {
-        float u,v;
-        u=-(V*D)-sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
-        v=-(V*D)+sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
-        if (u>0) return S+u*D;
-        if (v>0) return S+v*D;  
+      if (V*D<sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
+        t=-(V*D)+sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
+        if (t > epsilon) return S+t*D;
       }
     }
-    
+    else
+    {
+      float u,v;
+      u=-(V*D)-sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
+      v=-(V*D)+sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
+      if (u>epsilon) return S+u*D;
+      if (v>epsilon) return S+v*D;  
+    }
+
     code = 0;
     return S;
 }
