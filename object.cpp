@@ -107,18 +107,37 @@ std::vector<float> Sphere::getIntersection(RAY L, int &code){
     std::vector<float> D=L.direction;
     std::vector<float> V=S-center;
     float t;
-    if (V*V > pow(radius, 2)) {
-      if (pow(V*D,2)>(V*V-pow(radius,2))) {
+
+    if (pow(V*D,2)>(V*V-pow(radius,2))) {
+      // if (V*D<-sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
+      //   t=-(V*D)-sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
+      //   if (t > 0) return S+t*D;
+      // }
+      // if (V*D<sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
+      //   t=-(V*D)+sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
+      //   if (t > 0) return S+t*D;
+
+
+      if (sqrt(V*V)>=radius){
         if (V*D<-sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
           t=-(V*D)-sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
-          if (t > 0) return S+t*D;
+          return S+t*D;
         }
         if (V*D<sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
           t=-(V*D)+sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
-          if (t > 0) return S+t*D;
+          return S+t*D;
         }
       }
+      else
+      {
+        float u,v;
+        u=-(V*D)-sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
+        v=-(V*D)+sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
+        if (u>0) return S+u*D;
+        if (v>0) return S+v*D;  
+      }
     }
+    
     code = 0;
     return S;
 }
