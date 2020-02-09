@@ -255,11 +255,6 @@
             <coord type="y">-100</coord>
             <coord type="z">50</coord>
         </coords>
-        <coords type="normal">
-            <coord type="x">-1</coord>
-            <coord type="y">0</coord>
-            <coord type="z">0</coord>
-        </coords>
         <coords type="corner">
             <coord type="x">500</coord>
             <coord type="y">-100</coord>

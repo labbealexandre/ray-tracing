@@ -14,6 +14,7 @@ class SCENE_BASE_OBJECT {
     public:
         OBJECT_BASE_SURFACE surface;
         std::vector<float> center;
+        float n1, n2;
         virtual std::vector<float> getNormal(std::vector<float> P);
         virtual std::vector<float> getIntersection(RAY L, int&);
         virtual std::vector<float> getColor(const std::vector<float> &P);
@@ -31,7 +32,7 @@ class SCENE_BASE_OBJECT {
         );
 
         std::vector<float> getReflectedRayDirection(std::vector<float> V, std::vector<float> P);
-        std::vector<float> getRefractedRayDirection(std::vector<float> V, std::vector<float> N);
+        std::vector<float> getRefractedRayDirection(std::vector<float> V, std::vector<float> P, int& code);
 
         virtual void print();
         virtual void name();
@@ -65,12 +66,16 @@ class SPHERE_OBJECT : public SCENE_BASE_OBJECT{
                 center.push_back(0);
             }
             radius = 0;
+            n1 = 0;
+            n2 = 0;
         }
 
-        SPHERE_OBJECT(std::vector<float> centre, float r, OBJECT_BASE_SURFACE s) {
+        SPHERE_OBJECT(std::vector<float> centre, float r, OBJECT_BASE_SURFACE s, float indice1, float indice2) {
           center=centre;
           radius=r;
           surface=s;
+          n1 = indice1;
+          n2 = indice2;
         }
 
         /** Destructor */
@@ -78,7 +83,7 @@ class SPHERE_OBJECT : public SCENE_BASE_OBJECT{
 
 };
 
-class PLAN_OBJECT : public SCENE_BASE_OBJECT{
+class PLAN_OBJECT : public SCENE_BASE_OBJECT {
     private:
       std::vector<float>  normal;
     public:
@@ -92,10 +97,13 @@ class PLAN_OBJECT : public SCENE_BASE_OBJECT{
         int type();
 
         /** Constructors */
-        PLAN_OBJECT(std::vector<float> point, std::vector<float> vect , OBJECT_BASE_SURFACE texture) {
+        PLAN_OBJECT(std::vector<float> point, std::vector<float> vect , OBJECT_BASE_SURFACE texture, 
+                    float indice1, float indice2) {
           center=point;
           normal=vect;
           surface=texture;
+          n1 = indice1;
+          n2 = indice2;
         }
 
         /** Destructor */
@@ -105,6 +113,7 @@ class PLAN_OBJECT : public SCENE_BASE_OBJECT{
 
 class TRIANGLE_OBJECT : public SCENE_BASE_OBJECT{
     private:
+      std::vector<float> normal;
       std::vector<float>  A;
       std::vector<float>  B;
       std::vector<float>  C;
@@ -117,19 +126,22 @@ class TRIANGLE_OBJECT : public SCENE_BASE_OBJECT{
         int type();
 
         /** Constructors */
-        TRIANGLE_OBJECT(std::vector<float> puntouno, std::vector<float> puntodos, std::vector<float> puntotres , OBJECT_BASE_SURFACE texture) {
+        TRIANGLE_OBJECT(std::vector<float> N, std::vector<float> pointA, std::vector<float> pointB,
+                        std::vector<float> pointC, OBJECT_BASE_SURFACE texture, float indice1, float indice2) {
 
           float d = 3;
-          center=(puntouno+puntodos+puntotres)/d;
-          A=puntouno;
-          B=puntodos;
-          C=puntotres;
+          center=(pointA+pointB+pointC)/d;
+          normal = N;
+          A=pointA;
+          B=pointB;
+          C=pointC;
           surface=texture;
+          n1 = indice1;
+          n2 = indice2;
         }
 
         /** Destructor */
-        ~TRIANGLE_OBJECT();
-
+        ~TRIANGLE_OBJECT(){};
 };
 
 #endif

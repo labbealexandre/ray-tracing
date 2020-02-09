@@ -74,6 +74,29 @@ std::vector<float> SCENE_BASE_OBJECT::getReflectedRayDirection(std::vector<float
   return normalise(V - 2*(V*N)*N);
 }
 
+std::vector<float> SCENE_BASE_OBJECT::getRefractedRayDirection(std::vector<float> V, std::vector<float> P, int& code) {
+  std::vector<float> N = this->getNormal(P);
+  
+  code = 0;
+  std::vector<float> res;
+
+  if (V*N < 0) {
+
+    float cosTheta1 = (float)(-1)*normalise(V)*normalise(N);
+    float squareCosTheta1 = pow(cosTheta1, 2);
+
+    if (1 - squareCosTheta1 < n2/n1) {
+      code = 1;
+
+      float c = sqrt(1 - (1-squareCosTheta1)*pow(n1,2)/pow(n2,2));
+      code = 1;
+      res = (n1/n2)*V + (cosTheta1*n1/n2 - c)*N;
+    }
+  }
+
+  return res;
+}
+
 std::vector<float> SPHERE_OBJECT::getNormal(std::vector<float> P){
     std::vector<float> N;
     return normalise(P-center);
@@ -174,11 +197,13 @@ int PLAN_OBJECT::type() {
 }
 
 std::vector<float> TRIANGLE_OBJECT::getNormal(){
-    return CrossProduct((B-A),(C-A));
+    // return CrossProduct((B-A),(C-A));
+    return normal;
 }
 
 std::vector<float> TRIANGLE_OBJECT::getNormal(std::vector<float> P){
-    return CrossProduct((B-A),(C-A));
+    // return CrossProduct((B-A),(C-A));
+    return normal;
 }
 
 std::vector<float> TRIANGLE_OBJECT::getIntersection(RAY L, int &code){

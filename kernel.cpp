@@ -87,6 +87,15 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
             std::vector<int> reflectedI = getColors(reflectedRay, P, scene, sources, specular, ambiant, stack+1)*
                                             p_object->surface.reflexion_coefficient;
             I+=reflectedI;
+
+            int code;
+            direction = p_object->getRefractedRayDirection(V, P, code);
+            if (code == 1) {
+                RAY refractedRay(P, direction);
+                std::vector<int> refractedI = getColors(refractedRay, P, scene, sources, specular, ambiant, stack+1)*
+                                            p_object->surface.transmission_coefficient;
+                I+=refractedI;
+            }
         }
     }
 
