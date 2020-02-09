@@ -21,8 +21,8 @@
         <coord type="width">10</coord>
         <coord type="height">10</coord>
         <coord type="focal">5</coord>
-        <coord type="n_width">2048</coord>
-        <coord type="n_height">2048</coord>
+        <coord type="n_width">256</coord>
+        <coord type="n_height">256</coord>
     </camera>
 
     <source>

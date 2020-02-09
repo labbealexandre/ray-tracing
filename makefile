@@ -3,16 +3,16 @@ FLAGS=-Wall -std=c++11
 all: main
 
 main: main.o kernel.o source.o camera.o object.o surface.o display.o tinyxml2.o loadxml.o
-	g++ $(FLAGS) -o main $^
+	g++ $(FLAGS) -fopenmp -o main $^
 
 main.o: main.cpp 
 	g++ $(FLAGS) -c $<
 
 kernel.o: kernel.cpp
-	g++ $(FLAGS) -c $<
+	g++ $(FLAGS) -fopenmp -c $<
 
 camera.o: camera.cpp
-	g++ $(FLAGS) -c $<
+	g++ $(FLAGS) -fopenmp -c $<
 
 object.o: object.cpp
 	g++ $(FLAGS) -c $<

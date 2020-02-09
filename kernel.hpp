@@ -4,6 +4,8 @@
 # include <cmath>
 #include <chrono>
 #include <iostream>
+#include <omp.h>
+# include <cstdlib>
 # include "object.hpp"
 # include "source.hpp"
 # include "camera.hpp"
