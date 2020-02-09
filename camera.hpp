@@ -8,7 +8,7 @@
 #include "ray.hpp"
 #include "utils.hpp"
 
-class CAMERA {
+class Camera {
     private:
         
         float focal;
@@ -23,7 +23,7 @@ class CAMERA {
 
         std::vector<RAY> traceRays();
 
-        CAMERA() {
+        Camera() {
             for (int i = 0; i < 3; i++) {
                 position.push_back(0);
             }
@@ -32,7 +32,7 @@ class CAMERA {
             focal = 10;
         }
 
-        CAMERA(std::vector<float> &P, float W, float H, float F, int p_r, int p_c) {
+        Camera(std::vector<float> &P, float W, float H, float F, int p_r, int p_c) {
             position = P;
             width = W;
             height = H;
@@ -42,7 +42,7 @@ class CAMERA {
         }
 
         /** Destructor */
-        ~CAMERA(){}
+        ~Camera(){}
     
 };
 

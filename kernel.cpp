@@ -2,9 +2,9 @@
 
 
 std::vector<std::vector<int>> run(
-    CAMERA &camera,
-    std::vector<SCENE_BASE_OBJECT*> &scene,
-    std::vector<LIGHT_SOURCE*> &sources,
+    Camera &camera,
+    std::vector<SceneBaseObject*> &scene,
+    std::vector<LightSource*> &sources,
     int specular,
     std::vector<int> &ambiant
 ) {
@@ -26,7 +26,7 @@ std::vector<std::vector<int>> run(
     for (auto object : scene){
         if(object->type()==2 && object->surface.reflexion_coefficient!=zer){
             object->name();
-            std::vector<LIGHT_SOURCE*> newsources;
+            std::vector<LightSource*> newsources;
             std::vector<float> newcenter;
             std::vector<int> newcolors;
             std::vector<float> C=object->center;
@@ -38,7 +38,7 @@ std::vector<std::vector<int>> run(
                 std::vector<float> S=source->getPosition();
                 newcenter=S-2*((S-C)*N)*N;
                 newcolors=source->illumination*object->surface.reflexion_coefficient;
-                LIGHT_SOURCE* newsource = new LIGHT_SOURCE(newcenter, newcolors);
+                LightSource* newsource = new LightSource(newcenter, newcolors);
                 newsources.push_back(newsource);
             }
             for (auto newsource : newsources) {
@@ -71,14 +71,14 @@ std::vector<std::vector<int>> run(
 }
 
 std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
-                            std::vector<SCENE_BASE_OBJECT*> &scene,
-                            std::vector<LIGHT_SOURCE*> &sources,
+                            std::vector<SceneBaseObject*> &scene,
+                            std::vector<LightSource*> &sources,
                             int specular,
                             const std::vector<int> &ambiant,
                             int stack) {
 
     int code;
-    SCENE_BASE_OBJECT* p_object;
+    SceneBaseObject* p_object;
     std::vector<float> P, current_P, N, L, R, V;
     std::vector<int> I(3, 0);
     float min_d = 0;
@@ -116,7 +116,6 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
                 L = source->getIncidentRay(P);
                 R = source->getReflectedRay(P, N);
                 I += source->illumination*p_object->getIllumination(P, L, N, V, R, specular);
-                
             }
             I += ambiant*p_object->surface.ambiant_coefficient;
         }
@@ -127,6 +126,15 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
             std::vector<int> reflectedI = getColors(reflectedRay, P, scene, sources, specular, ambiant, stack+1)*
                                             p_object->surface.reflexion_coefficient;
             I+=reflectedI;
+
+            int code;
+            direction = p_object->getRefractedRayDirection(V, P, code);
+            if (code == 1) {
+                RAY refractedRay(P, direction);
+                std::vector<int> refractedI = getColors(refractedRay, P, scene, sources, specular, ambiant, stack+1)*
+                                            p_object->surface.transmission_coefficient;
+                I+=refractedI;
+            }
         }
     }
     capColors(I);

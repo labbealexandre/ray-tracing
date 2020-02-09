@@ -26,7 +26,7 @@ std::vector<int> loadColors(tinyxml2::XMLHandle &hColors) {
     return colors;
 }
 
-TEXTURE loadTexture(tinyxml2::XMLHandle &hTexture) {
+Texture loadTexture(tinyxml2::XMLHandle &hTexture) {
     tinyxml2::XMLHandle hPath = hTexture.FirstChildElement();
     std::string path = hPath.ToElement()->GetText();
 
@@ -60,15 +60,15 @@ TEXTURE loadTexture(tinyxml2::XMLHandle &hTexture) {
     tinyxml2::XMLHandle hHeight = hWidth.NextSiblingElement();
     float H = std::stof(hHeight.ToElement()->GetText());
 
-    TEXTURE texture(p_colors, center, direction, W, H, n, m);
+    Texture texture(p_colors, center, direction, W, H, n, m);
     return texture;
 }
 
-OBJECT_BASE_SURFACE loadSurface(tinyxml2::XMLHandle &hSurface) {
+Surface loadSurface(tinyxml2::XMLHandle &hSurface) {
     std::vector<std::vector<float>> array;
 
     tinyxml2::XMLHandle hTexture = hSurface.FirstChildElement();
-    TEXTURE texture = loadTexture(hTexture);
+    Texture texture = loadTexture(hTexture);
 
     tinyxml2::XMLHandle hCoefs = hTexture.NextSiblingElement();
     for (int i = 0; i < 5; i++) {
@@ -79,14 +79,14 @@ OBJECT_BASE_SURFACE loadSurface(tinyxml2::XMLHandle &hSurface) {
         hCoefs = hCoefs.NextSiblingElement();
     }
 
-    OBJECT_BASE_SURFACE surface(texture, array[0], array[1], array[2], array[3], array[4]);
+    Surface surface(texture, array[0], array[1], array[2], array[3], array[4]);
 
     return surface;
 }
 
 void loadFile(  std::string file, int& specular, std::vector<int>& ambiant,
-                CAMERA& camera, std::vector<LIGHT_SOURCE*>& sources,
-                std::vector<SCENE_BASE_OBJECT*>& scene, int& n, int& m) {
+                Camera& camera, std::vector<LightSource*>& sources,
+                std::vector<SceneBaseObject*>& scene, int& n, int& m) {
 
     tinyxml2::XMLDocument doc;
 	doc.LoadFile(file.data());
@@ -124,7 +124,7 @@ void loadFile(  std::string file, int& specular, std::vector<int>& ambiant,
             tinyxml2::XMLHandle hNHeight = hNWidth.NextSiblingElement();
             m = std::stoi(hNHeight.ToElement()->GetText());
 
-            camera = CAMERA(center, W, H, focal, n, m);
+            camera = Camera(center, W, H, focal, n, m);
 
         } else if (title.compare("params") == 0) {
             tinyxml2::XMLHandle hSpecular = hObject.FirstChildElement();
@@ -140,66 +140,148 @@ void loadFile(  std::string file, int& specular, std::vector<int>& ambiant,
             tinyxml2::XMLHandle hColors = hCenter.NextSiblingElement();
             std::vector<int> colors = loadColors(hColors);
 
-            LIGHT_SOURCE* source = new LIGHT_SOURCE(center, colors);
+            LightSource* source = new LightSource(center, colors);
             sources.push_back(source);
 
-        } else if (title.compare("sphere") == 0) {
-            tinyxml2::XMLHandle hCenter = hObject.FirstChildElement();
-            std::vector<float> center = loadCoords(hCenter);
+        } else {
 
-            tinyxml2::XMLHandle hRadius = hCenter.NextSiblingElement();
-            float radius = std::stof(hRadius.ToElement()->GetText());
+            tinyxml2::XMLHandle h = hObject.FirstChildElement();
+            Surface surface = loadSurface(h);
 
-            tinyxml2::XMLHandle hSurface = hRadius.NextSiblingElement();
-            OBJECT_BASE_SURFACE surface = loadSurface(hSurface);
+            h = h.NextSiblingElement();
+            float n1 = std::stof(h.ToElement()->GetText());
 
-            SPHERE_OBJECT* sphere = new SPHERE_OBJECT(center, radius, surface);
-            scene.push_back(sphere);
+            h = h.NextSiblingElement();
+            float n2 = std::stof(h.ToElement()->GetText());
 
-        } else if (title.compare("plan") == 0) {
-            tinyxml2::XMLHandle hCenter = hObject.FirstChildElement();
-            std::vector<float> center = loadCoords(hCenter);
+            if (title.compare("sphere") == 0) {
+                h = h.NextSiblingElement();
+                std::vector<float> center = loadCoords(h);
 
-            tinyxml2::XMLHandle hNormal = hCenter.NextSiblingElement();
-            std::vector<float> normal = loadCoords(hNormal);
+                h = h.NextSiblingElement();
+                float radius = std::stof(h.ToElement()->GetText());
 
-            tinyxml2::XMLHandle hSurface = hNormal.NextSiblingElement();
-            OBJECT_BASE_SURFACE surface = loadSurface(hSurface);
+                Sphere* sphere = new Sphere(center, radius, surface, n1, n2);
+                scene.push_back(sphere);
 
-            PLAN_OBJECT* plan = new PLAN_OBJECT(center, normal, surface);
-            scene.push_back(plan);
-            
-        } else if (title.compare("triangle") == 0) {
-            tinyxml2::XMLHandle hA = hObject.FirstChildElement();
-            std::vector<float> A = loadCoords(hA);
+            } else if (title.compare("plan") == 0) {
+                h = h.NextSiblingElement();
+                std::vector<float> center = loadCoords(h);
 
-            tinyxml2::XMLHandle hB = hA.NextSiblingElement();
-            std::vector<float> B = loadCoords(hB);
+                h = h.NextSiblingElement();
+                std::vector<float> normal = loadCoords(h);
 
-            tinyxml2::XMLHandle hC = hB.NextSiblingElement();
-            std::vector<float> C = loadCoords(hC);
+                Plan* plan = new Plan(center, normal, surface, n1, n2);
+                scene.push_back(plan);
+                
+            } else if (title.compare("triangle") == 0) {
+                h = h.NextSiblingElement();
+                std::vector<float> N = loadCoords(h);
 
-            tinyxml2::XMLHandle hSurface = hC.NextSiblingElement();
-            OBJECT_BASE_SURFACE surface = loadSurface(hSurface);
+                h = h.NextSiblingElement();
+                std::vector<float> A = loadCoords(h);
 
-            TRIANGLE_OBJECT* triangle = new TRIANGLE_OBJECT(A, B, C, surface);
-            scene.push_back(triangle);
+                h = h.NextSiblingElement();
+                std::vector<float> B = loadCoords(h);
+
+                h = h.NextSiblingElement();
+                std::vector<float> C = loadCoords(h);
+
+                Triangle* triangle = new Triangle(N, A, B, C, surface, n1, n2);
+                scene.push_back(triangle);
+            }
+            else if (title.compare("polygon") == 0) {
+                int n = std::stoi(elem->Attribute("corners"));
+
+                std::vector<std::vector<float>> corners;
+
+                h = h.NextSiblingElement();
+                std::vector<float> N = loadCoords(h);
+
+                h = h.NextSiblingElement();
+                corners.push_back(loadCoords(h));
+                for (int i = 1; i < n; i++) {
+                    h = h.NextSiblingElement();
+                    corners.push_back(loadCoords(h));
+                }
+
+                std::vector<Triangle*> triangles = polyToTriangles(N, corners, surface, n1, n2);
+                scene.insert(scene.end(), triangles.begin(), triangles.end());
+            }
         }
-        // else if (title.compare("polygon") == 0) {
-        //     tinyxml2::XMLHandle hA = hObject.FirstChildElement();
-        //     std::vector<float> A = loadCoords(hA);
-
-        //     tinyxml2::XMLHandle hB = hA.NextSiblingElement();
-        //     std::vector<float> B = loadCoords(hB);
-
-        //     tinyxml2::XMLHandle hC = hB.NextSiblingElement();
-        //     std::vector<float> C = loadCoords(hC);
-
-        //     tinyxml2::XMLHandle hSurface = hC.NextSiblingElement();
-        //     OBJECT_BASE_SURFACE surface = loadSurface(hSurface);
-
-        //     TRIANGLE_OBJECT* triangle = new TRIANGLE_OBJECT(A, B, C, surface);
-        //     scene.push_back(triangle);
-        // }
     }
+}
+
+// TODO : end the spliting into triangles
+std::vector<Triangle*> polyToTriangles(std::vector<float> N, std::vector<std::vector<float>>& corners,
+                                            Surface& surface, float n1, float n2) {
+
+    std::vector<Triangle*> triangles;
+    std::vector<float> n = normalise(corners[corners.size()/2] - corners[0]);
+
+    std::vector<std::tuple<float, std::vector<float>*, int>> heights;
+
+    float maxHeight = 0;
+    unsigned int indexMaxHeight = 0;
+
+    /* Computation of the heights */
+    for (unsigned int i = 0; i < corners.size(); i++) {
+        float height = (corners[i] - corners[0])*n; 
+        if (height > maxHeight) {
+            maxHeight = height;
+            indexMaxHeight = i;
+        }
+        heights.push_back(std::make_tuple(height, corners.data()+i, 0));
+    }
+
+    /* Spliting in tow chains */
+    for (unsigned int i = 0; i < corners.size(); i++) {
+        if (i <= indexMaxHeight) std::get<2>(heights[i]) = 1;
+        else std::get<2>(heights[i]) = 2;
+    }
+
+    /* Sorting by height */
+    std::sort(heights.begin(), heights.end());
+    std::reverse(heights.begin(), heights.end());
+
+    monotoneToTriangles(N, heights, triangles, surface, n1, n2); // TODO : case of non-monotone polygons
+
+    return triangles;
+
+    // std::vector<Triangle> triangles;
+
+    // std::vector<std::vector<float>> edges;
+    // std::vector<float> n = normalise(corners[corners.size()/2] - corners[0]);
+    // std::vector<float> heights;
+
+    // /* Computation of the heights */
+    // for (unsigned int i = 0; i < corners.size(); i++) {
+    //     heights.push_back((corners[i] - corners[0])*n);
+    // }
+
+    // /* Computation of the lengths */
+
+
+    // /* Research of the max */
+    // int maxHeightIndex = std::max_element(heights.begin(), heights.end()) - heights.begin();
+
+    // return triangles;
+}
+
+void monotoneToTriangles(std::vector<float> N, std::vector<std::tuple<float, std::vector<float>*, int>>& heights,
+                        std::vector<Triangle*>& triangles, Surface& surface, float n1, float n2) {
+    
+    unsigned int s = heights.size();
+    Triangle* triangle = new Triangle(N, *std::get<1>(heights[s-1]), *std::get<1>(heights[s-2]),
+                            *std::get<1>(heights[s-3]), surface, n1, n2);
+
+    triangles.push_back(triangle);
+    
+    if (std::get<2>(heights[s-2]) == std::get<2>(heights[s-3])) {
+        heights.erase(heights.end()-2);
+    } else {
+        heights.pop_back();
+    }
+
+    if(heights.size() >= 3)  monotoneToTriangles(N, heights, triangles, surface, n1, n2);
 }

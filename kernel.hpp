@@ -13,17 +13,17 @@
 # include "utils.hpp"
 
 std::vector<std::vector<int>> run(
-    CAMERA &,
-    std::vector<SCENE_BASE_OBJECT*> &,
-    std::vector<LIGHT_SOURCE*> &,
+    Camera &,
+    std::vector<SceneBaseObject*> &,
+    std::vector<LightSource*> &,
     int,
     std::vector<int>&
 );
 
 std::vector<int> getColors( 
     RAY& ray, std::vector<float>& origin,
-    std::vector<SCENE_BASE_OBJECT*> &scene,
-    std::vector<LIGHT_SOURCE*> &sources,
+    std::vector<SceneBaseObject*> &scene,
+    std::vector<LightSource*> &sources,
     int specular,
     const std::vector<int> &ambiant,
     int stack

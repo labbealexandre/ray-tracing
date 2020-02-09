@@ -23,9 +23,9 @@ int main(int argc, char const *argv[])
     std::string file(argv[1]);
     std::string target(argv[2]);
 
-    CAMERA camera;
-    std::vector<LIGHT_SOURCE*> sources;
-    std::vector<SCENE_BASE_OBJECT*> scene;
+    Camera camera;
+    std::vector<LightSource*> sources;
+    std::vector<SceneBaseObject*> scene;
     int specular;
     std::vector<int> ambiant;
     int n;

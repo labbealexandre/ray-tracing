@@ -1,6 +1,6 @@
 #include "camera.hpp"
 
-std::vector<RAY> CAMERA::traceRays() {
+std::vector<RAY> Camera::traceRays() {
     std::vector<RAY> rays;
     std::vector<float> direction;
     std::vector<float> pixel_pos;

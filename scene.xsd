@@ -45,9 +45,10 @@
     <xsd:element name="sphere">
         <xsd:complexType>
             <xsd:sequence>
+                <xsd:element ref="surface"/>
+                <xsd:element ref="coord" minOccurs="2" maxOccurs="2"/>
                 <xsd:element ref="coords"/>
                 <xsd:element ref="coord"/>
-                <xsd:element ref="surface"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
@@ -56,8 +57,9 @@
     <xsd:element name="plan">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="coords" minOccurs="2" maxOccurs="2"/>
                 <xsd:element ref="surface"/>
+                <xsd:element ref="coord" minOccurs="2" maxOccurs="2"/>
+                <xsd:element ref="coords" minOccurs="2" maxOccurs="2"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
@@ -66,8 +68,9 @@
     <xsd:element name="triangle">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="coords" minOccurs="3" maxOccurs="3"/>
                 <xsd:element ref="surface"/>
+                <xsd:element ref="coord" minOccurs="2" maxOccurs="2"/>
+                <xsd:element ref="coords" minOccurs="4" maxOccurs="4"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
@@ -76,8 +79,9 @@
     <xsd:element name="polygon">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="coords" minOccurs="3" maxOccurs="unbounded"/>
                 <xsd:element ref="surface"/>
+                <xsd:element ref="coord" minOccurs="2" maxOccurs="2"/>
+                <xsd:element ref="coords" minOccurs="4" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="corners" type="xsd:int" use="required"/>
         </xsd:complexType>
@@ -119,6 +123,8 @@
                             <xsd:enumeration value="focal"/>
                             <xsd:enumeration value="n_width"/>
                             <xsd:enumeration value="n_height"/>
+                            <xsd:enumeration value="n1"/>
+                            <xsd:enumeration value="n2"/>
                         </xsd:restriction>
                         </xsd:simpleType>
                     </xsd:attribute>

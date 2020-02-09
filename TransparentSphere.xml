@@ -21,20 +21,28 @@
         <coord type="width">10</coord>
         <coord type="height">10</coord>
         <coord type="focal">5</coord>
-<<<<<<< HEAD
-        <coord type="n_width">256</coord>
-        <coord type="n_height">256</coord>
-=======
         <coord type="n_width">500</coord>
         <coord type="n_height">500</coord>
->>>>>>> 4e4a72dc6cadf684d8c208fc33353534ee8912c9
     </camera>
 
     <source>
         <coords type="center">
-            <coord type="x">0</coord>
+            <coord type="x">300</coord>
             <coord type="y">0</coord>
-            <coord type="z">0</coord>
+            <coord type="z">300</coord>
+        </coords>
+        <colors>
+            <color type="r">255</color>
+            <color type="g">255</color>
+            <color type="b">255</color>
+        </colors>
+    </source>
+
+    <source>
+        <coords type="center">
+            <coord type="x">300</coord>
+            <coord type="y">0</coord>
+            <coord type="z">-300</coord>
         </coords>
         <colors>
             <color type="r">255</color>
@@ -66,14 +74,14 @@
                 <coef type="b">0</coef>
             </coefs>
             <coefs type="reflexion">
-                <coef type="r">1</coef>
-                <coef type="g">1</coef>
-                <coef type="b">1</coef>
-            </coefs>
-            <coefs type="transmission">
                 <coef type="r">0</coef>
                 <coef type="g">0</coef>
                 <coef type="b">0</coef>
+            </coefs>
+            <coefs type="transmission">
+                <coef type="r">1</coef>
+                <coef type="g">1</coef>
+                <coef type="b">1</coef>
             </coefs>
             <coefs type="diffusion">
                 <coef type="r">0</coef>
@@ -93,8 +101,65 @@
             <coord type="y">0</coord>
             <coord type="z">0</coord>
         </coords>
-        <coord type="radius">100</coord>
+        <coord type="radius">200</coord>
     </sphere>
+
+    <plan>
+        <surface>
+            <texture>
+                <path>./texture/blank.ppm</path>
+                <coords type="center">
+                    <coord type="x">0</coord>
+                    <coord type="y">200</coord>
+                    <coord type="z">0</coord>
+                </coords>
+                <coords type="direction">
+                    <coord type="x">1</coord>
+                    <coord type="y">0</coord>
+                    <coord type="z">0</coord>
+                </coords>
+                <coord type="width">100</coord>
+                <coord type="height">100</coord>
+            </texture>
+            <coefs type="ambiant">
+                <coef type="r">1</coef>
+                <coef type="g">1</coef>
+                <coef type="b">1</coef>
+            </coefs>
+            <coefs type="reflexion">
+                <coef type="r">0</coef>
+                <coef type="g">0</coef>
+                <coef type="b">0</coef>
+            </coefs>
+            <coefs type="transmission">
+                <coef type="r">0</coef>
+                <coef type="g">0</coef>
+                <coef type="b">0</coef>
+            </coefs>
+            <coefs type="diffusion">
+                <coef type="r">1</coef>
+                <coef type="g">1</coef>
+                <coef type="b">1</coef>
+            </coefs>
+            <coefs type="specular">
+                <coef type="r">1</coef>
+                <coef type="g">1</coef>
+                <coef type="b">1</coef>
+            </coefs>
+        </surface>
+        <coord type="n1">1</coord>
+        <coord type="n2">1.3</coord>
+        <coords type="center">
+            <coord type="x">0</coord>
+            <coord type="y">200</coord>
+            <coord type="z">0</coord>
+        </coords>
+        <coords type="normal">
+            <coord type="x">0</coord>
+            <coord type="y">-1</coord>
+            <coord type="z">0</coord>
+        </coords>
+    </plan>
 
     <plan>
         <surface>
@@ -149,120 +214,6 @@
         <coords type="normal">
             <coord type="x">-1</coord>
             <coord type="y">0</coord>
-            <coord type="z">0</coord>
-        </coords>
-    </plan>
-
-    <plan>
-        <surface>
-            <texture>
-                <path>./texture/blank.ppm</path>
-                <coords type="center">
-                    <coord type="x">-1000</coord>
-                    <coord type="y">0</coord>
-                    <coord type="z">0</coord>
-                </coords>
-                <coords type="direction">
-                    <coord type="x">0</coord>
-                    <coord type="y">1</coord>
-                    <coord type="z">0</coord>
-                </coords>
-                <coord type="width">100</coord>
-                <coord type="height">100</coord>
-            </texture>
-            <coefs type="ambiant">
-                <coef type="r">1</coef>
-                <coef type="g">1</coef>
-                <coef type="b">1</coef>
-            </coefs>
-            <coefs type="reflexion">
-                <coef type="r">0</coef>
-                <coef type="g">0</coef>
-                <coef type="b">0</coef>
-            </coefs>
-            <coefs type="transmission">
-                <coef type="r">0</coef>
-                <coef type="g">0</coef>
-                <coef type="b">0</coef>
-            </coefs>
-            <coefs type="diffusion">
-                <coef type="r">1</coef>
-                <coef type="g">1</coef>
-                <coef type="b">1</coef>
-            </coefs>
-            <coefs type="specular">
-                <coef type="r">1</coef>
-                <coef type="g">1</coef>
-                <coef type="b">1</coef>
-            </coefs>
-        </surface>
-        <coord type="n1">1</coord>
-        <coord type="n2">1.3</coord>
-        <coords type="center">
-            <coord type="x">-1000</coord>
-            <coord type="y">0</coord>
-            <coord type="z">0</coord>
-        </coords>
-        <coords type="normal">
-            <coord type="x">1</coord>
-            <coord type="y">0</coord>
-            <coord type="z">0</coord>
-        </coords>
-    </plan>
-
-    <plan>
-        <surface>
-            <texture>
-                <path>./texture/diamond.ppm</path>
-                <coords type="center">
-                    <coord type="x">0</coord>
-                    <coord type="y">100</coord>
-                    <coord type="z">0</coord>
-                </coords>
-                <coords type="direction">
-                    <coord type="x">1</coord>
-                    <coord type="y">0</coord>
-                    <coord type="z">0</coord>
-                </coords>
-                <coord type="width">100</coord>
-                <coord type="height">100</coord>
-            </texture>
-            <coefs type="ambiant">
-                <coef type="r">1</coef>
-                <coef type="g">1</coef>
-                <coef type="b">1</coef>
-            </coefs>
-            <coefs type="reflexion">
-                <coef type="r">0</coef>
-                <coef type="g">0</coef>
-                <coef type="b">0</coef>
-            </coefs>
-            <coefs type="transmission">
-                <coef type="r">0</coef>
-                <coef type="g">0</coef>
-                <coef type="b">0</coef>
-            </coefs>
-            <coefs type="diffusion">
-                <coef type="r">1</coef>
-                <coef type="g">1</coef>
-                <coef type="b">1</coef>
-            </coefs>
-            <coefs type="specular">
-                <coef type="r">1</coef>
-                <coef type="g">1</coef>
-                <coef type="b">1</coef>
-            </coefs>
-        </surface>
-        <coord type="n1">1</coord>
-        <coord type="n2">1.3</coord>
-        <coords type="center">
-            <coord type="x">0</coord>
-            <coord type="y">100</coord>
-            <coord type="z">0</coord>
-        </coords>
-        <coords type="normal">
-            <coord type="x">0</coord>
-            <coord type="y">-1</coord>
             <coord type="z">0</coord>
         </coords>
     </plan>
