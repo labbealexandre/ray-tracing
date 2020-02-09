@@ -1,0 +1,8 @@
+Présentation du projet:
+#TODO
+
+Ce que l'on a fait:
+#TODO
+
+Ce que l'on aurait aimé faire+piste d'amélioration du projet:
+# TODO
