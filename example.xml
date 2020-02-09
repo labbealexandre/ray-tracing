@@ -21,8 +21,13 @@
         <coord type="width">10</coord>
         <coord type="height">10</coord>
         <coord type="focal">5</coord>
+<<<<<<< HEAD
+        <coord type="n_width">256</coord>
+        <coord type="n_height">256</coord>
+=======
         <coord type="n_width">500</coord>
         <coord type="n_height">500</coord>
+>>>>>>> 4e4a72dc6cadf684d8c208fc33353534ee8912c9
     </camera>
 
     <source>

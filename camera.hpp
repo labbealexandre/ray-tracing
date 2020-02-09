@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <iostream>
+#include <omp.h>
+# include <cstdlib>
 #include "ray.hpp"
 #include "utils.hpp"
 
@@ -10,10 +12,11 @@ class Camera {
     private:
         
         float focal;
-        int pixels_per_row;
-        int pixels_per_column;
+        
 
     public:
+        int pixels_per_row;
+        int pixels_per_column;
         std::vector<float> position;
         float width;
         float height;
