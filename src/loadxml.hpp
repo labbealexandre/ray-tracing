@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <iostream>
 #include <tuple>
-#include "tinyxml2/tinyxml2.h"
+#include "../tinyxml2/tinyxml2.h"
 #include "texture.hpp"
 #include "object.hpp"
 #include "surface.hpp"
@@ -11,10 +11,12 @@
 #include "camera.hpp"
 #include "utils.hpp"
 
-std::vector<float> loadCoords(tinyxml2::XMLHandle &hCoords);
-std::vector<int> loadColors(tinyxml2::XMLHandle &hColors);
-Texture loadTexture(tinyxml2::XMLHandle &hTexture);
-Surface loadSurface(tinyxml2::XMLHandle &hSurface);
+using namespace tinyxml2;
+
+std::vector<float> loadCoords(XMLHandle &hCoords);
+std::vector<int> loadColors(XMLHandle &hColors);
+Texture loadTexture(XMLHandle &hTexture);
+Surface loadSurface(XMLHandle &hSurface);
 void loadFile(  std::string file, int& specular, std::vector<float>& ambiant,
                 Camera& camera, std::vector<LightSource*>& sources,
                 std::vector<SceneBaseObject*>& scene, int& n, int& m);

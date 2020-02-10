@@ -1,15 +1,17 @@
 #include "camera.hpp"
 
-std::vector<RAY> Camera::traceRays() {
+using namespace std;
+
+vector<Ray> Camera::traceRays() {
     
     /** Initialisation of the rays data **/
 
-    std::vector<float> direction{0, 0, 0};
-    std::vector<float> pixel_pos{0, 0, 0};
+    vector<float> direction{0, 0, 0};
+    vector<float> pixel_pos{0, 0, 0};
 
-    RAY ray(pixel_pos, direction);
+    Ray ray(pixel_pos, direction);
 
-    std::vector<RAY> rays(pixels_per_column* pixels_per_row, ray);
+    vector<Ray> rays(pixels_per_column* pixels_per_row, ray);
 
     for (int i = 0; i < pixels_per_row; i++) {
         for (int j = 0; j < pixels_per_column; j++) {  
@@ -30,8 +32,8 @@ std::vector<RAY> Camera::traceRays() {
                 // they have different directions to spread accross the scene
                 // which all depends on the focal distance
 
-                std::vector<float> direction;
-                std::vector<float> pixel_pos;
+                vector<float> direction;
+                vector<float> pixel_pos;
                 pixel_pos.push_back(position[0]);
                 pixel_pos.push_back(position[1] + (i-pixels_per_row/2)*width/pixels_per_row);
                 pixel_pos.push_back(position[2] + (j-pixels_per_column/2)*height/pixels_per_column);
@@ -41,7 +43,7 @@ std::vector<RAY> Camera::traceRays() {
                 direction.push_back((j-pixels_per_column/2)*height/pixels_per_column);
                 direction = normalise(direction);
 
-                RAY ray(pixel_pos, direction);
+                Ray ray(pixel_pos, direction);
                 rays[i*pixels_per_column+j]=ray;
             }
         }

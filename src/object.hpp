@@ -16,7 +16,7 @@ class SceneBaseObject {
         std::vector<float> center;
         float n1, n2;
         virtual std::vector<float> getNormal(std::vector<float> P);                       // Return the normal to the object at the point P
-        virtual std::vector<float> getIntersection(RAY L, int&);                          // Return the intersection between the object and a ray
+        virtual std::vector<float> getIntersection(Ray L, int&);                          // Return the intersection between the object and a ray
         virtual std::vector<float> getColor(const std::vector<float> &P);                 // Return the color of the object at the point P
 
         virtual int type();
@@ -57,7 +57,7 @@ class Sphere : public SceneBaseObject{
       
     public:
         std::vector<float> getNormal(std::vector<float> P);
-        std::vector<float> getIntersection(RAY L, int&);
+        std::vector<float> getIntersection(Ray L, int&);
         void print();
         void name();
         int type();
@@ -92,7 +92,7 @@ class Plan : public SceneBaseObject {
 
         std::vector<float> getNormal();
         std::vector<float> getNormal(std::vector<float> P);
-        std::vector<float> getIntersection(RAY L, int&);
+        std::vector<float> getIntersection(Ray L, int&);
         std::vector<float> getColor(const std::vector<float> &P);
         void print();
         void name();
@@ -122,7 +122,7 @@ class Triangle : public SceneBaseObject{
     public:
         std::vector<float> getNormal();
         std::vector<float> getNormal(std::vector<float> P);
-        std::vector<float> getIntersection(RAY L, int&);
+        std::vector<float> getIntersection(Ray L, int&);
         void print();
         void name();
         int type();

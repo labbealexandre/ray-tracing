@@ -1,11 +1,13 @@
 #include "object.hpp"
 
-std::vector<float> SceneBaseObject::getIllumination(
-    const std::vector<float>& P,
-    const std::vector<float>& L,
-    const std::vector<float>& N,
-    const std::vector<float>& V,
-    const std::vector<float>& R,
+using namespace std;
+
+vector<float> SceneBaseObject::getIllumination(
+    const vector<float>& P,
+    const vector<float>& L,
+    const vector<float>& N,
+    const vector<float>& V,
+    const vector<float>& R,
     int specular
 ){
     float s;
@@ -13,33 +15,33 @@ std::vector<float> SceneBaseObject::getIllumination(
     else s = 0;
 
     auto I = (float)pow(s, specular)*surface.specular_coefficient+
-              std::abs((L*N))*surface.diffuse_coefficient*this->getColor(P);
+              abs((L*N))*surface.diffuse_coefficient*this->getColor(P);
 
     capCoefs(I);
 
     return I;
 }
 
-std::vector<float> SceneBaseObject::getNormal(std::vector<float> P){
-    std::vector<float> N;
+vector<float> SceneBaseObject::getNormal(vector<float> P){
+    vector<float> N;
     return N;
 }
 
-std::vector<float> SceneBaseObject::getIntersection(RAY L, int &code){
-    std::vector<float> I;
+vector<float> SceneBaseObject::getIntersection(Ray L, int &code){
+    vector<float> I;
     return I;
 }
 
-std::vector<float> SceneBaseObject::getColor(const std::vector<float> &P) {
+vector<float> SceneBaseObject::getColor(const vector<float> &P) {
   return this->surface.colors;
 }
 
-bool SceneBaseObject::isItLit(std::vector<float> P, std::vector<float> positionLight, std::vector<SceneBaseObject*> &scene){
+bool SceneBaseObject::isItLit(vector<float> P, vector<float> positionLight, vector<SceneBaseObject*> &scene){
   int code;
-  std::vector<float> current_P;
+  vector<float> current_P;
   float min_d = sqrt((P-positionLight)*(P-positionLight));
   float epsilon = 1.0;
-  RAY ray=RAY(positionLight,normalise(P-positionLight));
+  Ray ray=Ray(positionLight,normalise(P-positionLight));
   for (auto object : scene) {
     current_P = object->getIntersection(ray, code);
     if (code) {
@@ -53,10 +55,10 @@ bool SceneBaseObject::isItLit(std::vector<float> P, std::vector<float> positionL
 }
 
 void SceneBaseObject::print() {
-  std::cout << "center ";
+  cout << "center ";
   for (int i = 0; i < 3; i++) 
-    std::cout << center[i] << " ";
-  std::cout << std::endl;
+    cout << center[i] << " ";
+  cout << endl;
   surface.print();
 }
 
@@ -65,19 +67,19 @@ int SceneBaseObject::type() {
 }
 
 void SceneBaseObject::name() {
-  std::cout << "I am a simple object" << std::endl;
+  cout << "I am a simple object" << endl;
 }
 
-std::vector<float> SceneBaseObject::getReflectedRayDirection(std::vector<float> V, std::vector<float> P) {
-  std::vector<float> N = this->getNormal(P);
+vector<float> SceneBaseObject::getReflectedRayDirection(vector<float> V, vector<float> P) {
+  vector<float> N = this->getNormal(P);
   return normalise(V - 2*(V*N)*N);
 }
 
-std::vector<float> SceneBaseObject::getRefractedRayDirection(std::vector<float> V, std::vector<float> P, int& code) {
-  std::vector<float> N = this->getNormal(P);
+vector<float> SceneBaseObject::getRefractedRayDirection(vector<float> V, vector<float> P, int& code) {
+  vector<float> N = this->getNormal(P);
   
   code = 0;
-  std::vector<float> res;
+  vector<float> res;
 
   if (V*N < 0) {
 
@@ -96,28 +98,17 @@ std::vector<float> SceneBaseObject::getRefractedRayDirection(std::vector<float> 
   return res;
 }
 
-std::vector<float> Sphere::getNormal(std::vector<float> P){
+vector<float> Sphere::getNormal(vector<float> P){
     return normalise(P-center);
 }
 
-std::vector<float> Sphere::getIntersection(RAY L, int &code){
+vector<float> Sphere::getIntersection(Ray L, int &code){
     code=1;
-    std::vector<float> S=L.origin;
-    std::vector<float> D=L.direction;
-    std::vector<float> V=S-center;
+    vector<float> S=L.origin;
+    vector<float> D=L.direction;
+    vector<float> V=S-center;
     float t;
     float epsilon = 1e-02;
-
-    // if (pow(V*D,2)>(V*V-pow(radius,2))) {
-    //   if (V*D<-sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
-    //     t=-(V*D)-sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
-    //     if (t > 0) return S+t*D;
-    //   }
-    //   if (V*D<sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
-    //     t=-(V*D)+sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
-    //     if (t > 0) return S+t*D;
-    //   }  
-    // }
 
     if (sqrt(V*V)>=radius+epsilon){
       if (V*D<-sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
@@ -145,29 +136,29 @@ std::vector<float> Sphere::getIntersection(RAY L, int &code){
 
 void Sphere::print(){
   SceneBaseObject::print();
-  std::cout << "radius " << radius << std::endl;
+  cout << "radius " << radius << endl;
 }
 
 void Sphere::name(){
-  std::cout << "I am a sphere" << std::endl;
+  cout << "I am a sphere" << endl;
 }
 
 int Sphere::type() {
   return 1;
 }
 
-std::vector<float> Plan::getNormal(){
+vector<float> Plan::getNormal(){
     return normal;
 }
 
-std::vector<float> Plan::getNormal(std::vector<float> P){
+vector<float> Plan::getNormal(vector<float> P){
     return normal;
 }
 
-std::vector<float> Plan::getIntersection(RAY L, int &code) {
+vector<float> Plan::getIntersection(Ray L, int &code) {
     code=1;
-    std::vector<float> S=L.origin;
-    std::vector<float> D=L.direction;
+    vector<float> S=L.origin;
+    vector<float> D=L.direction;
     if (D*normal<0) {
       float param=(1/(D*normal))*(center-S)*normal;
       return S+param*D;
@@ -177,62 +168,62 @@ std::vector<float> Plan::getIntersection(RAY L, int &code) {
     }
 }
 
-std::vector<float> Plan::getColor(const std::vector<float> &P) {
+vector<float> Plan::getColor(const vector<float> &P) {
   
-  std::vector<float> U = P-surface.texture.center;
+  vector<float> U = P-surface.texture.center;
 
-  std::vector<float> X = surface.texture.direction;
-  float x = std::fmod(U*X, surface.texture.width);
+  vector<float> X = surface.texture.direction;
+  float x = fmod(U*X, surface.texture.width);
   if (x < 0) x += surface.texture.width;
   int n_x = (int)surface.texture.n*x/surface.texture.width;
 
-  std::vector<float> Y = CrossProduct(normal, X);
-  float y = std::fmod(U*Y, surface.texture.height);
+  vector<float> Y = CrossProduct(normal, X);
+  float y = fmod(U*Y, surface.texture.height);
   if (y < 0) y += surface.texture.height;
   int n_y = (int)surface.texture.m*y/surface.texture.height;
 
   int d = n_x*surface.texture.m+n_y;
 
-  std::vector<float>* p_color = surface.texture.p_colors->data() + d;
+  vector<float>* p_color = surface.texture.p_colors->data() + d;
 
   return *p_color;
 }
 
 void Plan::print(){
   SceneBaseObject::print();
-  std::cout << "normal ";
+  cout << "normal ";
   for (int i = 0; i < 3; i++)
-    std::cout << normal[i] << " ";
-  std::cout << std::endl;
+    cout << normal[i] << " ";
+  cout << endl;
 }
 
 void Plan::name(){
-  std::cout << "I am a plan" << std::endl;
+  cout << "I am a plan" << endl;
 }
 
 int Plan::type() {
   return 2;
 }
 
-std::vector<float> Triangle::getNormal(){
+vector<float> Triangle::getNormal(){
     // return CrossProduct((B-A),(C-A));
     return normal;
 }
 
-std::vector<float> Triangle::getNormal(std::vector<float> P){
+vector<float> Triangle::getNormal(vector<float> P){
     // return CrossProduct((B-A),(C-A));
     return normal;
 }
 
-std::vector<float> Triangle::getIntersection(RAY L, int &code){
+vector<float> Triangle::getIntersection(Ray L, int &code){
     code=1;
-    std::vector<float> S=L.origin;
-    std::vector<float> D=L.direction;
-    std::vector<float> normal;
+    vector<float> S=L.origin;
+    vector<float> D=L.direction;
+    vector<float> normal;
     normal=this->getNormal();
     if (D*normal!=0) {
       float param=(1/(D*normal))*(center-S)*normal;
-      std::vector<float> intertemp=S+param*D;
+      vector<float> intertemp=S+param*D;
       float a , b , c;
       a=CrossProduct((B-A),(intertemp-A))*CrossProduct((intertemp-A),(C-A));
       b=CrossProduct((A-B),(intertemp-B))*CrossProduct((intertemp-B),(C-B));
@@ -254,7 +245,7 @@ void Triangle::print(){
 }
 
 void Triangle::name(){
-  std::cout << "I am a triangle" << std::endl;
+  cout << "I am a triangle" << endl;
 }
 
 int Triangle::type() {

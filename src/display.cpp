@@ -1,9 +1,11 @@
 #include "display.hpp"
 
+using namespace std;
+
 /** Build and save the picture **/
-void savePicture( const std::string& filename, int W, int H, const std::vector<std::vector<int>>& nbIters)
+void savePicture( const string& filename, int W, int H, const vector<vector<int>>& nbIters)
 {
-    std::ofstream ofs( filename.c_str(), std::ios::out | std::ios::binary );
+    ofstream ofs( filename.c_str(), ios::out | ios::binary );
     ofs << "P6\n" << W << " " << H << "\n255\n";
     
     for ( int i = 0; i < W * H; ++i ) {
@@ -22,19 +24,19 @@ void savePicture( const std::string& filename, int W, int H, const std::vector<s
 }
 
 /** Load textures **/
-std::vector<std::vector<float>>* loadPicture( const std::string& filename, int& n, int& m) {
-    std::cout << filename << std::endl;
+vector<vector<float>>* loadPicture( const string& filename, int& n, int& m) {
+    cout << filename << endl;
 
-    std::ifstream ifs; 
-    ifs.open(filename, std::ios::binary);
+    ifstream ifs; 
+    ifs.open(filename, ios::binary);
 
-    std::vector<std::vector<float>>* p_colors = new std::vector<std::vector<float>>();
+    vector<vector<float>>* p_colors = new vector<vector<float>>();
 
     try { 
         if (ifs.fail()) { 
             throw("Can't open input file"); 
         }
-        std::string header;
+        string header;
         float b;
         ifs >> header; 
         if (header.compare("P6") != 0) throw("Can't read input file"); 
@@ -42,7 +44,7 @@ std::vector<std::vector<float>>* loadPicture( const std::string& filename, int& 
         ifs.ignore(256, '\n'); // skip empty lines in necessary until we get to the binary data 
         unsigned char pix[3]; // read each pixel one by one and convert bytes to floats 
         for (int i = 0; i < n * m; ++i) {
-            std::vector<float> color;
+            vector<float> color;
             ifs.read(reinterpret_cast<char *>(pix), 3);
             
             for (int i = 0; i < 3; i++) {

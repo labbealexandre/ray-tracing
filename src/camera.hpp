@@ -19,7 +19,7 @@ class Camera {
         float width;
         float height;
 
-        std::vector<RAY> traceRays();
+        std::vector<Ray> traceRays();
 
         Camera() {
             for (int i = 0; i < 3; i++) {

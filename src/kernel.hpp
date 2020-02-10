@@ -21,7 +21,7 @@ std::vector<std::vector<int>> run(
 );
 
 std::vector<int> getColors( 
-    RAY& ray, std::vector<float>& origin,
+    Ray& ray, std::vector<float>& origin,
     std::vector<SceneBaseObject*>& scene,
     std::vector<LightSource*>& sources,
     int specular,
