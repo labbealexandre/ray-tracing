@@ -12,7 +12,9 @@ std::vector<std::vector<int>> run(
     std::vector<std::vector<int>> colors;
     D=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
     
-    std::vector<RAY> rays = camera.traceRays();
+    // Tracing the rays
+
+    std::vector<RAY> rays = camera.traceRays(); 
 
     E=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
     std::cout << "traced " << rays.size() << " rays in : "<< ((float)(E - D))/1000 << " s" << std::endl;
@@ -46,7 +48,10 @@ std::vector<std::vector<int>> run(
         }
     }
     F=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-    std::cout << "light sources generated in : "<< ((float)(F - E))/1000 << " s" << std::endl;
+    std::cout << "reflected light sources generated in : "<< ((float)(F - E))/1000 << " s" << std::endl;
+
+    // computing the color of pixels
+
     std::vector<int> black;
     for (int k = 0; k < 3; k++) black.push_back(0);
     for (auto ray : rays) {
@@ -83,6 +88,7 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
     float min_d = 0;
     bool reach = false;
     float epsilon = 1e-02;
+    // finding the pixel nearest to the camera
     for (auto object : scene) {
         current_P = object->getIntersection(ray, code);
         if (code) {
