@@ -27,7 +27,7 @@ int main(int argc, char const *argv[])
     std::vector<LightSource*> sources;
     std::vector<SceneBaseObject*> scene;
     int specular;
-    std::vector<int> ambiant;
+    std::vector<float> ambiant;
     int n;
     int m;
 

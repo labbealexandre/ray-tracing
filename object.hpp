@@ -20,8 +20,7 @@ class SceneBaseObject {
         virtual std::vector<float> getColor(const std::vector<float> &P);
         virtual int type();
         bool isItLit(std::vector<float> P, std::vector<float> positionLight, std::vector<SceneBaseObject*> &scene);
-        
-        // TOTEST Now
+
         std::vector<float> getIllumination(
             const std::vector<float>& P,
             const std::vector<float>& L,

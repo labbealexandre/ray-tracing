@@ -10,10 +10,10 @@ std::vector<float> SceneBaseObject::getIllumination(
 ){
     float s;
     if (V*R > 0) s = V*R;
-    else s = 0; 
-    
-    auto I = std::abs((L*N))*prod(surface.diffuse_coefficient, this->getColor(P)) +
-              (float)pow(s, specular)*surface.specular_coefficient;
+    else s = 0;
+
+    auto I = (float)pow(s, specular)*surface.specular_coefficient+
+              std::abs((L*N))*surface.diffuse_coefficient*this->getColor(P);
             
     capCoefs(I);
 
@@ -120,14 +120,14 @@ std::vector<float> Sphere::getIntersection(RAY L, int &code){
     //   }  
     // }
 
-    if (sqrt(V*V)>=radius){
+    if (sqrt(V*V)>=radius+epsilon){
       if (V*D<-sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
         t=-(V*D)-sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
-        if (t > epsilon) return S+t*D;
+        return S+t*D;
       }
       if (V*D<sqrt(pow(V*D,2)-(V*V-pow(radius,2)))) {
         t=-(V*D)+sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
-        if (t > epsilon) return S+t*D;
+        return S+t*D;
       }
     }
     else
@@ -135,8 +135,8 @@ std::vector<float> Sphere::getIntersection(RAY L, int &code){
       float u,v;
       u=-(V*D)-sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
       v=-(V*D)+sqrt(pow(V*D,2)-(V*V-pow(radius,2)));
-      if (u>epsilon) return S+u*D;
-      if (v>epsilon) return S+v*D;  
+      if (u>-epsilon) return S+u*D;
+      if (v>-epsilon) return S+v*D;  
     }
 
     code = 0;

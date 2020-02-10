@@ -65,26 +65,26 @@ Texture loadTexture(tinyxml2::XMLHandle &hTexture) {
 }
 
 Surface loadSurface(tinyxml2::XMLHandle &hSurface) {
-    std::vector<std::vector<float>> array;
+    std::vector<float> array;
 
     tinyxml2::XMLHandle hTexture = hSurface.FirstChildElement();
     Texture texture = loadTexture(hTexture);
 
     tinyxml2::XMLHandle hCoefs = hTexture.NextSiblingElement();
-    for (int i = 0; i < 5; i++) {
-        std::vector<float> coefs = loadCoords(hCoefs);
-        array.push_back(coefs);
+    for (int i = 0; i < 4; i++) {
+        float coef = std::stof(hCoefs.ToElement()->GetText());
+        array.push_back(coef);
 
-        if (i < 4)
+        if (i < 3)
         hCoefs = hCoefs.NextSiblingElement();
     }
 
-    Surface surface(texture, array[0], array[1], array[2], array[3], array[4]);
+    Surface surface(texture, array[0], array[1], array[2], array[3]);
 
     return surface;
 }
 
-void loadFile(  std::string file, int& specular, std::vector<int>& ambiant,
+void loadFile(  std::string file, int& specular, std::vector<float>& ambiant,
                 Camera& camera, std::vector<LightSource*>& sources,
                 std::vector<SceneBaseObject*>& scene, int& n, int& m) {
 
@@ -131,7 +131,7 @@ void loadFile(  std::string file, int& specular, std::vector<int>& ambiant,
             specular = std::stoi(hSpecular.ToElement()->GetText());
 
             tinyxml2::XMLHandle hColors = hSpecular.NextSiblingElement();
-            ambiant = loadColors(hColors);
+            ambiant = loadCoords(hColors);
 
         } else if (title.compare("source") == 0) {
             tinyxml2::XMLHandle hCenter = hObject.FirstChildElement();
