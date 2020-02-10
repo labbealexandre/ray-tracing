@@ -14,7 +14,7 @@ std::vector<float> SceneBaseObject::getIllumination(
 
     auto I = (float)pow(s, specular)*surface.specular_coefficient+
               std::abs((L*N))*surface.diffuse_coefficient*this->getColor(P);
-            
+
     capCoefs(I);
 
     return I;
@@ -31,8 +31,7 @@ std::vector<float> SceneBaseObject::getIntersection(RAY L, int &code){
 }
 
 std::vector<float> SceneBaseObject::getColor(const std::vector<float> &P) {
-  std::vector<float> res(3, 1);
-  return res;
+  return this->surface.colors;
 }
 
 bool SceneBaseObject::isItLit(std::vector<float> P, std::vector<float> positionLight, std::vector<SceneBaseObject*> &scene){

@@ -67,7 +67,10 @@ Texture loadTexture(tinyxml2::XMLHandle &hTexture) {
 Surface loadSurface(tinyxml2::XMLHandle &hSurface) {
     std::vector<float> array;
 
-    tinyxml2::XMLHandle hTexture = hSurface.FirstChildElement();
+    tinyxml2::XMLHandle hColors = hSurface.FirstChildElement();
+    std::vector<float> colors = loadCoords(hColors);
+
+    tinyxml2::XMLHandle hTexture = hColors.NextSiblingElement();
     Texture texture = loadTexture(hTexture);
 
     tinyxml2::XMLHandle hCoefs = hTexture.NextSiblingElement();
@@ -79,7 +82,7 @@ Surface loadSurface(tinyxml2::XMLHandle &hSurface) {
         hCoefs = hCoefs.NextSiblingElement();
     }
 
-    Surface surface(texture, array[0], array[1], array[2], array[3]);
+    Surface surface(colors, texture, array[0], array[1], array[2], array[3]);
 
     return surface;
 }
@@ -247,25 +250,6 @@ std::vector<Triangle*> polyToTriangles(std::vector<float> N, std::vector<std::ve
     monotoneToTriangles(N, heights, triangles, surface, n1, n2); // TODO : case of non-monotone polygons
 
     return triangles;
-
-    // std::vector<Triangle> triangles;
-
-    // std::vector<std::vector<float>> edges;
-    // std::vector<float> n = normalise(corners[corners.size()/2] - corners[0]);
-    // std::vector<float> heights;
-
-    // /* Computation of the heights */
-    // for (unsigned int i = 0; i < corners.size(); i++) {
-    //     heights.push_back((corners[i] - corners[0])*n);
-    // }
-
-    // /* Computation of the lengths */
-
-
-    // /* Research of the max */
-    // int maxHeightIndex = std::max_element(heights.begin(), heights.end()) - heights.begin();
-
-    // return triangles;
 }
 
 void monotoneToTriangles(std::vector<float> N, std::vector<std::tuple<float, std::vector<float>*, int>>& heights,

@@ -8,6 +8,7 @@
 class Surface {
 
     public:
+        std::vector<float> colors;
         Texture texture;
         float transmission_coefficient;
         float reflexion_coefficient;
@@ -25,12 +26,14 @@ class Surface {
         }
 
         Surface(
-            Texture T,
+            const std::vector<float>& c,
+            const Texture& T,
             float &r,
             float &t,
             float &d,
             float &s)
         {
+            colors = c;
             texture = T;
             reflexion_coefficient = r;
             transmission_coefficient = t;
