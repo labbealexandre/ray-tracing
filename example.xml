@@ -3,7 +3,7 @@
     xsi:noNamespaceSchemaLocation="./scene.xsd">
 
     <params>
-        <specular>10</specular>
+        <specular>15</specular>
 
         <coefs>
             <coef type="r">0.3</coef>
@@ -18,7 +18,7 @@
             <coord type="y">0</coord>
             <coord type="z">0</coord>
         </coords>
-        <coord type="width">10</coord>
+        <coord type="width">15</coord>
         <coord type="height">10</coord>
         <coord type="focal">5</coord>
         <coord type="n_width">512</coord>
@@ -60,9 +60,9 @@
                 <coord type="width">10</coord>
                 <coord type="height">10</coord>
             </texture>
-            <coef type="reflexion">0</coef>
+            <coef type="reflexion">1</coef>
             <coef type="transmission">0</coef>
-            <coef type="diffusion">1</coef>
+            <coef type="diffusion">0</coef>
             <coef type="specular">1</coef>
         </surface>
         <coord type="n1">1</coord>
@@ -124,7 +124,7 @@
                 <coef type="b">0</coef>
             </coefs>
             <texture>
-                <path>./texture/blank.ppm</path>
+                <path>./texture/tile.ppm</path>
                 <coords type="center">
                     <coord type="x">-1000</coord>
                     <coord type="y">0</coord>
@@ -165,7 +165,7 @@
                 <coef type="b">0</coef>
             </coefs>
             <texture>
-                <path>./texture/tile.ppm</path>
+                <path>./texture/blue_tile.ppm</path>
                 <coords type="center">
                     <coord type="x">0</coord>
                     <coord type="y">200</coord>

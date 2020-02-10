@@ -47,7 +47,7 @@ class SceneBaseObject {
         }
 
         /** Destructor */
-        ~SceneBaseObject(){}
+        virtual ~SceneBaseObject(){}
 };
 
 class Sphere : public SceneBaseObject{
