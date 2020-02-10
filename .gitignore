@@ -1,10 +1,4 @@
 *.o
 main
 assets
-scenes
-scene.xml
 .vscode/settings.json
-texture/Meisje_met_de_parel.ppm
-texture/obj_fbx_ma_lwo_3ds_3dm_stl_1250143_o.ppm
-example.xml
-

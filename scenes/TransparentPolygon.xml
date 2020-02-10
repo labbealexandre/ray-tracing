@@ -1,0 +1,225 @@
+<?xml version = "1.0" encoding="UTF-8" standalone="no" ?>
+<scene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../scene.xsd">
+
+    <params>
+        <specular>15</specular>
+
+        <coefs>
+            <coef type="r">0.3</coef>
+            <coef type="g">0.3</coef>
+            <coef type="b">0.3</coef>
+        </coefs>
+    </params>
+
+    <camera>
+        <coords type="center">
+            <coord type="x">0</coord>
+            <coord type="y">0</coord>
+            <coord type="z">0</coord>
+        </coords>
+        <coord type="width">15</coord>
+        <coord type="height">10</coord>
+        <coord type="focal">5</coord>
+        <coord type="n_width">512</coord>
+        <coord type="n_height">512</coord>
+    </camera>
+
+    <source>
+        <coords type="center">
+            <coord type="x">250</coord>
+            <coord type="y">-250</coord>
+            <coord type="z">250</coord>
+        </coords>
+        <colors>
+            <color type="r">255</color>
+            <color type="g">255</color>
+            <color type="b">255</color>
+        </colors>
+    </source>
+    
+    <plan>
+        <surface>
+            <coefs>
+                <coef type="r">0.6</coef>
+                <coef type="g">0</coef>
+                <coef type="b">0</coef>
+            </coefs>
+            <texture>
+                <path>./texture/blue_tile.ppm</path>
+                <coords type="center">
+                    <coord type="x">1000</coord>
+                    <coord type="y">0</coord>
+                    <coord type="z">0</coord>
+                </coords>
+                <coords type="direction">
+                    <coord type="x">0</coord>
+                    <coord type="y">1</coord>
+                    <coord type="z">0</coord>
+                </coords>
+                <coord type="width">100</coord>
+                <coord type="height">100</coord>
+            </texture>
+            <coef type="reflexion">0</coef>
+            <coef type="transmission">0</coef>
+            <coef type="diffusion">0.8</coef>
+            <coef type="specular">1</coef>
+        </surface>
+        <coord type="n1">1</coord>
+        <coord type="n2">1.3</coord>
+        <coords type="center">
+            <coord type="x">1000</coord>
+            <coord type="y">0</coord>
+            <coord type="z">0</coord>
+        </coords>
+        <coords type="normal">
+            <coord type="x">-1</coord>
+            <coord type="y">0</coord>
+            <coord type="z">0</coord>
+        </coords>
+    </plan>
+
+    <plan>
+        <surface>
+            <coefs>
+                <coef type="r">0.6</coef>
+                <coef type="g">0</coef>
+                <coef type="b">0</coef>
+            </coefs>
+            <texture>
+                <path>./texture/red_tile.ppm</path>
+                <coords type="center">
+                    <coord type="x">-1000</coord>
+                    <coord type="y">0</coord>
+                    <coord type="z">0</coord>
+                </coords>
+                <coords type="direction">
+                    <coord type="x">0</coord>
+                    <coord type="y">1</coord>
+                    <coord type="z">0</coord>
+                </coords>
+                <coord type="width">100</coord>
+                <coord type="height">100</coord>
+            </texture>
+            <coef type="reflexion">0</coef>
+            <coef type="transmission">0</coef>
+            <coef type="diffusion">0.8</coef>
+            <coef type="specular">1</coef>
+        </surface>
+        <coord type="n1">1</coord>
+        <coord type="n2">1.3</coord>
+        <coords type="center">
+            <coord type="x">-1000</coord>
+            <coord type="y">0</coord>
+            <coord type="z">0</coord>
+        </coords>
+        <coords type="normal">
+            <coord type="x">1</coord>
+            <coord type="y">0</coord>
+            <coord type="z">0</coord>
+        </coords>
+    </plan>
+
+    <plan>
+        <surface>
+            <coefs>
+                <coef type="r">0.6</coef>
+                <coef type="g">0</coef>
+                <coef type="b">0</coef>
+            </coefs>
+            <texture>
+                <path>./texture/tile.ppm</path>
+                <coords type="center">
+                    <coord type="x">0</coord>
+                    <coord type="y">200</coord>
+                    <coord type="z">0</coord>
+                </coords>
+                <coords type="direction">
+                    <coord type="x">1</coord>
+                    <coord type="y">0</coord>
+                    <coord type="z">0</coord>
+                </coords>
+                <coord type="width">100</coord>
+                <coord type="height">100</coord>
+            </texture>
+            <coef type="reflexion">0</coef>
+            <coef type="transmission">0</coef>
+            <coef type="diffusion">0.8</coef>
+            <coef type="specular">1</coef>
+        </surface>
+        <coord type="n1">1</coord>
+        <coord type="n2">1.3</coord>
+        <coords type="center">
+            <coord type="x">0</coord>
+            <coord type="y">200</coord>
+            <coord type="z">0</coord>
+        </coords>
+        <coords type="normal">
+            <coord type="x">0</coord>
+            <coord type="y">-1</coord>
+            <coord type="z">0</coord>
+        </coords>
+    </plan>
+
+    <polygon corners="5">
+        <surface>
+            <coefs>
+                <coef type="r">0</coef>
+                <coef type="g">0</coef>
+                <coef type="b">0</coef>
+            </coefs>
+            <texture>
+                <path>./texture/tile.ppm</path>
+                <coords type="center">
+                    <coord type="x">500</coord>
+                    <coord type="y">0</coord>
+                    <coord type="z">0</coord>
+                </coords>
+                <coords type="direction">
+                    <coord type="x">0</coord>
+                    <coord type="y">1</coord>
+                    <coord type="z">0</coord>
+                </coords>
+                <coord type="width">100</coord>
+                <coord type="height">100</coord>
+            </texture>
+            <coef type="reflexion">1</coef>
+            <coef type="transmission">0</coef>
+            <coef type="diffusion">0</coef>
+            <coef type="specular">1</coef>
+        </surface>
+        <coord type="n1">1</coord>
+        <coord type="n2">1.3</coord>
+        <coords type="normal">
+            <coord type="x">-1</coord>
+            <coord type="y">0</coord>
+            <coord type="z">0</coord>
+        </coords>
+        <coords type="corner">
+            <coord type="x">200</coord>
+            <coord type="y">0</coord>
+            <coord type="z">100</coord>
+        </coords>
+        <coords type="corner">
+            <coord type="x">200</coord>
+            <coord type="y">-95</coord>
+            <coord type="z">31</coord>
+        </coords>
+        <coords type="corner">
+            <coord type="x">200</coord>
+            <coord type="y">-59</coord>
+            <coord type="z">-81</coord>
+        </coords>
+        <coords type="corner">
+            <coord type="x">200</coord>
+            <coord type="y">59</coord>
+            <coord type="z">-81</coord>
+        </coords>
+        <coords type="corner">
+            <coord type="x">200</coord>
+            <coord type="y">95</coord>
+            <coord type="z">31</coord>
+        </coords>
+    </polygon>
+
+</scene>
