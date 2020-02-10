@@ -15,13 +15,15 @@ class SceneBaseObject {
         Surface surface;
         std::vector<float> center;
         float n1, n2;
-        virtual std::vector<float> getNormal(std::vector<float> P);
-        virtual std::vector<float> getIntersection(RAY L, int&);
-        virtual std::vector<float> getColor(const std::vector<float> &P);
+        std::vector<float> getNormal(std::vector<float> P);                       // Return the normal to the object at the point P
+        std::vector<float> getIntersection(RAY L, int&);                          // Return the intersection between the object and a ray
+        std::vector<float> getColor(const std::vector<float> &P);                 // Return the color of the object at the point P
+
         virtual int type();
         bool isItLit(std::vector<float> P, std::vector<float> positionLight, std::vector<SceneBaseObject*> &scene);
-
-        std::vector<float> getIllumination(
+        // Return true if the point P is lit, and false if it is in shadows
+        
+        std::vector<float> getIllumination(                                       // Return the light level of the object at the point P
             const std::vector<float>& P,
             const std::vector<float>& L,
             const std::vector<float>& N,
@@ -31,8 +33,9 @@ class SceneBaseObject {
         );
 
         std::vector<float> getReflectedRayDirection(std::vector<float> V, std::vector<float> P);
+        // Return the direction vector of a ray reflected on the object at the point P
         std::vector<float> getRefractedRayDirection(std::vector<float> V, std::vector<float> P, int& code);
-
+        // Return the direction vector of a ray refracted by the object at the point P
         virtual void print();
         virtual void name();
 
