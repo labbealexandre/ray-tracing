@@ -1,4 +1,4 @@
 *.o
 main
-assets
+assets/*
 .vscode/settings.json

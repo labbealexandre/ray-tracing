@@ -27,5 +27,5 @@ Pour connaître l'utilisation de ce format, un fichier example.xml est fourni et
 - Les textures doient être au format ppm (+le fichier ne doit pas comporter de commentaire)
 - Les polygones renseignés dans le XML sont triangulés. L'implémentation de cette triangulation n'a pas été menée à son terme. Seuls les polygons monotones sont compatibles.
 
-## Pour de plus amples informations sur les fonctionnalités, veuillez consulter le fichier doc.txt et pour
+Pour de plus amples informations sur les fonctionnalités, veuillez consulter le fichier doc.txt et pour
 comprendre l'architecture des classes, veuillez vous référer à l'image architecture.png
