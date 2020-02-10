@@ -33,6 +33,16 @@ inline void operator += (std::vector<T>& left, std::vector<T> const& right) {
 };
 
 template <typename T>
+inline std::vector<T> operator + (T left, std::vector<T> const& right) {
+    std::vector<T> res(right.size());
+    for (unsigned int i = 0; i < right.size(); i++) {
+        res[i] = left + right[i];
+    }
+
+    return res;
+};
+
+template <typename T>
 inline std::vector<T> operator - (std::vector<T> const& left, std::vector<T> const& right) {
     std::vector<T> res(left.size());
     if (left.size() == right.size()) {
@@ -81,6 +91,16 @@ inline std::vector<T> operator * (T const& left, std::vector<T> const& right) {
     return res;
 };
 
+inline std::vector<int> operator * (int const& left, std::vector<float> const& right) {
+    std::vector<int> res(right.size());
+    for (unsigned int i = 0; i < right.size(); i++) {
+        res[i] = (int)left * right[i];
+    }
+
+    return res;
+};
+
+
 template <typename T> std::vector<T> normalise(const std::vector<T>&);
 
 template <typename T>
@@ -107,13 +127,23 @@ inline std::vector<int> operator * (const std::vector<int>& left, const std::vec
     return res;
 };
 
-template <typename T>
-inline std::vector<T> prod(const std::vector<T>& left, const std::vector<T>& right) {
-    std::vector<T> res;
+inline std::vector<int> operator * (float left, const std::vector<int>& right) {
+    std::vector<int> res;
+
+        for (unsigned int i = 0; i < right.size(); i++) {
+            float result = left*right[i];
+            res.push_back((int)result);
+        }
+    return res;
+};
+
+template <typename T1, typename T2>
+inline std::vector<float> prod(const std::vector<T1>& left, const std::vector<T2>& right) {
+    std::vector<float> res;
 
     if (left.size() == right.size()) {
         for (unsigned int i = 0; i < right.size(); i++) {
-            T result = left[i]*right[i];
+            float result = left[i]*right[i];
             res.push_back(result);
         }
     } else {

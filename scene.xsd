@@ -33,7 +33,7 @@
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element ref="specular"/>
-                <xsd:element ref="colors" />
+                <xsd:element ref="coefs" />
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
@@ -137,8 +137,9 @@
     <xsd:element name="surface">
         <xsd:complexType>
             <xsd:sequence>
+                <xsd:element ref="coefs"/>
                 <xsd:element ref="texture"/>
-                <xsd:element ref="coefs" minOccurs="5" maxOccurs="5"/>
+                <xsd:element ref="coef" minOccurs="4" maxOccurs="4"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
@@ -160,17 +161,6 @@
             <xsd:sequence>
                 <xsd:element ref="coef" minOccurs="3" maxOccurs="3"/>
             </xsd:sequence>
-            <xsd:attribute name="type">
-                <xsd:simpleType>
-                <xsd:restriction base="xsd:string">
-                    <xsd:enumeration value="ambiant"/>
-                    <xsd:enumeration value="reflexion"/>
-                    <xsd:enumeration value="transmission"/>
-                    <xsd:enumeration value="diffusion"/>
-                    <xsd:enumeration value="specular"/>
-                </xsd:restriction>
-                </xsd:simpleType>
-            </xsd:attribute>
         </xsd:complexType>
     </xsd:element>
 
@@ -185,6 +175,10 @@
                             <xsd:enumeration value="r"/>
                             <xsd:enumeration value="g"/>
                             <xsd:enumeration value="b"/>
+                            <xsd:enumeration value="reflexion"/>
+                            <xsd:enumeration value="transmission"/>
+                            <xsd:enumeration value="diffusion"/>
+                            <xsd:enumeration value="specular"/>
                         </xsd:restriction>
                         </xsd:simpleType>
                     </xsd:attribute>

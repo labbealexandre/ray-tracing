@@ -1,6 +1,7 @@
 *.o
 main
 assets
+scenes
 scene.xml
 .vscode/settings.json
 texture/Meisje_met_de_parel.ppm

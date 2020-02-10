@@ -9,12 +9,47 @@ Le lancer de rayons est une technique de rendu d'images de synthèse simple, mai
 relativement  coûteuse en temps de calcul, connue pour ses résultats réalistes 
 obtenus sur les ombres et les reflets. 
 
+
 ---Ce que l'on a fait:
 
-nous avons réalisé ici un moteur de lancer de rayons permettant de rendre des 
+Nous avons réalisé ici un moteur de lancer de rayons permettant de rendre des 
 scènes composées d'objets géométriques relativements simples tels que des 
 sphères, des plans et des polygones.
 
+Voici le détail des fonctionnalités et caractéristiques principales :
+- Notre moteur de rendu graphique utilise l'équation récursive de calcul de l'illumination
+  de Bling-Phong.
+
+- Nous avons dans premier temps implémenté la diffusion et la réflexion de la lumière
+  issue d'une source lumineuse sur les objets suivants : sphère, plan infini, triangle.
+
+- Ensuite nous avons implémenté la récursion pour permettre d'observer
+  les phénomènes de réflexion et de réfraction.
+
+- Pour obtenir des images plus complexes, nous avons ajouté des textures sur les plans
+  infinis
+
+- Cette méthode de rendu étant particulièrement gourmande, nous avons parallélisé notre
+  algorithme à l'aide de directives OpenMP.
+
+- Enfin pour faciliter l'utilisation du moteur de rendu, nous avons écrit un format XML
+  pour décrire nos scènes.
+
+
 ---Ce que l'on aurait aimé faire+piste d'amélioration du projet:
 
-gerer des formes tridimensionelles plus complexes.
+- Terminer l'implémentation des textures, en particulier pour les sphères.
+
+- Gérer tous les types de polygones.
+
+- Gérer des formes tridimensionelles plus complexes.
+
+- Implémenter un programme de conversion de fichiers de modèles 3D à notre format XML pour
+  être compatible avec logiciels de modélisation 3D comme Blender. Le choix d'avoir implémenté
+  l'objet triangle était d'ailleurs fait dans l'optique de pouoir décomposer des formes plus
+  complexes et ainsi pouvoir les afficher sans modifier le coeur de notre moteur graphique.
+
+- Ajouter à l'algorithme de Ray-Tracing, un premier algorithme de lancer de rayons lumineux
+  pour ainsi "illuminer" la scène. Cela permttrait d'illuminer des objets par l'intermédiaire
+  d'autres.
+- Ajouter des Shaders

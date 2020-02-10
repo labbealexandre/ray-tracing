@@ -15,7 +15,7 @@ std::vector<float> loadCoords(tinyxml2::XMLHandle &hCoords);
 std::vector<int> loadColors(tinyxml2::XMLHandle &hColors);
 Texture loadTexture(tinyxml2::XMLHandle &hTexture);
 Surface loadSurface(tinyxml2::XMLHandle &hSurface);
-void loadFile(  std::string file, int& specular, std::vector<int>& ambiant,
+void loadFile(  std::string file, int& specular, std::vector<float>& ambiant,
                 Camera& camera, std::vector<LightSource*>& sources,
                 std::vector<SceneBaseObject*>& scene, int& n, int& m);
 std::vector<Triangle*> polyToTriangles(std::vector<float> N, std::vector<std::vector<float>>& corners,

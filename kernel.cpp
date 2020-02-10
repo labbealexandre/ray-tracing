@@ -6,7 +6,7 @@ std::vector<std::vector<int>> run(
     std::vector<SceneBaseObject*> &scene,
     std::vector<LightSource*> &sources,
     int specular,
-    std::vector<int> &ambiant
+    std::vector<float> &ambiant
 ) {
     unsigned D,E,F,G;
     std::vector<std::vector<int>> colors;
@@ -22,9 +22,8 @@ std::vector<std::vector<int>> run(
 
     // Adding the reflexions of lightsources
 
-    std::vector<float> zer={0,0,0};
     for (auto object : scene){
-        if(object->type()==2 && object->surface.reflexion_coefficient!=zer){
+        if(object->type()==2 && object->surface.reflexion_coefficient!=0){
             object->name();
             std::vector<LightSource*> newsources;
             std::vector<float> newcenter;
@@ -37,7 +36,7 @@ std::vector<std::vector<int>> run(
                 i++;
                 std::vector<float> S=source->getPosition();
                 newcenter=S-2*((S-C)*N)*N;
-                newcolors=source->illumination*object->surface.reflexion_coefficient;
+                newcolors=object->surface.reflexion_coefficient*source->illumination;
                 LightSource* newsource = new LightSource(newcenter, newcolors);
                 newsources.push_back(newsource);
             }
@@ -74,7 +73,7 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
                             std::vector<SceneBaseObject*> &scene,
                             std::vector<LightSource*> &sources,
                             int specular,
-                            const std::vector<int> &ambiant,
+                            const std::vector<float> &ambiant,
                             int stack) {
 
     int code;
@@ -83,7 +82,7 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
     std::vector<int> I(3, 0);
     float min_d = 0;
     bool reach = false;
-    float epsilon = 1e-04;
+    float epsilon = 1e-02;
     for (auto object : scene) {
         current_P = object->getIntersection(ray, code);
         if (code) {
@@ -111,32 +110,32 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
         for (auto source : sources) {
             posSource=source->getPosition();
             isLit=p_object->isItLit(P,posSource, scene);
+
+            I += 255*(p_object->surface.diffuse_coefficient*prod(ambiant, p_object->getColor(P)));
             
             if (isLit) {
                 L = source->getIncidentRay(P);
                 R = source->getReflectedRay(P, N);
                 I += source->illumination*p_object->getIllumination(P, L, N, V, R, specular);
             }
-            I += ambiant*p_object->surface.ambiant_coefficient;
         }
-        std::vector<float> zer={0,0,0};
-        if (stack < 2 && p_object->surface.reflexion_coefficient!=zer) {
+        if (stack < 3 && (p_object->surface.reflexion_coefficient!=0 || p_object->surface.transmission_coefficient!=0 )) {
             std::vector<float> direction = p_object->getReflectedRayDirection(V, P);
             RAY reflectedRay(P, direction);
-            std::vector<int> reflectedI = getColors(reflectedRay, P, scene, sources, specular, ambiant, stack+1)*
-                                            p_object->surface.reflexion_coefficient;
+            std::vector<int> reflectedI = p_object->surface.reflexion_coefficient*
+                                            getColors(reflectedRay, P, scene, sources, specular, ambiant, stack+1);
             I+=reflectedI;
 
             int code;
             direction = p_object->getRefractedRayDirection(V, P, code);
             if (code == 1) {
                 RAY refractedRay(P, direction);
-                std::vector<int> refractedI = getColors(refractedRay, P, scene, sources, specular, ambiant, stack+1)*
-                                            p_object->surface.transmission_coefficient;
+                std::vector<int> refractedI = p_object->surface.transmission_coefficient*
+                                                getColors(refractedRay, P, scene, sources, specular, ambiant, stack+1); 
                 I+=refractedI;
             }
         }
     }
-    capColors(I);
+        capColors(I);
     return I;
 }
