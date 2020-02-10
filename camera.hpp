@@ -10,10 +10,8 @@
 
 class Camera {
     private:
-        
         float focal;
         
-
     public:
         int pixels_per_row;
         int pixels_per_column;

@@ -1,6 +1,6 @@
 #include "display.hpp"
 
-/** Construit et sauvegarde l'image **/
+/** Build and save the picture **/
 void savePicture( const std::string& filename, int W, int H, const std::vector<std::vector<int>>& nbIters)
 {
     std::ofstream ofs( filename.c_str(), std::ios::out | std::ios::binary );
@@ -21,6 +21,7 @@ void savePicture( const std::string& filename, int W, int H, const std::vector<s
     ofs.close();
 }
 
+/** Load textures **/
 std::vector<std::vector<float>>* loadPicture( const std::string& filename, int& n, int& m) {
     std::cout << filename << std::endl;
 

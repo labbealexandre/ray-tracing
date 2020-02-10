@@ -9,7 +9,6 @@ std::vector<std::vector<int>> run(
     std::vector<float> &ambiant
 ) {
     unsigned D,E,F,G;
-    std::vector<std::vector<int>> colors;
     D=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
     
     /** Tracing Rays **/
@@ -49,12 +48,11 @@ std::vector<std::vector<int>> run(
     F=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
     std::cout << "reflected light sources generated in : "<< ((float)(F - E))/1000 << " s" << std::endl;
 
-    /** Computing the colors of pixels **/
-    std::vector<int> black;
-    for (int k = 0; k < 3; k++) black.push_back(0);
-    for (auto ray : rays) {
-        colors.push_back(black);
-    }
+    /** Initialization to 0 of the computed colors **/
+    std::vector<int> black{0, 0, 0};
+    std::vector<std::vector<int>> colors(rays.size(), black);
+
+    /** Paralization of the rays computing **/
     int nb_taches;
     # pragma omp parallel private(nb_taches) 
     {
@@ -64,7 +62,8 @@ std::vector<std::vector<int>> run(
             for (int j = 0; j < camera.pixels_per_column; j++) {
                 RAY ray=rays[i*camera.pixels_per_column+j];
                 colors[i*camera.pixels_per_column+j]=getColors(ray, camera.position, scene, sources, specular, ambiant, 0);
-    }}
+            }   
+        }  
     }
     G=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
     std::cout << "the pixels have been computed in " << ((float)(G - F))/1000 << "s" << std::endl;
@@ -129,6 +128,8 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
         if (stack < 3 && p_object->surface.reflexion_coefficient != 0) {
             std::vector<float> direction = p_object->getReflectedRayDirection(V, P);
             RAY reflectedRay(P, direction);
+
+            /** Recursive call for the reflected ray **/
             std::vector<int> reflectedI = p_object->surface.reflexion_coefficient*
                                             getColors(reflectedRay, P, scene, sources, specular, ambiant, stack+1);
             I+=reflectedI;
@@ -140,6 +141,8 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
             std::vector<float> direction = p_object->getRefractedRayDirection(V, P, code);
             if (code == 1) {
                 RAY refractedRay(P, direction);
+
+                /** Recursive call for the refracted ray **/
                 std::vector<int> refractedI = p_object->surface.transmission_coefficient*
                                                 getColors(refractedRay, P, scene, sources, specular, ambiant, stack+1); 
                 I+=refractedI;

@@ -14,7 +14,6 @@ int main(int argc, char const *argv[])
     unsigned begin, A,B,C, end;
     begin=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
          
-
     if (argc != 3) {
         std::cout << "You need 2 arguments : xml source file and tga target image" << std::endl;
         return -1;

@@ -18,11 +18,11 @@
             <coord type="y">0</coord>
             <coord type="z">0</coord>
         </coords>
-        <coord type="width">15</coord>
+        <coord type="width">10</coord>
         <coord type="height">10</coord>
         <coord type="focal">5</coord>
-        <coord type="n_width">512</coord>
-        <coord type="n_height">512</coord>
+        <coord type="n_width">1024</coord>
+        <coord type="n_height">1024</coord>
     </camera>
 
     <source>
@@ -201,9 +201,9 @@
     <polygon corners="6">
         <surface>
             <coefs>
-                <coef type="r">0</coef>
+                <coef type="r">0.6</coef>
                 <coef type="g">0</coef>
-                <coef type="b">0.6</coef>
+                <coef type="b">0</coef>
             </coefs>
             <texture>
                 <path>./texture/tile.ppm</path>
@@ -267,9 +267,9 @@
     <polygon corners="6">
         <surface>
             <coefs>
-                <coef type="r">0</coef>
+                <coef type="r">0.6</coef>
                 <coef type="g">0</coef>
-                <coef type="b">0.6</coef>
+                <coef type="b">0</coef>
             </coefs>
             <texture>
                 <path>./texture/tile.ppm</path>
