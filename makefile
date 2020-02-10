@@ -21,6 +21,7 @@ $(TARGET): $(OBJECTS) $(TARGETCPP)
 	$(CXX) $(CXXFLAGS) $^ -o $(TARGET)
 
 main: $(OBJECTS) test/main.cpp tinyxml2/tinyxml2.cpp
+	$(shell mkdir -p $(BINDIR))
 	$(CXX) $(CXXFLAGS) $^ -o $(BINDIR)/$@
 
 clean:
