@@ -17,7 +17,7 @@ Pour connaître l'utilisation de ce format, un fichier example.xml est fourni et
 ## Voici un exemple d'exécution
 
 ```
-./main scenes/ReflexionSphere.xml assets/ReflexionSphere.tga
+./test/main scenes/ReflexionSphere.xml assets/ReflexionSphere.tga
 ```
 
 ## Mise en garde pour l'utilisation
