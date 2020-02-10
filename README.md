@@ -17,3 +17,4 @@ Mise en garde pour l'utilisation
   Il faut cependant fournir le chemin d'une texture par défaut
 - Les textures non carrées posent problème et ceci n'a pas été résolu. Il est recommandé d'utliser des    textures carrées.
 - Les textures doient être au format ppm (+le fichier ne doit pas comporter de commentaire)
+- Les polygones renseignés dans le XML sont triangulés. L'implémentation de cette triangulation n'a pas été menée à son terme. Seuls les polygons monotones sont compatibles.
