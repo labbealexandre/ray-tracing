@@ -12,8 +12,7 @@ std::vector<std::vector<int>> run(
     std::vector<std::vector<int>> colors;
     D=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
     
-    // Tracing the rays
-
+    /** Tracing Rays **/
     std::vector<RAY> rays = camera.traceRays(); 
 
     E=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
@@ -22,8 +21,7 @@ std::vector<std::vector<int>> run(
     std::vector<float> P, N, L, R, V;
     std::vector<int> I(3, 0);
 
-    // Adding the reflexions of lightsources
-
+    /** Adding the reflexions of lightsources **/
     for (auto object : scene){
         if(object->type()==2 && object->surface.reflexion_coefficient!=0){
             object->name();
@@ -47,11 +45,11 @@ std::vector<std::vector<int>> run(
             }
         }
     }
+    
     F=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
     std::cout << "reflected light sources generated in : "<< ((float)(F - E))/1000 << " s" << std::endl;
 
-    // computing the color of pixels
-
+    /** Computing the colors of pixels **/
     std::vector<int> black;
     for (int k = 0; k < 3; k++) black.push_back(0);
     for (auto ray : rays) {
@@ -88,7 +86,8 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
     float min_d = 0;
     bool reach = false;
     float epsilon = 1e-02;
-    // finding the pixel nearest to the camera
+
+    /** finding the pixel nearest to the camera **/
     for (auto object : scene) {
         current_P = object->getIntersection(ray, code);
         if (code) {
@@ -125,15 +124,20 @@ std::vector<int> getColors( RAY& ray, std::vector<float>& origin,
                 I += source->illumination*p_object->getIllumination(P, L, N, V, R, specular);
             }
         }
-        if (stack < 3 && (p_object->surface.reflexion_coefficient!=0 || p_object->surface.transmission_coefficient!=0 )) {
+
+        /** Getting reflected rays **/
+        if (stack < 3 && p_object->surface.reflexion_coefficient != 0) {
             std::vector<float> direction = p_object->getReflectedRayDirection(V, P);
             RAY reflectedRay(P, direction);
             std::vector<int> reflectedI = p_object->surface.reflexion_coefficient*
                                             getColors(reflectedRay, P, scene, sources, specular, ambiant, stack+1);
             I+=reflectedI;
+        }
 
+        /** getting refracted rays **/
+        if (stack < 3 && p_object->surface.transmission_coefficient != 0 ) {
             int code;
-            direction = p_object->getRefractedRayDirection(V, P, code);
+            std::vector<float> direction = p_object->getRefractedRayDirection(V, P, code);
             if (code == 1) {
                 RAY refractedRay(P, direction);
                 std::vector<int> refractedI = p_object->surface.transmission_coefficient*
