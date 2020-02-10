@@ -269,3 +269,7 @@ void monotoneToTriangles(std::vector<float> N, std::vector<std::tuple<float, std
 
     if(heights.size() >= 3)  monotoneToTriangles(N, heights, triangles, surface, n1, n2);
 }
+
+void deleteTextures() {
+    for (auto pointer : colors_pointers) delete pointer;
+}

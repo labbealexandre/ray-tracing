@@ -44,6 +44,10 @@ int main(int argc, char const *argv[])
     std::cout << "temps calcul de l'image: "<< ((float)(C - B))/1000 << "s" << std::endl;
 
     savePicture(target.data(), n, m, colors);
+
+    deleteTextures();
+    for (auto source : sources) delete source;
+    for (auto object : scene) delete object;
     
     end=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
     std::cout << "temps sauvegarde: "<< ((float)(end - C))/1000 << "s" << std::endl;
