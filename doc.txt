@@ -1,22 +1,19 @@
 ---Présentation du projet:
 Ce projet consiste à fournir une bibliothèque d’objets permettant de décrire les
-les éléments composant une scène et d’implanter différents moteurs implantant le
-rendu d’image par lancer de rayons, et pour tester l’intégration de ces 
-fonctions, un environnement permettant de spécifier les scènes, de lancer
-l’exécution des moteurs et d’afficher le résultat.
+les éléments composant une scène et d’implanter un rendu d’image par lancer de 
+rayons, et pour tester l’intégration de ces fonctions, un environnement 
+permettant de spécifier les scènes, de lancer l’exécution des moteurs et 
+d’afficher le résultat.
 
-Il s'agit de réaliser un code de calcul de lancer de rayons. Le lancer de rayons
-est une technique de rendu d'images de synthèse simple, mais relativement 
-coûteuse en temps de calcul, connue pour ses résultats réalistes obtenus sur les
-ombres et les reflets. Il s'agira donc, ici, de réaliser un moteur de lancer de 
-rayons permettant de rendre des scènes composées d'objets géométriques simples 
-tels que des sphères, des plans et des polygones.
+Le lancer de rayons est une technique de rendu d'images de synthèse simple, mais 
+relativement  coûteuse en temps de calcul, connue pour ses résultats réalistes 
+obtenus sur les ombres et les reflets. 
 
 ---Ce que l'on a fait:
 
-un moteur de lancer de 
-rayons permettant de rendre des scènes composées d'objets géométriques simples 
-tels que des sphères, des plans et des polygones.
+nous avons réalisé ici un moteur de lancer de rayons permettant de rendre des 
+scènes composées d'objets géométriques relativements simples tels que des 
+sphères, des plans et des polygones.
 
 ---Ce que l'on aurait aimé faire+piste d'amélioration du projet:
 
