@@ -18,7 +18,7 @@ sphères, des plans et des polygones.
 
 Voici le détail des fonctionnalités et caractéristiques principales :
 - Notre moteur de rendu graphique utilise l'équation récursive de calcul de l'illumination
-  de Bling-Phong.
+  de Blinn-Phong.
 
 - Nous avons dans premier temps implémenté la diffusion et la réflexion de la lumière
   issue d'une source lumineuse sur les objets suivants : sphère, plan infini, triangle.
@@ -42,7 +42,7 @@ Voici le détail des fonctionnalités et caractéristiques principales :
 
 - Gérer tous les types de polygones.
 
-- Gérer des formes tridimensionelles plus complexes.
+- Gérer des formes tridimensionnelles plus complexes.
 
 - Implémenter un programme de conversion de fichiers de modèles 3D à notre format XML pour
   être compatible avec logiciels de modélisation 3D comme Blender. Le choix d'avoir implémenté
@@ -50,6 +50,7 @@ Voici le détail des fonctionnalités et caractéristiques principales :
   complexes et ainsi pouvoir les afficher sans modifier le coeur de notre moteur graphique.
 
 - Ajouter à l'algorithme de Ray-Tracing, un premier algorithme de lancer de rayons lumineux
-  pour ainsi "illuminer" la scène. Cela permttrait d'illuminer des objets par l'intermédiaire
+  pour ainsi "illuminer" la scène. Cela permettrait d'illuminer des objets par l'intermédiaire
   d'autres.
+  
 - Ajouter des Shaders
