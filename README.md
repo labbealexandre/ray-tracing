@@ -35,6 +35,13 @@ mkdir assets
 ./bin/main scenes/ReflexionSphere.xml assets/ReflexionSphere.tga
 ```
 
+Avec un fichier input.cpp compilé en RayLang
+
+```
+mkdir assets
+./bin/main assets/rtl.tga
+```
+
 ## Mise en garde pour l'utilisation
 - Les textures n'ont pas été implémentées pour les objets polygones (classe objet) et sphère
   Il faut cependant fournir le chemin d'une texture par défaut
