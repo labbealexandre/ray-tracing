@@ -24,7 +24,9 @@ Pour connaître l'utilisation de ce format, un fichier example.xml est fourni et
 - l'exécutable est le fichier main, il a besoin d'exactement 2 arguments :
   - le chemin d'accès du fichier xml d'entrée
   - le chemin d'accès de l'image de sortie
-- l'image de sortie est au format ppm
+- l'image de sortie est au format tga
+- RayLang : s'il on souhaite utiliser un fichier input.cpp généré par le compilateur de RayLang (adresse du repo plus haut), il suffit de l'ajouter au src et de lancer l'exécutable avec un seul argument :
+  - le chemin d'accès de l'image de sortie
 
 ## Voici un exemple d'exécution
 
