@@ -1,7 +1,8 @@
 #include <vector>
-#include "../src/camera.hpp"
-#include "../src/object.hpp"
-#include "../src/source.hpp"
+#include "camera.hpp"
+#include "object.hpp"
+#include "source.hpp"
+#include "loadxml.hpp"
 
 void loadInputs(    int& specular, std::vector<float>& ambiant,
                     Camera& camera, std::vector<LightSource*>& sources,

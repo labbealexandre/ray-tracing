@@ -28,6 +28,8 @@ class Camera {
             width = 50;
             height = 50;
             focal = 10;
+            pixels_per_row = 512;
+            pixels_per_column = 512;
         }
 
         Camera(std::vector<float> &P, float W, float H, float F, int p_r, int p_c) {

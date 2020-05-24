@@ -20,9 +20,11 @@ class LightSource {
         /** Constructors */
         LightSource() {
             for(int i = 0; i < 3; i++) {
-                position.push_back(0);
                 illumination.push_back(255);
             }
+            position.push_back(250);
+            position.push_back(-250);
+            position.push_back(250);
         }
 
         LightSource(std::vector<float> P, std::vector<int> I) {
