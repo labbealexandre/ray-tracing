@@ -39,6 +39,10 @@ int main(int argc, char const *argv[])
     B=chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();
     cout << "temps chargement de la scène: "<< ((float)(B - A))/1000 << "s" << endl;
     
+    for (auto object : scene) {
+        object->surface.print();
+    }
+
     vector<vector<int>> colors = run(camera, scene, sources, specular, ambiant);
     
     C=chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();

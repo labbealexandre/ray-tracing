@@ -19,6 +19,9 @@ class Surface {
 
         /** Constructors */
         Surface() {
+            colors.push_back(0.6);
+            colors.push_back(0);
+            colors.push_back(0);
             reflexion_coefficient = 1;
             transmission_coefficient = 0;
             diffuse_coefficient = 1;

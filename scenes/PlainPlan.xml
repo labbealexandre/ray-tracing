@@ -46,7 +46,7 @@
                 <coef type="b">0</coef>
             </coefs>
             <texture>
-                <path>./texture/blank.ppm</path>
+                <path>./texture/tile.ppm</path>
                 <coords type="center">
                     <coord type="x">0</coord>
                     <coord type="y">200</coord>
