@@ -1,6 +1,18 @@
 # Ray-Tracing
 
+## Installation
+
+Le fichier input.cpp par défaut n'existe pas dans le dossier src. Il peut être copié depuis le fichier template input.cpp.template
+
+```
+cp src/input.template.cpp src/input.cpp
+```
+
+C'est ce fichier que sera améné à être remplacé s'il on souhaite utiliser le langage RayLang de description de scènes :
+https://gitlab.data-ensta.fr/alabbe/ray_lang
+
 ## Instructions de compilation (testé sous Linux)
+
 - make pour compiler
 - make clean pour supprimer les exécutables
 
