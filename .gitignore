@@ -3,3 +3,4 @@ main
 assets/*
 .vscode/settings.json
 perso
+input.cpp
