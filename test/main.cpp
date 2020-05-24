@@ -39,6 +39,9 @@ void addSource() {
 
 int main(int argc, char const *argv[])
 {
+    // if rayLang is available, loadInputs method will set rayLang to true, by default it's false
+    bool rayLang = false;
+
     unsigned A,B,C, end;
     A=chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();
 
@@ -46,7 +49,11 @@ int main(int argc, char const *argv[])
     if (argc == 2) {
         _target = 1;
         B=A;
-        loadInputs(specular, ambiant, camera, sources, scene, n, m);
+        loadInputs(rayLang, specular, ambiant, camera, sources, scene, n, m);
+        if (!rayLang) {
+            cout << "input.cpp seems to be the default version, you need to use the exec with 2 arguments (xml source file and tga target image)" << endl;
+            return -1;
+        }
         initParams();
         initCamera();
         addSource();
