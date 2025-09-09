@@ -6,7 +6,7 @@ This project includes a ray-tracing engine coded in C++ based on the CPU. Scenes
 
 - Linux environment (tested on Debian 12)
 - g++ compiler
-- imagemagick (in order to convert to popular image format, ex: .png)
+- imagemagick (in order to convert to a popular image format, ex: .png)
 
 ## Installation
 
