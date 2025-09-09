@@ -62,7 +62,7 @@ int main(int argc, char const *argv[])
         string file(argv[1]);
         loadFile(file, specular, ambiant, camera, sources, scene, n, m);
         B=chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();
-        cout << "temps chargement de la scène: "<< ((float)(B - A))/1000 << "s" << endl;
+        cout << "Time to load the scene: "<< ((float)(B - A))/1000 << "s" << endl;
     } else {
         cout << "You need 2 arguments : xml source file and tga target image" << endl;
         return -1;
@@ -73,7 +73,7 @@ int main(int argc, char const *argv[])
     vector<vector<int>> colors = run(camera, scene, sources, specular, ambiant);
     
     C=chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();
-    cout << "temps calcul de l'image: "<< ((float)(C - B))/1000 << "s" << endl;
+    cout << "Time needed to compute the image: "<< ((float)(C - B))/1000 << "s" << endl;
 
     savePicture(target.data(), n, m, colors);
 
@@ -82,8 +82,8 @@ int main(int argc, char const *argv[])
     for (auto object : scene) delete object;
     
     end=chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();
-    cout << "temps sauvegarde: "<< ((float)(end - C))/1000 << "s" << endl;
-    cout << "temps total: "<<((float)(end - A))/1000 << "s" << endl;
+    cout << "Time needed to save the image: "<< ((float)(end - C))/1000 << "s" << endl;
+    cout << "Total time: "<<((float)(end - A))/1000 << "s" << endl;
     
     return 0;
 }

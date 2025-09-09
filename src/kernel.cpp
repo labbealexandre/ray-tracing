@@ -47,7 +47,7 @@ vector<vector<int>> run(
     }
     
     F=chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();
-    cout << "reflected light sources generated in : "<< ((float)(F - E))/1000 << " s" << endl;
+    cout << "reflected light sources generated in: "<< ((float)(F - E))/1000 << " s" << endl;
 
     /** Initialization to 0 of the computed colors **/
     vector<int> black{0, 0, 0};
